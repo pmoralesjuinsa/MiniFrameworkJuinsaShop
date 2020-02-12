@@ -6,6 +6,13 @@ namespace Juinsa;
 class Kernel
 {
 
+   protected $logManager;
+
+   public function __construct()
+   {
+       $this->logManager = new LogManager();
+       $this->logManager->info("Start Project Juinsa");
+   }
 
 
 }

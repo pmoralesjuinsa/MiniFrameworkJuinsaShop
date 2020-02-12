@@ -1,0 +1,10 @@
+{
+    "name": "xavi/juimsa",
+    "authors": [
+        {
+            "name": "Xavi",
+            "email": "xavi@geekshubs.com"
+        }
+    ],
+    "require": {}
+}

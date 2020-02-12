@@ -8,7 +8,8 @@
     ],
     "require": {
         "kint-php/kint": "^3.2",
-        "monolog/monolog": "^1.24"
+        "monolog/monolog": "^1.24",
+        "twig/twig": "^2.11"
     },
     "autoload": {
         "psr-4": {
@@ -16,6 +17,6 @@
         }
     },
     "scripts": {
-        "start": "php -S localhost:5000 -t=public"
+        "start": "php -S localhost:5001 -t=public"
     }
 }

@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73b530a0-3c60-4d6a-b02b-633ea4987ba2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ViewManager.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/index.twig.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/template.twig.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/logs/dev.log" beforeDir="false" afterPath="$PROJECT_DIR$/cache/logs/dev.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Kernel.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +20,13 @@
     <execution>
       <executable path="composer" />
     </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -26,6 +40,7 @@
     <option name="sortByType" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -40,7 +55,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1581500224482</updated>
-      <workItem from="1581500226182" duration="2370000" />
+      <workItem from="1581500226182" duration="4309000" />
     </task>
     <servers />
   </component>
@@ -52,10 +67,10 @@
       <screen x="70" y="27" width="1296" height="741" />
     </state>
     <state x="443" y="313" width="549" height="175" key="ComposerInitDialogKey/70.27.1296.741/1366.0.1920.1080@70.27.1296.741" timestamp="1581500965442" />
-    <state x="442" y="207" width="542" height="394" key="NewPhpClassDialog" timestamp="1581501935044">
+    <state x="442" y="207" width="542" height="401" key="NewPhpClassDialog" timestamp="1581502830238">
       <screen x="70" y="27" width="1296" height="741" />
     </state>
-    <state x="442" y="207" width="542" height="394" key="NewPhpClassDialog/70.27.1296.741/1366.0.1920.1080@70.27.1296.741" timestamp="1581501935044" />
+    <state x="442" y="207" width="542" height="401" key="NewPhpClassDialog/70.27.1296.741/1366.0.1920.1080@70.27.1296.741" timestamp="1581502830238" />
     <state x="511" y="322" width="404" height="158" key="NewPhpFileDialog" timestamp="1581501010901">
       <screen x="70" y="27" width="1296" height="741" />
     </state>

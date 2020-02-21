@@ -5,6 +5,8 @@ namespace Juinsa;
 
 use DI\Container;
 use DI\ContainerBuilder;
+use Juinsa\routing\Web;
+use Kint;
 
 class Kernel
 {
@@ -20,6 +22,11 @@ class Kernel
 
    public function init(){
        $this->logger->info("Iniciamos el Server");
+       $httpMethod= $_SERVER['REQUEST_METHOD'];
+       $uri= parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH);
+       $routeManager = $this->container->get(RouterManager::class);
+       $routeManager->dispatch($httpMethod, $uri, Web::getDispatcher());
+
    }
 
 

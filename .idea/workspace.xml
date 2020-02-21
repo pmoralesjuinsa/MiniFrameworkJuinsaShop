@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73b530a0-3c60-4d6a-b02b-633ea4987ba2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/RouterManager.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/Controller.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/HomeController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/WhoController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routing/Web.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/who.twig.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Juimsa.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Juimsa.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/logs/dev.log" beforeDir="false" afterPath="$PROJECT_DIR$/cache/logs/dev.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Kernel.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,6 +54,7 @@
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/php-di/phpdoc-reader" />
       <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/nikic/fast-route" />
     </include_path>
   </component>
   <component name="ProjectId" id="1XhZKmh4qP2JONvplQiRhMS5rIE" />
@@ -63,7 +70,12 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ExoDigital/PROYECTOS/Orca/Dietas/orca-dietas-backend" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -77,7 +89,7 @@
       <updated>1581500224482</updated>
       <workItem from="1581500226182" duration="4623000" />
       <workItem from="1581940834410" duration="22000" />
-      <workItem from="1582273509245" duration="1555000" />
+      <workItem from="1582273509245" duration="4845000" />
     </task>
     <servers />
   </component>
@@ -93,10 +105,10 @@
       <screen x="1366" y="0" width="1920" height="1080" />
     </state>
     <state x="2109" y="298" width="424" height="491" key="FileChooserDialogImpl/70.27.1296.741/1366.0.1920.1080@1366.0.1920.1080" timestamp="1581940854116" />
-    <state x="442" y="207" width="542" height="401" key="NewPhpClassDialog" timestamp="1581502830238">
-      <screen x="70" y="27" width="1296" height="741" />
+    <state x="1787" y="286" width="638" height="415" key="NewPhpClassDialog" timestamp="1582279651257">
+      <screen x="1366" y="0" width="1920" height="1080" />
     </state>
-    <state x="442" y="207" width="542" height="401" key="NewPhpClassDialog/70.27.1296.741/1366.0.1920.1080@70.27.1296.741" timestamp="1581502830238" />
+    <state x="1787" y="286" width="638" height="415" key="NewPhpClassDialog/70.27.1296.741/1366.0.1920.1080@70.27.1296.741" timestamp="1582279651257" />
     <state x="511" y="322" width="404" height="158" key="NewPhpFileDialog" timestamp="1581501010901">
       <screen x="70" y="27" width="1296" height="741" />
     </state>

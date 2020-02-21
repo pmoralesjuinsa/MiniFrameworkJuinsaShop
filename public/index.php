@@ -4,4 +4,5 @@ use Juinsa\Kernel;
 use Kint;
 
 $kernel = new Kernel();
-Kint::dump($kernel);
+//Arrancamos el Kernel;
+$kernel->init();

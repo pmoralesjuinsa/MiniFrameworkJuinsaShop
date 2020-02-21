@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73b530a0-3c60-4d6a-b02b-633ea4987ba2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ViewManager.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/index.twig.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/template.twig.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Juimsa.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Juimsa.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/logs/dev.log" beforeDir="false" afterPath="$PROJECT_DIR$/cache/logs/dev.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Kernel.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -16,7 +15,8 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable path="composer" />
     </execution>
@@ -31,6 +31,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/kint-php/kint" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php56" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
+      <path value="$PROJECT_DIR$/vendor/jeremeamia/superclosure" />
+      <path value="$PROJECT_DIR$/vendor/php-di/php-di" />
+      <path value="$PROJECT_DIR$/vendor/php-di/invoker" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/php-di/phpdoc-reader" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+    </include_path>
+  </component>
   <component name="ProjectId" id="1XhZKmh4qP2JONvplQiRhMS5rIE" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -44,6 +63,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ExoDigital/PROYECTOS/Orca/Dietas/orca-dietas-backend" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -55,7 +75,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1581500224482</updated>
-      <workItem from="1581500226182" duration="4309000" />
+      <workItem from="1581500226182" duration="4623000" />
+      <workItem from="1581940834410" duration="22000" />
+      <workItem from="1582273509245" duration="1555000" />
     </task>
     <servers />
   </component>
@@ -67,6 +89,10 @@
       <screen x="70" y="27" width="1296" height="741" />
     </state>
     <state x="443" y="313" width="549" height="175" key="ComposerInitDialogKey/70.27.1296.741/1366.0.1920.1080@70.27.1296.741" timestamp="1581500965442" />
+    <state x="2109" y="298" width="424" height="491" key="FileChooserDialogImpl" timestamp="1581940854116">
+      <screen x="1366" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2109" y="298" width="424" height="491" key="FileChooserDialogImpl/70.27.1296.741/1366.0.1920.1080@1366.0.1920.1080" timestamp="1581940854116" />
     <state x="442" y="207" width="542" height="401" key="NewPhpClassDialog" timestamp="1581502830238">
       <screen x="70" y="27" width="1296" height="741" />
     </state>

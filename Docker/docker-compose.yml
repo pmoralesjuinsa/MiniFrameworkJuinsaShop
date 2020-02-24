@@ -1,0 +1,32 @@
+version: "3.4"
+
+services:
+  juinsa_shop_web:
+    build: ./ApachePhp
+    container_name: juinsa_shop_web
+    volumes:
+    - ../:/var/www/html
+    ports:
+    - 80:80
+    links:
+      - juinsa_shop_db:db
+    environment:
+      - APACHE_RUN_USER=#1000
+      - APACHE_RUN_GROUP=#1000
+
+  juinsa_shop_db:
+    build: ./MySql
+    container_name: juinsa_shop_db
+    ports:
+      - 3306:3306
+    volumes:
+      - juinsa_shop_db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+
+
+volumes:
+  juinsa_shop_db:

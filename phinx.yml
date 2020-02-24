@@ -17,9 +17,9 @@ environments:
     development:
         adapter: mysql
         host: localhost
-        name: juinsaframework
-        user: root
-        pass: 'root'
+        name: juinsa_shop
+        user: user
+        pass: 'password'
         port: 3306
         charset: utf8
 

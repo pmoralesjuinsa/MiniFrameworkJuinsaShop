@@ -10,7 +10,7 @@ default:
 
     extensions:
       Behat\MinkExtension:
-        base_url: http://localhost
+        base_url: http://172.20.0.1
         goutte: ~
         javascript_session: selenium2
 
@@ -19,6 +19,6 @@ default:
             goutte: ~
           selenium2:
             selenium2:
-              wd_host: "chrome:5555/wd/hub"
+              wd_host: "chrome_juinsa_shop:5555/wd/hub"
 
         browser_name: chrome

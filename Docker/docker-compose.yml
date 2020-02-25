@@ -1,6 +1,28 @@
 version: "3.4"
 
 services:
+
+  selenium_hub_juinsa_shop:
+    image: selenium/hub:3.141.59-zinc
+    container_name: selenium_hub_juinsa_shop
+    ports:
+      - 4444:4444
+
+  chrome_juinsa_shop:
+    image: selenium/node-chrome:3.141.59-zinc
+    container_name: chrome_juinsa_shop
+    volumes:
+      - /dev/shm:/dev/shm
+    links:
+      - selenium_hub_juinsa_shop:selenium_hub_juinsa_shop
+    environment:
+      - HUB_HOST=selenium_hub_juinsa_shop
+      - HUB_PORT=4444
+      - SCREEN_WIDTH=2560
+      - SCREEN_HEIGHT=1440
+    ports:
+      - 5555:5555
+
   juinsa_shop_web:
     build: ./ApachePhp
     container_name: juinsa_shop_web
@@ -10,6 +32,7 @@ services:
     - 80:80
     links:
       - juinsa_shop_db:db
+      - chrome_juinsa_shop:chrome_juinsa_shop
     environment:
       - APACHE_RUN_USER=#1000
       - APACHE_RUN_GROUP=#1000

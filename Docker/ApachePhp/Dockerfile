@@ -29,5 +29,8 @@ RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 COPY conf/juinsa.conf /etc/apache2/sites-enabled/000-default.conf
 
+RUN docker-php-ext-install pdo
+RUN docker-php-ext-install pdo_mysql
+
 RUN a2enmod rewrite
 RUN service apache2 restart

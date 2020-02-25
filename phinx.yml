@@ -16,7 +16,7 @@ environments:
 
     development:
         adapter: mysql
-        host: localhost
+        host: juinsa_shop_db
         name: juinsa_shop
         user: user
         pass: 'password'

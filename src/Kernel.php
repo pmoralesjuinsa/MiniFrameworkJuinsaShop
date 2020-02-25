@@ -34,6 +34,7 @@ class Kernel
     {
         $containerBuilder = new ContainerBuilder();
         $containerBuilder->useAutowiring(true);
+        $containerBuilder->useAnnotations(true);
 
         return $containerBuilder->build();
     }

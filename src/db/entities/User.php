@@ -27,6 +27,11 @@ class User extends Entity
     /**
      * @ORM\Column(type="string")
      */
+    protected $email;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     protected $password;
 
     /**

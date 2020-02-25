@@ -30,6 +30,10 @@ class RouterManager
                 $action = $route[2];
                 $this->container->call($controller, $action);
                 break;
+            case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+                header("HTTP/10 405 Method not Allowed");
+                echo "<h1>Method Not Allowed</h1>";
+                break;
 
         }
 

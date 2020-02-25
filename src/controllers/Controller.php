@@ -9,7 +9,7 @@ use Juinsa\ViewManager;
 abstract  class Controller
 {
 
-    protected $viewManager;
+    protected ViewManager $viewManager;
 
     public function __construct(ViewManager $viewManager)
     {

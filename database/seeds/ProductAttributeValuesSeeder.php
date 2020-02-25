@@ -15,25 +15,6 @@ class ProductAttributeValuesSeeder extends AbstractSeed
      */
     public function run()
     {
-//        1	Sofa Exterior
-//2	Silla Exterior
-//3	Tortilla
-//4	Ensalada
-//5	Chubasquero Perro
-//6	Correa Hurón
-//7	Sofa Exterior
-//8	Silla Exterior
-//9	Tortilla
-//10	Ensalada
-//11	Chubasquero Perro
-//12	Correa Hurón
-//13	Sofa Exterior
-//14	Silla Exterior
-//15	Tortilla
-//16	Ensalada
-//17	Chubasquero Perro
-//18	Correa Hurón
-
 
         $data[] = [
             'id_product' => 1,

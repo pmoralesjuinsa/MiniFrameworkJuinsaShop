@@ -21,4 +21,26 @@ class UserService extends Service
 
         return null;
     }
+
+    public function selectUser(User $user): User
+    {
+        try {
+            $queryBuilder = $this->doctrineManager->em->createQueryBuilder();
+            $queryBuilder->select('*')
+                ->from('customers')
+                ->where('email = ?1')
+                ->andWhere('password = ?2')
+                ->setParameter(1, $user->email)
+                ->setParameter(2, $user->password)
+                ->setMaxResults(1);
+
+            $query = $queryBuilder->getQuery();
+
+            return $query->getSingleResult();
+        } catch (\Exception $e) {
+            $this->logManagaer->error($e->getMessage());
+        }
+
+        return null;
+    }
 }

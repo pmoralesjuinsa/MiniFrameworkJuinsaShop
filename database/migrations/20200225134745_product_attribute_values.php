@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class ProductAttribute extends AbstractMigration
+class ProductAttributeValues extends AbstractMigration
 {
     /**
      * Change Method.
@@ -31,8 +31,10 @@ class ProductAttribute extends AbstractMigration
      */
     public function change()
     {
-        $users = $this->table('product_attributes');
-        $users->addColumn('value', 'string', ['limit' => 80]);
+        $users = $this->table('product_attribute_values');
+        $users->addColumn('id_product', 'integer');
+        $users->addColumn('id_attribute', 'integer');
+        $users->addColumn('value', 'string', ['limit' => 100]);
         $users->addColumn('created_at', 'datetime');
         $users->addColumn('updated_at', 'datetime', ['null' => true]);
         $users->create();

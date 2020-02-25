@@ -32,7 +32,6 @@ class OrderStatus extends AbstractMigration
     public function change()
     {
         $users = $this->table('order_status');
-        $users->addColumn('id_order', 'integer');
         $users->addColumn('value', 'string', ['limit' => 80]);
         $users->create();
     }

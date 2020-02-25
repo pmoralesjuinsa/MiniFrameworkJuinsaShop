@@ -19,7 +19,7 @@ abstract  class Controller
 
     public function redirectTo(string $page) {
         $host = $_SERVER['HTTP_HOST'];
-        header("location: http://$host.$page");
+        header("location: http://$host$page");
     }
 
 

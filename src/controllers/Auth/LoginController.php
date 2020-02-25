@@ -27,11 +27,11 @@ class LoginController extends Controller
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $user = new Customer();
-        $user->email = $email;
-        $user->password = sha1($password);
+        $customer = new Customer();
+        $customer->email = $email;
+        $customer->password = sha1($password);
 
-        $userFound = $this->userService->selectUser($user);
+        $userFound = $this->userService->getCustomer($customer);
 
         \Kint::dump($userFound);
 

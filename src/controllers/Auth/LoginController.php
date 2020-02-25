@@ -1,20 +1,21 @@
 <?php
 
 
-namespace Juinsa\controllers;
+namespace Juinsa\controllers\Auth;
 
 
 use DI\Annotation\Inject;
-use Juinsa\db\entities\User;
-use Juinsa\Services\UserService;
+use Juinsa\db\entities\Customer;
+use Juinsa\Services\CustomerService;
+use Juinsa\controllers\Controller;
 
 class LoginController extends Controller
 {
     /**
      * @Inject
-     * @var UserService
+     * @var CustomerService
      */
-    private UserService $userService;
+    private CustomerService $userService;
 
     public function index()
     {
@@ -26,7 +27,7 @@ class LoginController extends Controller
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $user = new User();
+        $user = new Customer();
         $user->email = $email;
         $user->password = sha1($password);
 

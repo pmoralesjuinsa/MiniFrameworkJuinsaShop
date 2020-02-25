@@ -15,7 +15,7 @@ class RegisterController extends Controller
      * @Inject
      * @var UserService
      */
-    private $userService;
+    private UserService $userService;
 
     public function index()
     {

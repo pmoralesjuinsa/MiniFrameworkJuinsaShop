@@ -34,7 +34,7 @@ class Customers extends AbstractMigration
         $users = $this->table('customers');
         $users->addColumn('name', 'string', ['limit' => 80]);
         $users->addColumn('email', 'string', ['limit' => 80]);
-        $users->addColumn('phone', 'string', ['limit' => 13]);
+        $users->addColumn('phone', 'string', ['limit' => 15]);
         $users->addColumn('address', 'string', ['limit' => 100]);
         $users->addColumn('created_at', 'datetime');
         $users->addColumn('updated_at', 'datetime', ['null' => true]);

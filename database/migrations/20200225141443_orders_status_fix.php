@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class OrdersFix extends AbstractMigration
+class OrdersStatusFix extends AbstractMigration
 {
     /**
      * Change Method.
@@ -31,8 +31,9 @@ class OrdersFix extends AbstractMigration
      */
     public function change()
     {
-        $users = $this->table('orders');
-        $users->addColumn('id_customer', 'integer');
+        $users = $this->table('order_status');
+        $users->addColumn('created_at', 'datetime');
+        $users->addColumn('updated_at', 'datetime', ['null' => true]);
         $users->update();
     }
 }

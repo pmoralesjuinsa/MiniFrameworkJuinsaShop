@@ -2,7 +2,7 @@
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Juinsa\Kernel;
-use Kint;
+//use Kint;
 
 $kernel = new Kernel();
 //Arrancamos el Kernel;

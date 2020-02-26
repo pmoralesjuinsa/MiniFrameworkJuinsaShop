@@ -14,4 +14,9 @@ class CategoryService extends Service
         return $this->doctrineManager->em->getRepository(Category::class)->findAll();
     }
 
+    public function getCategory($id): ?array
+    {
+        return $this->doctrineManager->em->getRepository(Category::class)->findOneById($id);
+    }
+
 }

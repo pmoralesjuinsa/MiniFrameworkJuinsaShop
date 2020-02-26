@@ -18,6 +18,7 @@ class Web
                 $route->addRoute('GET','/login',['Juinsa\controllers\Auth\LoginController','index']);
                 $route->addRoute('POST','/login',['Juinsa\controllers\Auth\LoginController','login']);
                 $route->addRoute('GET','/logout',['Juinsa\controllers\Auth\LoginController','logout']);
+                $route->addRoute('GET', '/categories/{id:\d+}[/{name}]', ['Juinsa\controllers\CategoryController', 'index']);
             }
         );
     }

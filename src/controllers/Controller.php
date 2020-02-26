@@ -5,7 +5,7 @@ namespace Juinsa\controllers;
 
 use Juinsa\ViewManager;
 
-abstract  class Controller
+abstract class Controller
 {
 
     protected ViewManager $viewManager;
@@ -17,7 +17,8 @@ abstract  class Controller
 
     public abstract function index();
 
-    public function redirectTo(string $page) {
+    public function redirectTo(string $page)
+    {
         $host = $_SERVER['HTTP_HOST'];
         header("location: http://$host$page");
     }

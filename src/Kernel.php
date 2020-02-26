@@ -6,7 +6,6 @@ namespace Juinsa;
 use DI\Container;
 use DI\ContainerBuilder;
 use Juinsa\routing\Web;
-use Kint;
 
 class Kernel
 {

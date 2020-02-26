@@ -21,7 +21,7 @@ final class CustomerRepository
         $this->repository = $entityManager->getRepository(Customer::class);
     }
 
-    public function getCustomer(Customer $customer): object
+    public function getCustomer(Customer $customer): ?object
     {
         return $this->repository->findOneBy(
             array(

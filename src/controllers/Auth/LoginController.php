@@ -33,6 +33,10 @@ class LoginController extends Controller
 
         $userFound = $this->customerService->login($customer);
 
+        setAuthenticatedCustomer($userFound);
+
+        var_dump(getAuthenticatedCustomer());
+
         \Kint::dump($userFound);
 
 //        $this->redirectTo("/");

@@ -1,9 +1,9 @@
 {
-    "name": "xavi/juimsa",
+    "name": "pedro/juinsa",
     "authors": [
         {
-            "name": "Xavi",
-            "email": "xavi@geekshubs.com"
+            "name": "Pedro Morales",
+            "email": "pedromorales@grupojuinsa.es"
         }
     ],
     "require": {
@@ -29,14 +29,14 @@
     "autoload": {
         "psr-4": {
             "Juinsa\\":"src/"
-        }
+        },
+        "files": [
+            "src\/Helpers\/CustomerHelper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
         }
-    },
-    "scripts": {
-        "start": "php -S localhost:5000 -t=public"
     }
 }

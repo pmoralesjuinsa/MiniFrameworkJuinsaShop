@@ -8,7 +8,7 @@ function setAuthenticatedCustomer($customer)
 
 function getAuthenticatedCustomer()
 {
-    echo "adios";
+    return "adios";
 }
 
 ?>

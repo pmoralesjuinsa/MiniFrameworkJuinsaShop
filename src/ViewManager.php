@@ -34,9 +34,10 @@ class ViewManager
     public function renderTemplate($template, $args = [])
     {
         $customerAuthed = (array)getAuthenticatedCustomer();
-        array_merge($args, $customerAuthed);
-//        \Kint::dump(getAuthenticatedCustomer());
-        echo $this->twig->render($template, $args);
+        $argsWithSession = array_merge($args, ["customerAuthed" => $customerAuthed]);
+
+//        \Kint::dump($argsWithSession);
+        echo $this->twig->render($template, $argsWithSession);
     }
 
 

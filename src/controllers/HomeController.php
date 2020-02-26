@@ -4,18 +4,23 @@ declare(strict_types=1);
 
 namespace Juinsa\controllers;
 
-
-use Juinsa\db\entities\User;
-use Kint\Kint;
+use DI\Annotation\Inject;
+use Juinsa\Services\CategoryService;
 
 class HomeController extends Controller
 {
 
+    /**
+     * @Inject
+     * @var CategoryService
+     */
+    private CategoryService $categoryService;
 
     public function index()
     {
-//        $users = $this->doctrineManager->em->getRepository(User::class)->findAll();
+        $categories = $this->categoryService->getHomeCategories();
+        \Kint::dump($categories);
 
-        $this->viewManager->renderTemplate("index.twig.html");
+        $this->viewManager->renderTemplate("index.twig.html", $categories);
     }
 }

@@ -1,22 +1,31 @@
 <?php
 
-
-namespace Juinsa\Helpers;
-
-
-use Juinsa\db\entities\Customer;
-
-class CustomerHelper
+function destoyAuthenticatedCustomer(): void
 {
-    static protected Customer $customer;
+    unset($_SESSION['customerAuthed']);
+}
 
-    public static function setAuthenticatedCustomer($customer) : void
-    {
-        self::$customer = $customer;
+function setAuthenticatedCustomer($customer): void
+{
+    if (!is_object($customer)) {
+        return;
     }
 
-    public static function getAuthenticatedCustomer() : Customer
-    {
-        return self::$customer;
-    }
+    cleanSessionVars($customer);
+    $_SESSION['customerAuthed'] = $customer;
+}
+
+/**
+ * @param $customer
+ */
+function cleanSessionVars(&$customer): void
+{
+    unset($customer->password);
+    unset($customer->created_at);
+    unset($customer->updated_at);
+}
+
+function getAuthenticatedCustomer(): ?object
+{
+    return $_SESSION['customerAuthed'];
 }

@@ -6,7 +6,6 @@ namespace Juinsa\controllers\Auth;
 
 use DI\Annotation\Inject;
 use Juinsa\db\entities\Customer;
-use Juinsa\Helpers\CustomerHelper;
 use Juinsa\Services\CustomerService;
 use Juinsa\controllers\Controller;
 
@@ -34,9 +33,9 @@ class LoginController extends Controller
 
         $userFound = $this->customerService->login($customer);
 
-        CustomerHelper::setAuthenticatedCustomer($userFound);
+        setAuthenticatedCustomer($userFound);
 
-        var_dump(CustomerHelper::getAuthenticatedCustomer());
+        var_dump(getAuthenticatedCustomer());
 
         \Kint::dump($userFound);
 

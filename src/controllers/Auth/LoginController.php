@@ -15,7 +15,7 @@ class LoginController extends Controller
      * @Inject
      * @var CustomerService
      */
-    private CustomerService $userService;
+    private CustomerService $customerService;
 
     public function index()
     {
@@ -31,7 +31,7 @@ class LoginController extends Controller
         $customer->email = $email;
         $customer->password = sha1($password);
 
-        $userFound = $this->userService->getCustomer($customer);
+        $userFound = $this->customerService->login($customer);
 
         \Kint::dump($userFound);
 

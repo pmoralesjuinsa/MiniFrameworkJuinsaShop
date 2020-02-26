@@ -21,12 +21,12 @@ final class CustomerRepository
         $this->repository = $entityManager->getRepository(Customer::class);
     }
 
-    public function getCustomer(Customer $customer): ?Customer
+    public function getCustomer(Customer $customer): object
     {
         return $this->repository->findOneBy(
             array(
-                'email' => 'ugoyette@gmail.com',
-                'password' => '3be6bb49722299655e31b2a98652224387276d3c'
+                'email' => $customer->email,
+                'password' => $customer->password
             )
         );
     }

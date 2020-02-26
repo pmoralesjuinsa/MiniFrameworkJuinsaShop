@@ -3,7 +3,7 @@
 
 namespace Juinsa\controllers\Auth;
 
-
+use Juinsa\controllers\Controller;
 use DI\Annotation\Inject;
 use Juinsa\db\entities\User;
 use Juinsa\Services\UserService;

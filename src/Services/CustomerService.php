@@ -4,7 +4,6 @@
 namespace Juinsa\Services;
 
 
-use Couchbase\Authenticator;
 use Juinsa\db\entities\Customer;
 use Juinsa\db\repositories\CustomerRepository;
 use Juinsa\DoctrineManager;

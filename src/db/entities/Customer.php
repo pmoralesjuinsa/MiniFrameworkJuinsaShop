@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="customers")
  */
-
 class Customer extends Entity
 {
     /**
@@ -54,8 +53,20 @@ class Customer extends Entity
      */
     protected $updated_at;
 
-    public function __construct()
+    public function __construct($customer = null)
     {
-        $this->created_at = new \DateTime('now');
+        if (is_null($customer)) {
+            $this->created_at = new \DateTime('now');
+            return;
+        }
+
+        $this->address = $customer->address;
+        $this->password = $customer->password;
+        $this->email = $customer->email;
+        $this->phone = $customer->phone;
+        $this->name = $customer->name;
+        $this->id = $customer->id;
+        $this->updated_at = $customer->updated_at;
+        $this->created_at = $customer->created_at;
     }
 }

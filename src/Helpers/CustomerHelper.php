@@ -52,5 +52,9 @@ function cleanSessionVars(&$customer): void
 
 function getAuthenticatedCustomer(): ?object
 {
+    if(!isset($_SESSION['customerAuthed'])) {
+        return (object)"";
+    }
+
     return $_SESSION['customerAuthed'];
 }

@@ -39,4 +39,11 @@ class LoginController extends Controller
 
         $this->redirectTo("/");
     }
+
+    public function logout()
+    {
+        destroyAuthenticatedCustomer();
+
+        $this->redirectTo("/");
+    }
 }

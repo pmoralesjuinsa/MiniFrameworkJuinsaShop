@@ -23,7 +23,7 @@ class CustomerForLogin extends AbstractSeed
             'email' => "pedromorales@grupojuinsa.es",
             'phone' => $faker->e164PhoneNumber(),
             'address' => $faker->address,
-            'password' => $faker->sha1("123456"),
+            'password' => sha1("123456"),
             'created_at' => date('Y-m-d h:i:s')
         ];
 

@@ -16,10 +16,13 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $id = (int)$_GET['id'];
-        var_dump($this->id);
 
+    }
+
+    public function showCategoryInfo($id, $name)
+    {
         $category = $this->categoryService->getCategory($id);
+        \Kint::dump($category);
 
         $this->viewManager->renderTemplate("index.twig.html", ["category" => $category]);
     }

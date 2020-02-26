@@ -19,8 +19,7 @@ class HomeController extends Controller
     public function index()
     {
         $categories = $this->categoryService->getHomeCategories();
-        \Kint::dump($categories);
 
-        $this->viewManager->renderTemplate("index.twig.html", $categories);
+        $this->viewManager->renderTemplate("index.twig.html", ["categories" => $categories]);
     }
 }

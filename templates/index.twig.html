@@ -1,4 +1,9 @@
 {% extends "template.twig.html" %}
 {% block body %}
  <h1>Hola mundo</h1>
+ {% if categories %}
+  {% for category in categories %}
+   <li><a href="{{ category.name }}">{{ category.name }}</a></li>
+  {% endfor %}
+ {% endif %}
 {% endblock %}

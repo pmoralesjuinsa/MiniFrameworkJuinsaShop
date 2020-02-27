@@ -1,6 +1,6 @@
 FROM php:7.4.3-apache
 
-RUN apt update -y && apt install -y zip unzip
+RUN apt update -y && apt install -y zip unzip sudo
 
 #Usuario en docker para los permisos
 RUN useradd -G www-data,root -u 1000 -d /home/devuser devuser
@@ -34,3 +34,11 @@ RUN docker-php-ext-install pdo_mysql
 
 RUN a2enmod rewrite
 RUN service apache2 restart
+
+#Add devuser to root group
+RUN usermod -a -G root,sudo,devuser devuser
+RUN echo "devuser ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers
+
+USER devuser
+
+CMD sudo apache2-foreground

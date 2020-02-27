@@ -8,6 +8,9 @@ use Juinsa\ViewManager;
 abstract class Controller
 {
 
+
+    protected $sessionmanager;
+
     protected ViewManager $viewManager;
 
     public function __construct(ViewManager $viewManager)

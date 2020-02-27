@@ -24,7 +24,7 @@ class CategoryController extends Controller
         $category = $this->categoryService->getCategory($id);
         \Kint::dump($category);
 
-        $this->viewManager->renderTemplate("index.twig.html", ["category" => $category]);
+        $this->myRenderTemplate("index.twig.html", ["category" => $category]);
     }
 
 }

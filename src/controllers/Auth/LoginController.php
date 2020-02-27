@@ -19,7 +19,7 @@ class LoginController extends Controller
 
     public function index()
     {
-        $this->viewManager->renderTemplate('login.twig.html');
+        $this->myRenderTemplate('login.twig.html');
     }
 
     public function login()

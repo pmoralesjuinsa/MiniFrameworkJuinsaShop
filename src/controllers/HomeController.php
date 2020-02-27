@@ -20,6 +20,6 @@ class HomeController extends Controller
     {
         $categories = $this->categoryService->getHomeCategories();
 
-        $this->viewManager->renderTemplate("index.twig.html", ["categories" => $categories]);
+        $this->myRenderTemplate("index.twig.html", ["categories" => $categories]);
     }
 }

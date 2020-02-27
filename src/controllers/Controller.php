@@ -23,5 +23,13 @@ abstract class Controller
         header("location: http://$host$page");
     }
 
+    public function myRenderTemplate($template, $args = [])
+    {
+        $customerAuthed = (array)getAuthenticatedCustomer();
+        $argsWithSession = array_merge($args, ["customerAuthed" => $customerAuthed]);
+
+        $this->viewManager->renderTemplate($template, $argsWithSession);
+    }
+
 
 }

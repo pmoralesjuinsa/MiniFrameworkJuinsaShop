@@ -9,6 +9,6 @@ class WhoController extends Controller
 
     public function index()
     {
-        $this->viewManager->renderTemplate('who.twig.html');
+        $this->myRenderTemplate('who.twig.html');
     }
 }

@@ -18,7 +18,7 @@ class RegisterController extends Controller
 
     public function index()
     {
-        $this->viewManager->renderTemplate('register.twig.html');
+        $this->myRenderTemplate('register.twig.html');
     }
 
     public function register()

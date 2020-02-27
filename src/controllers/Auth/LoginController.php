@@ -31,11 +31,10 @@ class LoginController extends Controller
         $customer->email = $email;
         $customer->password = sha1($password);
 
-        $userFound = $this->customerService->login($customer);
+        $userFound = $this->customerService->getCustomerFromDb($customer);
 
         $this->sessionManager->setCustomerAuthed($userFound);
 
-//        \Kint::dump($this->sessionManager->get('customerAuthed'));
 
         $this->redirectTo("/");
     }

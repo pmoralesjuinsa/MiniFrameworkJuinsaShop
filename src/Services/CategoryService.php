@@ -9,7 +9,7 @@ use Juinsa\db\entities\Category;
 class CategoryService extends Service
 {
 
-    public function getHomeCategories(): ?array
+    public function getCategories(): ?array
     {
         return $this->doctrineManager->em->getRepository(Category::class)->findAll();
     }

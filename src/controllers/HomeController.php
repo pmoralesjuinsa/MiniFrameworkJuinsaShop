@@ -18,7 +18,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $categories = $this->categoryService->getHomeCategories();
+        $categories = $this->categoryService->getCategories();
 
         $this->myRenderTemplate("index.twig.html", ["categories" => $categories]);
     }

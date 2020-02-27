@@ -33,16 +33,16 @@ class LoginController extends Controller
 
         $userFound = $this->customerService->login($customer);
 
-        setAuthenticatedCustomer($userFound);
+        $this->sessionManager->setCustomerAuthed($userFound);
 
-//        \Kint::dump(getAuthenticatedCustomer());
+//        \Kint::dump($this->sessionManager->get('customerAuthed'));
 
         $this->redirectTo("/");
     }
 
     public function logout()
     {
-        destroyAuthenticatedCustomer();
+        $this->sessionManager->invalidate();
 
         $this->redirectTo("/");
     }

@@ -3,13 +3,17 @@ declare(strict_types=1);
 
 namespace Juinsa\controllers;
 
+use Juinsa\SessionManager;
 use Juinsa\ViewManager;
 
 abstract class Controller
 {
 
-
-    protected $sessionmanager;
+    /**
+     * @Inject
+     * @var SessionManager
+     */
+    protected SessionManager $sessionManager;
 
     protected ViewManager $viewManager;
 
@@ -28,7 +32,7 @@ abstract class Controller
 
     public function myRenderTemplate($template, $args = [])
     {
-        $customerAuthed = (array)getAuthenticatedCustomer();
+        $customerAuthed = $this->sessionManager->get('customerAuthed');
         $argsWithSession = array_merge($args, ["customerAuthed" => $customerAuthed]);
 
         $this->viewManager->renderTemplate($template, $argsWithSession);

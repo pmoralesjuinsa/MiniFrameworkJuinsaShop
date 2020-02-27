@@ -6,7 +6,7 @@ namespace Juinsa;
 use DI\Container;
 use DI\ContainerBuilder;
 use Juinsa\routing\Web;
-use Symfony\Component\HttpFoundation\Session\Session;
+
 
 class Kernel
 {
@@ -22,7 +22,7 @@ class Kernel
 
     public function init()
     {
-        $session = new Session();
+        $session = new SessionManager();
         $session->start();
 
         $this->logger->info("Iniciamos el Server");

@@ -22,7 +22,6 @@ class CategoryController extends Controller
     public function showCategoryInfo($id, $name)
     {
         $category = $this->categoryService->getCategory($id);
-        \Kint::dump($category);
 
         $this->myRenderTemplate("index.twig.html", ["category" => $category]);
     }

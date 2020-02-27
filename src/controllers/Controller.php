@@ -33,7 +33,9 @@ abstract class Controller
     public function myRenderTemplate($template, $args = [])
     {
         $customerAuthed = $this->sessionManager->get('customerAuthed');
-        $argsWithSession = array_merge($args, ["customerAuthed" => $customerAuthed]);
+        $flashMessages = $this->sessionManager->getFlashBag()->all();
+
+        $argsWithSession = array_merge($args, ["customerAuthed" => $customerAuthed], ["flashMessages" => $flashMessages]);
 
         $this->viewManager->renderTemplate($template, $argsWithSession);
     }

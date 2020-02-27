@@ -35,8 +35,13 @@ class LoginController extends Controller
 
         $this->sessionManager->setCustomerAuthed($userFound);
 
+        if ($this->sessionManager->get('customerAuthed')) {
+            $this->redirectTo("/");
+        }
 
-        $this->redirectTo("/");
+        $this->sessionManager->getFlashBag()->add('error', 'Wrong email and/or password');
+
+        $this->redirectTo("/login");
     }
 
     public function logout()

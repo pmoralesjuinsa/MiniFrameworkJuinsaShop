@@ -20,3 +20,8 @@
     display: inline-block;
     color: #000;
 }
+
+.bands .title a:hover, .bands .title a:focus, .bands .title a:active {
+    text-decoration: none;
+    color: #0f6674;
+}

@@ -40,7 +40,7 @@ class CustomerLoginController extends Controller
             return;
         }
 
-        $this->sessionManager->getFlashBag()->add('error', 'Wrong email and/or password');
+        $this->sessionManager->getFlashBag()->add('danger', 'Wrong email and/or password');
 
         $this->redirectTo("/login");
     }

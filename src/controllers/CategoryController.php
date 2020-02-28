@@ -32,7 +32,7 @@ class CategoryController extends Controller
 
         $products = [];
         if(!$category) {
-            $this->sessionManager->getFlashBag()->add("error", "No se ha encontrado la categoría");
+            $this->sessionManager->getFlashBag()->add("danger", "No se ha encontrado la categoría");
         } else {
             $products = $this->productService->getProductsByCategoryId($category->id);
         }

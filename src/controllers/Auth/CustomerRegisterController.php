@@ -40,7 +40,7 @@ class CustomerRegisterController extends Controller
         }
 
         $mensaje = "Lo sentimos! Ha ocurrido un error inesperado al intentar crear tu cuenta de cliente";
-        $this->sessionManager->getFlashBag()->add("error", $mensaje);
+        $this->sessionManager->getFlashBag()->add("danger", $mensaje);
         $this->redirectTo("/register");
     }
 }

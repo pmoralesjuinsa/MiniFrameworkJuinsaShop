@@ -57,7 +57,7 @@
         <div class="container">
             <div class="messages">
                 {% for type,messages in flashMessages %}
-                    <div class="info message-{{ type }}">
+                    <div class="alert alert-{{ type }}">
                         {% for message in messages %}
                             {{ message }}
                         {% endfor %}

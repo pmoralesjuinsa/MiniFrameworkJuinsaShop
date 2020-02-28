@@ -8,7 +8,7 @@ use DI\Annotation\Inject;
 use Juinsa\db\entities\User;
 use Juinsa\Services\UserService;
 
-class RegisterController extends Controller
+class UserRegisterController extends Controller
 {
     /**
      * @Inject

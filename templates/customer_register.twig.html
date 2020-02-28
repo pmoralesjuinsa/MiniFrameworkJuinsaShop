@@ -1,0 +1,19 @@
+{% extends "template.twig.html" %}
+{% block body %}
+<div class="container">
+    <div class="wrapper">
+        <form role="form" method="POST" name="register_form" class="form-signing">
+            <h3 class="form-signin-heading">Registro</h3>
+            <hr class="colorgraph">
+            <hr/>
+            <input type="text" class="form-control" name="name" placeholder="Nombre" required="" autofocus="" />
+            <input type="text" class="form-control" name="email" placeholder="Correo electrónico" required="" />
+            <input type="password" class="form-control" name="password" placehoder="Password" required=""/>
+            <input type="number" class="form-control" name="phone" placeholder="Teléfono" required=""/>
+            <input type="text" class="form-control" name="address" placeholder="Dirección Postal Completa" required=""/>
+            <button class="btn btn-lg btn-primary btn-block" name="submit" value="Register" type="Submit">Registro
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

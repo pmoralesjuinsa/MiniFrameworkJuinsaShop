@@ -9,7 +9,7 @@ use Juinsa\db\entities\Customer;
 use Juinsa\Services\CustomerService;
 use Juinsa\controllers\Controller;
 
-class LoginController extends Controller
+class CustomerLoginController extends Controller
 {
     /**
      * @Inject

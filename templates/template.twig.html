@@ -6,34 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/css/template.css">
+    <link rel="stylesheet" href="/css/template.css">
 </head>
 <body>
-    <div class="container-fluid bands">
-        <div class="container">
-            <header>
-                {% if customerAuthed.name %}
-                    <ul class="nav justify-content-start">
-                        <li>Hola <a href="#" title="Go to my customer page">{{ customerAuthed.name }}!</a></li>
-                    </ul>
-                    <ul class="nav justify-content-end">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
-                        </li>
-                    </ul>
-                {% else %}
-                    <ul class="nav justify-content-end">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Registro</a>
-                        </li>
-                    </ul>
-                {% endif %}
-            </header>
+    <header>
+        <div class="bands">
+            <div class="barra-superior">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            {% if customerAuthed.name %}
+                                <ul class="nav justify-content-start">
+                                    <li>Hola <a href="#" title="Go to my customer page">{{ customerAuthed.name }}!</a></li>
+                                </ul>
+                                <ul class="nav justify-content-end">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/logout">Logout</a>
+                                    </li>
+                                </ul>
+                            {% else %}
+                                <ul class="nav justify-content-end">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/login">Login</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/register">Registro</a>
+                                    </li>
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 title">
+                        <a href="/" title="Ir a la home"><h1>Mini Framework Shop</h1></a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </header>
     <div class="container">
         <div class="wrapper">
             {% block title %}

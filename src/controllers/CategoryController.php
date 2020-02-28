@@ -4,6 +4,7 @@
 namespace Juinsa\controllers;
 
 use Juinsa\Services\CategoryService;
+use Juinsa\Services\ProductService;
 
 class CategoryController extends Controller
 {
@@ -14,6 +15,12 @@ class CategoryController extends Controller
      */
     private CategoryService $categoryService;
 
+    /**
+     * @Inject
+     * @var ProductService
+     */
+    private ProductService $productService;
+
     public function index()
     {
 
@@ -23,7 +30,14 @@ class CategoryController extends Controller
     {
         $category = $this->categoryService->getCategory($id);
 
-        $this->myRenderTemplate("index.twig.html", ["category" => $category]);
+        if(!$category->id) {
+            $this->sessionManager->getFlashBag()->add("error", "No se ha encontrado la categoría");
+            return;
+        }
+
+        $products = $this->productService->getCategoryProducts($category->id);
+
+        $this->myRenderTemplate("category.twig.html", ["category" => $category, "products" => $products]);
     }
 
 }

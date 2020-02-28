@@ -10,13 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="categories")
  */
 
-class Category extends Entity
+class Product extends Entity
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\OneToMany(targetEntity="products")
      */
     protected $id;
 
@@ -24,6 +23,18 @@ class Category extends Entity
      * @ORM\Column(type="string")
      */
     protected $name;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumn(name="id_category", referencedColumnName="id")
+     */
+    protected $category;
+
+//    /**
+//     * @ORM\ManyToOne(targetEntity="product_types")
+//     * @ORM\JoinColumn(name="id_product_type", referencedColumnName="id")
+//     */
+//    protected $product_type;
 
     /**
      * @ORM\Column(type="datetime")
@@ -34,7 +45,6 @@ class Category extends Entity
      * @ORM\Column(type="datetime")
      */
     protected $updated_at;
-
 
     public function __construct()
     {

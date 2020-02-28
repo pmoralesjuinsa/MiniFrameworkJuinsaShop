@@ -18,7 +18,7 @@ class UserRegisterController extends Controller
 
     public function index()
     {
-        $this->myRenderTemplate('register.twig.html');
+        $this->myRenderTemplate('register_user.twig.html');
     }
 
     public function register()

@@ -19,7 +19,7 @@ class CustomerLoginController extends Controller
 
     public function index()
     {
-        $this->myRenderTemplate('login.twig.html');
+        $this->myRenderTemplate('login_customer.twig.html');
     }
 
     public function login()

@@ -9,13 +9,14 @@ use Juinsa\db\entities\Product;
 class ProductService extends Service
 {
 
-    public function getCategoryProducts($id_category): ?array
+    public function getProductsByCategoryId($id_category): ?array
     {
         return $this->doctrineManager->em->getRepository(Product::class)->findBy(
             array(
-                "id_category" => $id_category
+                "category" => $id_category
             )
         );
+
     }
 
     public function getProduct($id): ?object

@@ -3,6 +3,7 @@
 
 namespace Juinsa\db\entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,10 +35,15 @@ class Category extends Entity
      */
     protected $updated_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+     */
+    protected $products;
 
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
+        $this->products = new ArrayCollection();
     }
 
     /**

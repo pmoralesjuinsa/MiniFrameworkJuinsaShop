@@ -30,12 +30,13 @@ class CategoryController extends Controller
     {
         $category = $this->categoryService->getCategory($id);
 
-        if(!$category->id) {
+        $products = [];
+        if(!$category) {
             $this->sessionManager->getFlashBag()->add("error", "No se ha encontrado la categoría");
-            return;
+        } else {
+            $products = $this->productService->getProductsByCategoryId($category->id);
         }
 
-        $products = $this->productService->getCategoryProducts($category->id);
 
         $this->myRenderTemplate("category.twig.html", ["category" => $category, "products" => $products]);
     }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="categories")
+ * @ORM\Table(name="products")
  */
 
 class Product extends Entity
@@ -25,7 +25,7 @@ class Product extends Entity
     protected $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id")
      */
     protected $category;
@@ -113,6 +113,22 @@ class Product extends Entity
     public function setUpdatedAt($updated_at): void
     {
         $this->updated_at = $updated_at;
+    }
+
+    /**
+     * @return Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
     }
 
 

@@ -16,7 +16,6 @@ class Category extends Entity
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\OneToMany(targetEntity="products")
      */
     protected $id;
 

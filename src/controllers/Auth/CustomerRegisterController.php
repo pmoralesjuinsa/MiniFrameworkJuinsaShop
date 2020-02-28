@@ -23,7 +23,7 @@ class CustomerRegisterController extends Controller
 
     public function register()
     {
-        $customer = new User();
+        $customer = new Customer();
         $customer->name = $_POST['name'];
         $customer->email = $_POST['email'];
         $customer->phone = $_POST['phone'];
@@ -32,6 +32,15 @@ class CustomerRegisterController extends Controller
 
         $this->customerService->createCustomer($customer);
 
-        $this->redirectTo("/");
+        if($customer->id) {
+            $mensaje = "Genial! Te has registrado como cliente! Esperamos que tu experiencia sea increíble!";
+            $this->sessionManager->getFlashBag()->add("success", $mensaje);
+            $this->redirectTo("/login");
+            return;
+        }
+
+        $mensaje = "Lo sentimos! Ha ocurrido un error inesperado al intentar crear tu cuenta de cliente";
+        $this->sessionManager->getFlashBag()->add("error", $mensaje);
+        $this->redirectTo("/register");
     }
 }

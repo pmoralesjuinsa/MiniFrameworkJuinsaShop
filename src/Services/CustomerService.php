@@ -20,4 +20,18 @@ class CustomerService extends Service
 
     }
 
+    public function createCustomer(Customer $customer): ?Customer
+    {
+        try {
+            $this->doctrineManager->em->persist($customer);
+            $this->doctrineManager->em->flush();
+
+            return $customer;
+        } catch (\Exception $e) {
+            $this->logManagaer->error($e->getMessage());
+        }
+
+        return null;
+    }
+
 }

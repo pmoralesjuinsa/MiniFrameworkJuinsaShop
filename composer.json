@@ -15,7 +15,8 @@
         "robmorgan/phinx": "^0.10.8",
         "fzaninotto/faker": "^1.8",
         "doctrine/orm": "^2.6",
-        "doctrine/annotations": "^1.6"
+        "doctrine/annotations": "^1.6",
+        "symfony/http-foundation": "*"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
@@ -24,8 +25,7 @@
         "behat/mink": "^1.7",
         "behat/mink-extension": "^2.3",
         "behat/mink-goutte-driver": "^1.2",
-        "behat/mink-selenium2-driver": "*",
-        "symfony/http-foundation": "*"
+        "behat/mink-selenium2-driver": "*"
     },
     "autoload": {
         "psr-4": {

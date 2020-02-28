@@ -1,9 +1,11 @@
 {% extends "template.twig.html" %}
+
+{% block title %}
+ <h1>Tu tienda de un montón de nada</h1>
+{% endblock %}
+
 {% block body %}
- <h1>Hola mundo</h1>
- {% if categories %}
-  {% for category in categories %}
-   <li><a href="{{ category.name }}">{{ category.name }}</a></li>
-  {% endfor %}
- {% endif %}
+
+ {% include "categories_list.twig.html" %}
+
 {% endblock %}

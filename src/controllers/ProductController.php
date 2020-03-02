@@ -30,10 +30,14 @@ class ProductController extends Controller
         } else {
             $attributes = $this->productService->getProductAttributes($id);
 
-            \Kint::dump($attributes);
+            //TODO DEUDA TÉNICA
+            $associatedAttributes = [];
+            foreach ($attributes as $attribute) {
+                $associatedAttributes[$attribute['name']] = $attribute['value'];
+            }
         }
 
-        $this->myRenderTemplate("product.twig.html", ["product" => $product, "attributes" => $attributes]);
+        $this->myRenderTemplate("product.twig.html", ["product" => $product, "attributes" => $associatedAttributes]);
     }
 
 }

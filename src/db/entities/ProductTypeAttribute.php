@@ -25,6 +25,11 @@ class ProductTypeAttribute
     protected $value;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    protected $product_type;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     protected $created_at;

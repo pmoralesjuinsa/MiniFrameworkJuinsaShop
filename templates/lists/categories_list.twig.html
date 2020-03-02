@@ -1,8 +1,10 @@
 {% if categories %}
-    <div class="row categories_list">
+    <div class="row categories_list list">
         {% for category in categories %}
-            <div class="col-3 category">
-                <a href="/categories/{{ category.id }}/{{ category.name|raw|url_encode(true) }}">{{ category.name }}</a>
+            <div class="col-3">
+                <div class="category item_list">
+                    <a href="/categories/{{ category.id }}/{{ category.name|raw|url_encode(true) }}">{{ category.name }}</a>
+                </div>
             </div>
         {% endfor %}
     </div>

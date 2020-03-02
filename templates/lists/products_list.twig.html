@@ -1,8 +1,10 @@
 {% if products %}
-    <div class="row products_list">
+    <div class="row products_list list">
         {% for product in products %}
-            <div class="col-3 product">
-                <a href="/products/{{ product.id }}/{{ product.name|raw|url_encode(true) }}">{{ product.name }}</a>
+            <div class="col-3">
+                <div class="product item_list">
+                    <a href="/products/{{ product.id }}/{{ product.name|raw|url_encode(true) }}">{{ product.name }}</a>
+                </div>
             </div>
         {% endfor %}
     </div>

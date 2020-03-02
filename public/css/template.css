@@ -29,4 +29,56 @@
 
 .page-title h1 {
     font-size: 30px;
+    margin: 30px 0 40px;
+}
+
+.list .item_list {
+    border: 1px solid #0f6674;
+    padding: 10px;
+    text-align: center;
+}
+
+/*#PRODUCTOS*/
+
+.product-page .imagen {
+    border-right: 1px solid #0f6674;
+    display: flex;
+    height: 100%;
+}
+
+.product-page .product > span {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.product-page .product .name {
+    font-size: 30px;
+    color: #0f6674;
+    font-weight: bold;
+}
+
+.product-page .product .caducidad {
+    font-size: 12px;
+    color: #5a6268;
+}
+
+.product-page .product .price {
+    font-size: 40px;
+    color: #fd7e14;
+}
+
+.buy_button {
+    display: block;
+    background: #fd7e14;
+    color: #fff;
+    font-size: 20px;
+    text-transform: uppercase;
+    border: 1px solid #fff;
+    margin: 30px 0 20px;
+}
+
+.buy_button:hover {
+    background: #fff;
+    color: #fd7e14;
+    border-color: #fd7e14;
 }

@@ -42,7 +42,15 @@ class ProductType
     /**
      * Many Product Types have Many Product Attributes.
      * @ORM\ManyToMany(targetEntity="ProductAttribute", inversedBy="product_types")
-     * @ORM\JoinTable(name="product_type_attributes")
+     * @ORM\JoinTable(
+     *     name="product_type_attributes",
+     *     joinColumns={
+     *          @ORM\JoinColumn(name="id_product_type", referencedColumnName="id")
+     *     },
+     *     inverseJoinColumns={
+     *          @ORM\JoinColumn(name="id_product_attribute", referencedColumnName="id")
+     *     }
+     * )
      */
     protected $attributes;
 

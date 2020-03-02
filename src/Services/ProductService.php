@@ -4,7 +4,10 @@
 namespace Juinsa\Services;
 
 
+use Doctrine\ORM\Query\Expr\Join;
 use Juinsa\db\entities\Product;
+use Juinsa\db\entities\ProductAttribute;
+use Juinsa\db\entities\ProductType;
 
 class ProductService extends Service
 {
@@ -24,12 +27,13 @@ class ProductService extends Service
         return $this->doctrineManager->em->getRepository(Product::class)->findOneById($id);
     }
 
-    public function getProductAttributes($id): ?object
+    public function getProductAttributes($id): ?array
     {
         $sql = $this->doctrineManager->em->createQueryBuilder()
-            ->select("pt")
-            ->from('products', 'p')
-            ->leftJoin('p.product_types', 'pt')
+            ->select("pa")
+            ->from(Product::class, 'p')
+            ->leftJoin(ProductType::class, 'pt', Join::WITH, 'p = pt')
+            ->leftJoin(ProductAttribute::class, 'pa', Join::WITH, 'pt = pa')
             ->where('p.id = ?1')
             ->setParameter(1, $id);
 

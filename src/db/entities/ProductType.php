@@ -25,11 +25,6 @@ class ProductType
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="product_type")
-     */
-    protected $products;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     protected $created_at;
@@ -39,10 +34,22 @@ class ProductType
      */
     protected $updated_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="product_type")
+     */
+    protected $products;
+
+    /**
+     * Many Product Types have Many Product Attributes.
+     * @ORM\ManyToMany(targetEntity="ProductAttribute", inversedBy="product_types")
+     * @ORM\JoinTable(name="product_type_attributes")
+     */
+    protected $attributes;
+
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
-        $this->products = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
     }
 
     /**
@@ -110,19 +117,35 @@ class ProductType
     }
 
     /**
-     * @return ArrayCollection
+     * @return mixed
      */
-    public function getProducts(): ArrayCollection
+    public function getProducts()
     {
         return $this->products;
     }
 
     /**
-     * @param ArrayCollection $products
+     * @param mixed $products
      */
-    public function setProducts(ArrayCollection $products): void
+    public function setProducts($products): void
     {
         $this->products = $products;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getAttributes(): ArrayCollection
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @param ArrayCollection $attributes
+     */
+    public function setAttributes(ArrayCollection $attributes): void
+    {
+        $this->attributes = $attributes;
     }
 
 }

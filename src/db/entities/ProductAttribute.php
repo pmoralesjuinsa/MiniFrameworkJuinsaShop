@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="product_type_attributes")
+ * @ORM\Table(name="product_attributes")
  */
-class ProductTypeAttribute
+class ProductAttribute
 {
     /**
      * @ORM\Id
@@ -22,12 +22,7 @@ class ProductTypeAttribute
     /**
      * @ORM\Column(type="string")
      */
-    protected $name;
-
-//    /**
-//     * @ORM\OneToMany(targetEntity="Product", mappedBy="product_type")
-//     */
-//    protected $products;
+    protected $value;
 
     /**
      * @ORM\Column(type="datetime")
@@ -39,10 +34,48 @@ class ProductTypeAttribute
      */
     protected $updated_at;
 
+    /**
+     * Many Groups have Many Users.
+     * @ORM\ManyToMany(targetEntity="ProductType", mappedBy="attributes")
+     */
+    protected $product_type;
+
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
-        $this->products = new ArrayCollection();
+        $this->product_type = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setValue($value): void
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProductType(): ArrayCollection
+    {
+        return $this->product_type;
+    }
+
+    /**
+     * @param ArrayCollection $product_type
+     */
+    public function setProductType(ArrayCollection $product_type): void
+    {
+        $this->product_type = $product_type;
     }
 
     /**
@@ -59,22 +92,6 @@ class ProductTypeAttribute
     public function setId($id): void
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name): void
-    {
-        $this->name = $name;
     }
 
     /**

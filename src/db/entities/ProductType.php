@@ -3,14 +3,14 @@
 
 namespace Juinsa\db\entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="products")
+ * @ORM\Table(name="product_types")
  */
-
-class Product extends Entity
+class ProductType
 {
     /**
      * @ORM\Id
@@ -25,16 +25,9 @@ class Product extends Entity
     protected $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
-     * @ORM\JoinColumn(name="id_category", referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="product_type")
      */
-    protected $category;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="ProductType", inversedBy="products")
-     * @ORM\JoinColumn(name="id_product_type", referencedColumnName="id")
-     */
-    protected $product_type;
+    protected $products;
 
     /**
      * @ORM\Column(type="datetime")
@@ -49,6 +42,7 @@ class Product extends Entity
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
+        $this->products = new ArrayCollection();
     }
 
     /**
@@ -116,36 +110,19 @@ class Product extends Entity
     }
 
     /**
-     * @return Category
+     * @return ArrayCollection
      */
-    public function getCategory()
+    public function getProducts(): ArrayCollection
     {
-        return $this->category;
+        return $this->products;
     }
 
     /**
-     * @param mixed $category
+     * @param ArrayCollection $products
      */
-    public function setCategory($category): void
+    public function setProducts(ArrayCollection $products): void
     {
-        $this->category = $category;
+        $this->products = $products;
     }
-
-    /**
-     * @return ProductType
-     */
-    public function getProductType()
-    {
-        return $this->product_type;
-    }
-
-    /**
-     * @param mixed $product_type
-     */
-    public function setProductType($product_type): void
-    {
-        $this->product_type = $product_type;
-    }
-
 
 }

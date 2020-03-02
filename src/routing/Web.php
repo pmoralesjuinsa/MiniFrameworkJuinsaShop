@@ -21,6 +21,7 @@ class Web
                 $route->addRoute('GET','/register',['Juinsa\controllers\Auth\CustomerRegisterController','index']);
                 $route->addRoute('POST','/register',['Juinsa\controllers\Auth\CustomerRegisterController','register']);
                 $route->addRoute('GET', '/categories/{id:\d+}[/{name}]', ['Juinsa\controllers\CategoryController', 'showCategoryInfo']);
+                $route->addRoute('GET', '/products/{id:\d+}[/{name}]', ['Juinsa\controllers\ProductController', 'showProductInfo']);
             }
         );
     }

@@ -15,12 +15,6 @@ class CategoryController extends Controller
      */
     private CategoryService $categoryService;
 
-    /**
-     * @Inject
-     * @var ProductService
-     */
-    private ProductService $productService;
-
     public function index()
     {
 
@@ -34,7 +28,7 @@ class CategoryController extends Controller
         if(!$category) {
             $this->sessionManager->getFlashBag()->add("danger", "No se ha encontrado la categoría");
         } else {
-            $products = $this->productService->getProductsByCategoryId($category->id);
+            $products = $category->products;
         }
 
 

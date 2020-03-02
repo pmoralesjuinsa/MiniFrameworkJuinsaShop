@@ -110,5 +110,21 @@ class Category extends Entity
         $this->updated_at = $updated_at;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getProducts(): ArrayCollection
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param ArrayCollection $products
+     */
+    public function setProducts(ArrayCollection $products): void
+    {
+        $this->products = $products;
+    }
+
 
 }

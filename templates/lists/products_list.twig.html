@@ -2,7 +2,7 @@
     <div class="row products_list">
         {% for product in products %}
             <div class="col-3 product">
-                <a href="/products/{{ product.id }}/{{ category.product|raw|url_encode(true) }}">{{ product.name }}</a>
+                <a href="/products/{{ product.id }}/{{ product.name|raw|url_encode(true) }}">{{ product.name }}</a>
             </div>
         {% endfor %}
     </div>

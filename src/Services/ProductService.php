@@ -24,4 +24,16 @@ class ProductService extends Service
         return $this->doctrineManager->em->getRepository(Product::class)->findOneById($id);
     }
 
+    public function getProductAttributes($id): ?object
+    {
+        $sql = $this->doctrineManager->em->createQueryBuilder()
+            ->select("pt")
+            ->from('products', 'p')
+            ->leftJoin('p.product_types', 'pt')
+            ->where('p.id = ?1')
+            ->setParameter(1, $id);
+
+        return $sql->getQuery()->getResult();
+    }
+
 }

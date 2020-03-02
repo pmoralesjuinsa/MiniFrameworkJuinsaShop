@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="product_attributes")
+ * @ORM\Table(name="product_type_attributes")
  */
-class ProductAttribute
+class ProductTypeAttribute
 {
     /**
      * @ORM\Id
@@ -34,16 +34,9 @@ class ProductAttribute
      */
     protected $updated_at;
 
-    /**
-     * Many Groups have Many Users.
-     * @ORM\ManyToMany(targetEntity="ProductType", mappedBy="attributes")
-     */
-    protected $product_types;
-
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
-        $this->product_type = new ArrayCollection();
     }
 
     /**
@@ -60,22 +53,6 @@ class ProductAttribute
     public function setValue($value): void
     {
         $this->value = $value;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getProductType(): ArrayCollection
-    {
-        return $this->product_type;
-    }
-
-    /**
-     * @param ArrayCollection $product_type
-     */
-    public function setProductType(ArrayCollection $product_type): void
-    {
-        $this->product_type = $product_type;
     }
 
     /**

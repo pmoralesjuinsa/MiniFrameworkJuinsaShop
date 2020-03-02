@@ -29,6 +29,7 @@ class ProductController extends Controller
             $this->sessionManager->getFlashBag()->add("danger", "No se ha encontrado el producto");
         } else {
             $attributes = $this->productService->getProductAttributes($id);
+
             \Kint::dump($attributes);
         }
 

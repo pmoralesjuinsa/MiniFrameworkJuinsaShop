@@ -4,11 +4,14 @@ $(document).ready(function(){
 
         $.ajax({
             method: "POST",
-            url: "/add_to_cart",
+            url: "/add-to-cart",
+            dataType: "json",
+            // contentType: "multipart/form-data",
             data: { cart : $(this).serialize() }
         })
-            .done(function( numberItems ) {
-                $('#carrito-count').textContent(1);
+            .done(function( cartResult ) {
+                myCart = jQuery.parseJSON(cartResult);
+                $('#carrito-count').text(myCart.total_items);
             })
             .fail(function ( msg ) {
                 alert(msg);

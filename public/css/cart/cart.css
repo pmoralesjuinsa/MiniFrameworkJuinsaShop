@@ -1,0 +1,8 @@
+.cart-page .header {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.cart-page .buy_button {
+    display: inline-block;
+}

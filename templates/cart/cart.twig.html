@@ -1,7 +1,7 @@
 {% extends "template.twig.html" %}
 
 {% block styles %}
-
+    <link rel="stylesheet" href="/css/cart/cart.css">
 {% endblock %}
 
 {% block title %}
@@ -12,21 +12,23 @@
 
  <div class="wrapper cart-page">
   {% if cart %}
-   <form role="form" method="POST" name="buy_product_form" class="buy_product">
+   <form role="form" method="POST" action="/cart-pay" name="buy_product_form" class="buy_product">
        <div class="row header">
-           <div class="col-4">Producto</div>
-           <div class="col-4">Cantidad</div>
-           <div class="col-4">SubTotal</div>
+           <div class="col-5">Producto</div>
+           <div class="col-3">Cantidad</div>
+           <div class="col-4 text-right">SubTotal</div>
        </div>
     {% for itemId,itemValues in cart.cart %}
         <div class="row">
-          <div class="col-4"><span class="name">{{ itemValues.name }}</span></div>
-           <div class="col-4"><input class="form-control" name="quantity" type="number" value="{{itemValues.quantity}}" /></div>
-           <div class="col-4"><span class="totalProduct">{{ itemValues.total }} €</span></div>
+          <div class="col-5"><span class="name">{{ itemValues.name }}</span></div>
+           <div class="col-3"><input class="form-control" name="quantity" type="number" value="{{itemValues.quantity}}" /></div>
+           <div class="col-4 text-right"><span class="totalProduct">{{ itemValues.total }} €</span></div>
           <input name="id_product" type="hidden" value="{{ itemId }}" />
         </div>
     {% endfor %}
-    <button type="submit" class="btn buy_button">Comprar</button>
+       <div class="text-right">
+           <button type="submit" class="btn buy_button">Ir al pago</button>
+       </div>
    </form>
   {% endif %}
  </div>

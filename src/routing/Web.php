@@ -24,6 +24,7 @@ class Web
                 $route->addRoute('GET', '/products/{id:\d+}[/{name}]', ['Juinsa\controllers\ProductController', 'showProductInfo']);
                 $route->addRoute('POST','/add-to-cart',['Juinsa\controllers\Cart\CartController','addToCart']);
                 $route->addRoute('GET','/cart',['Juinsa\controllers\Cart\CartController','index']);
+                $route->addRoute('POST','/cart-pay',['Juinsa\controllers\Cart\CartController','cartPay']);
             }
         );
     }

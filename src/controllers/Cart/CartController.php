@@ -25,28 +25,41 @@ class CartController extends Controller
 
     public function addToCart()
     {
-        if(!isset($_POST['cart'])) {
-            return;
+        try {
+            if(!isset($_POST['cart'])) {
+                return;
+            }
+
+            parse_str($_POST['cart'], $postVars);
+
+            $cart = $this->initializeCart();
+
+            $cart = $this->quantifyProductsCart($cart, $postVars);
+
+            $cart = $this->getCartProductsInfo($cart);
+
+            $cart['totalItems'] = 0;
+            foreach ($cart['cart'] as $id_product => $values) {
+                $cart['totalItems'] += $values['quantity'];
+            }
+
+            $this->sessionManager->set('cart', $cart);
+
+            $this->sessionManager->getFlashBag()->add('success', 'Producto añadido correctamente a tu carrito');
+        } catch (\Exception $exception) {
+            $this->sessionManager->getFlashBag()->add('error', 'Ha ocurrido un error al intentar añadir el producto a tu carrito');
         }
 
-        parse_str($_POST['cart'], $postVars);
-
-        $cart = $this->initializeCart();
-
-        $cart = $this->quantifyProductsCart($cart, $postVars);
-
-        $cart = $this->getCartProductsInfo($cart);
-
-        $totalItems = 0;
-        foreach ($cart['cart'] as $id_product => $values) {
-            $totalItems += $values['quantity'];
-        }
-
-        $cart['totalItems'] = $totalItems;
-
-        $this->sessionManager->set('cart', $cart);
+        ob_start();
+        $this->myRenderTemplate("lists/messages_list.twig.html");
+        $cart['messages'] = ob_get_clean();
 
         echo json_encode($cart);
+    }
+
+    public function payCart()
+    {
+
     }
 
 

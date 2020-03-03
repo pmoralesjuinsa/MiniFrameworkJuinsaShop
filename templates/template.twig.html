@@ -63,19 +63,9 @@
             {%  endblock %}
         </div>
     </div>
-    {% if flashMessages %}
-        <div class="container">
-            <div class="messages">
-                {% for type,messages in flashMessages %}
-                    <div class="alert alert-{{ type }}">
-                        {% for message in messages %}
-                            {{ message }}
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
+
+    {% include "lists/messages_list.twig.html" %}
+
     <div class="container">
         {% block body %}
         {%  endblock %}

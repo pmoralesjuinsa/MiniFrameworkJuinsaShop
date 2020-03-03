@@ -1,0 +1,13 @@
+<div class="container">
+    <div id="messages">
+        {% if flashMessages %}
+        {% for type,messages in flashMessages %}
+        <div class="alert alert-{{ type }}">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>

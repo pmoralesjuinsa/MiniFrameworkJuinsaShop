@@ -1,18 +1,18 @@
-$(document).ready(function(){
-    $('form.buy_product').on("submit", function(event){
+$(document).ready(function () {
+    $('form.buy_product').on("submit", function (event) {
         event.preventDefault();
 
         $.ajax({
             method: "POST",
             url: "/add-to-cart",
             dataType: "json",
-            data: { cart : $(this).serialize() }
+            data: {cart: $(this).serialize()}
         })
-            .done(function( cartResult ) {
+            .done(function (cartResult) {
                 $('#carrito-count').text(cartResult.totalItems);
             })
-            .fail(function ( msg ) {
-                alert(msg);
+            .always(function (msg) {
+                $('#messages').text(msg.messages);
             });
     })
 })

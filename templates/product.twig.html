@@ -14,10 +14,10 @@
   </div>
   <div class="col-12 col-md-6">
    <div class="product">
-    <span class="name">{{ product.name }}</span>
-    <span class="caducidad">Fecha caducidad:{{ attributes.Caducidad|date("d/m/Y") }}</span>
-    <span class="price">{{ attributes.Precio }} €</span>
     <form role="form" method="POST" name="buy_product_form" class="buy_product">
+     <span class="name">{{ product.name }}</span>
+     <span class="caducidad">Fecha caducidad:{{ attributes.Caducidad|date("d/m/Y") }}</span>
+     <span class="price">{{ attributes.Precio }} €</span>
      <input class="form-control" name="quantity" type="number" value="1" />
      <input name="id_product" type="hidden" value="{{ product.id }}" />
      <button type="submit" class="btn buy_button">Comprar</button>

@@ -46,7 +46,7 @@
     height: 100%;
 }
 
-.product-page .product > span {
+.product-page .product form.buy_product span {
     display: block;
     margin-bottom: 15px;
 }

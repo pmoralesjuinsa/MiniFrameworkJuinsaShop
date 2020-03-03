@@ -3,7 +3,6 @@
 
 namespace Juinsa\controllers;
 
-use Juinsa\Services\CategoryService;
 use Juinsa\Services\ProductService;
 
 class ProductController extends Controller
@@ -24,14 +23,13 @@ class ProductController extends Controller
     {
         $product = $this->productService->getProduct($id);
 
-        $attributes = [];
+        $associatedAttributes = [];
         if(!$product) {
             $this->sessionManager->getFlashBag()->add("danger", "No se ha encontrado el producto");
         } else {
             $attributes = $this->productService->getProductAttributes($id);
 
             //TODO DEUDA TÉNICA
-            $associatedAttributes = [];
             foreach ($attributes as $attribute) {
                 $associatedAttributes[$attribute['name']] = $attribute['value'];
             }

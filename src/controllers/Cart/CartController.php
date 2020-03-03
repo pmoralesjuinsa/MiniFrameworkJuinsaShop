@@ -4,9 +4,16 @@
 namespace Juinsa\controllers\Cart;
 
 use Juinsa\controllers\Controller;
+use Juinsa\Services\ProductService;
 
 class CartController extends Controller
 {
+
+    /**
+     * @Inject
+     * @var ProductService
+     */
+    private ProductService $productService;
 
     public function index()
     {
@@ -28,9 +35,11 @@ class CartController extends Controller
 
         $cart = $this->recalculateCart($cart, $postVars);
 
+        $cart = $this->getCartProductsInfo($cart);
+
         $totalItems = 0;
-        foreach ($cart['cart'] as $id_product => $quantity) {
-            $totalItems += $quantity;
+        foreach ($cart['cart'] as $id_product => $values) {
+            $totalItems += $values['quantity'];
         }
 
         $cart['totalItems'] = $totalItems;
@@ -61,10 +70,24 @@ class CartController extends Controller
     protected function recalculateCart(array $cart, $postVars): array
     {
         if (isset($cart['cart'][$postVars['id_product']])) {
-            $cart['cart'][$postVars['id_product']] += $postVars['quantity'];
+            $cart['cart'][$postVars['id_product']]['quantity'] += $postVars['quantity'];
         } else {
-            $cart['cart'][$postVars['id_product']] = $postVars['quantity'];
+            $cart['cart'][$postVars['id_product']]['quantity'] = $postVars['quantity'];
         }
+        return $cart;
+    }
+
+    protected function getCartProductsInfo($cart)
+    {
+        $productsId = array_keys($cart['cart']);
+
+        $productsInfo = $this->productService->getProductsInfo($productsId);
+
+        foreach ($productsInfo as $product) {
+            $cart['cart'][$product->getId()]['name'] = $product->getName();
+            $cart['cart'][$product->getId()]['price'] = $product->getName();
+        }
+
         return $cart;
     }
 }

@@ -19,6 +19,10 @@ class CartController extends Controller
     {
         $cart = $this->initializeCart();
 
+        if(empty($cart)) {
+            $this->sessionManager->getFlashBag()->add('warning', 'No tienes ningún producto en tu carrito');
+        }
+
         $this->myRenderTemplate("cart/cart.twig.html", ["cart" => $cart]);
 
     }
@@ -61,6 +65,12 @@ class CartController extends Controller
 
     public function cartPay()
     {
+        if(!$this->sessionManager->has('customerAuthed')) {
+            //TODO este mensaje flash no va
+            $this->sessionManager->getFlashBag()->add('info', 'Debes estar logueado para poder comprar');
+            $this->redirectTo('/login');
+        }
+
         $this->myRenderTemplate("cart/cart-pay.twig.html");
     }
 

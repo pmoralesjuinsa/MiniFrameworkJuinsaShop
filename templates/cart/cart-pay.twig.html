@@ -18,7 +18,7 @@
              </div>
              <div class="col-9">
                  {{ customerAuthed.name }}
-                 <span class="font-italic font-weight-light email">{{ customerAuthed.email }}</span>
+                 <span class="font-italic font-weight-light email">({{ customerAuthed.email }})</span>
              </div>
          </div>
          <div class="row">
@@ -30,8 +30,9 @@
              <div class="col-9">{{ customerAuthed.phone }}</div>
          </div>
      </div>
-     <div class="text-right">
-         <span>{{ cart.totalAmount }}</span>
+     <div class="row total-amount">
+         <div class="col-3"><span class="font-weight-bold">Total a pagar:</span></div>
+         <div class="col-9 font-weight-bold">{{ cart.totalAmount }} €</div>
      </div>
       {% if cart %}
        <form role="form" method="POST" action="/cart-pay-confirmation" name="buy_product_form" class="buy_product">

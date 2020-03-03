@@ -6,3 +6,12 @@
 .cart-page .next-step {
     display: inline-block;
 }
+
+.cart-page .customer-data .email {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.cart-page .total-amount {
+    margin-top: 20px;
+}

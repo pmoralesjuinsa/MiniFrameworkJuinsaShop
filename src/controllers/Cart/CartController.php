@@ -57,9 +57,13 @@ class CartController extends Controller
         echo json_encode($cart);
     }
 
-    public function payCart()
+    public function cartPay()
     {
+        $cart = $this->initializeCart();
 
+        var_dump($this->sessionManager->get('customerAuthed'));
+
+        $this->myRenderTemplate("cart/cart-pay.twig.html");
     }
 
 

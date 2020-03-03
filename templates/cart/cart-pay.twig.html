@@ -12,7 +12,7 @@
 
  <div class="wrapper cart-page">
   {% if cart %}
-   <form role="form" method="POST" action="/cart-pay" name="pay_cart_form" class="pay_cart">
+   <form role="form" method="POST" action="/cart-pay" name="buy_product_form" class="buy_product">
        <div class="row header">
            <div class="col-5">Producto</div>
            <div class="col-3">Cantidad</div>
@@ -27,7 +27,7 @@
         </div>
     {% endfor %}
        <div class="text-right">
-           <button type="submit" class="btn next-step pay_button">Ir al pago</button>
+           <button type="submit" class="btn buy_button">Ir al pago</button>
        </div>
    </form>
   {% endif %}

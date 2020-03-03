@@ -38,7 +38,7 @@ class CartController extends Controller
     {
         try {
             if(!isset($_POST['cart'])) {
-                return;
+                $this->sessionManager->getFlashBag()->add('danger', 'Carrito no disponible');
             }
 
             parse_str($_POST['cart'], $postVars);
@@ -60,7 +60,7 @@ class CartController extends Controller
 
             $this->sessionManager->getFlashBag()->add('success', 'Producto añadido correctamente a tu carrito');
         } catch (\Exception $exception) {
-            $this->sessionManager->getFlashBag()->add('error', 'Ha ocurrido un error al intentar añadir el producto a tu carrito');
+            $this->sessionManager->getFlashBag()->add('danger', 'Ha ocurrido un error al intentar añadir el producto a tu carrito');
         }
 
         ob_start();
@@ -72,24 +72,26 @@ class CartController extends Controller
 
     public function cartPay()
     {
-        if(!$this->sessionManager->has('customerAuthed')) {
-            //TODO este mensaje flash no va
-            $this->sessionManager->getFlashBag()->add('info', 'Debes estar logueado para poder comprar');
-            $this->redirectTo('/login');
-        }
+        $this->redirectIfNotLogued();
 
         $this->myRenderTemplate("cart/cart-pay.twig.html");
     }
 
     public function cartPayConfirmation()
     {
+        $this->redirectIfNotLogued();
+
         $cart = $this->initializeCart();
 
         $ok = $this->orderService->createOrder($cart);
 
         if(!$ok) {
-            $message = "ERROR";
+            $this->sessionManager->getFlashBag()->add('danger', 'Error al crear el pedido');
+        } else {
+            $this->sessionManager->getFlashBag()->add('success', 'Pedido pagado correctamente');
         }
+
+        $this->myRenderTemplate("cart/cart-pay-confirmation.twig.html");
     }
 
 
@@ -147,5 +149,14 @@ class CartController extends Controller
         }
 
         return $cart;
+    }
+
+    protected function redirectIfNotLogued(): void
+    {
+        if (!$this->sessionManager->has('customerAuthed')) {
+            //TODO este mensaje flash no va
+            $this->sessionManager->getFlashBag()->add('info', 'Debes estar logueado para poder comprar');
+            $this->redirectTo('/login');
+        }
     }
 }

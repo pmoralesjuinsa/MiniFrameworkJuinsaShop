@@ -25,6 +25,7 @@ class Web
                 $route->addRoute('POST','/add-to-cart',['Juinsa\controllers\Cart\CartController','addToCart']);
                 $route->addRoute('GET','/cart',['Juinsa\controllers\Cart\CartController','index']);
                 $route->addRoute('POST','/cart-pay',['Juinsa\controllers\Cart\CartController','cartPay']);
+                $route->addRoute('POST','/cart-pay-confirmation',['Juinsa\controllers\Cart\CartController','cartPayConfirmation']);
             }
         );
     }

@@ -1,0 +1,17 @@
+{% extends "template.twig.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/css/cart/cart.css">
+{% endblock %}
+
+{% block title %}
+ <h1>Carrito - Pedido Confirmado</h1>
+{% endblock %}
+
+{% block body %}
+
+ <div class="wrapper cart-page">
+     {{ orderMessage }}
+ </div>
+
+{% endblock %}

@@ -34,13 +34,13 @@
          <div class="col-3"><span class="font-weight-bold">Total a pagar:</span></div>
          <div class="col-9 font-weight-bold">{{ cart.totalAmount }} €</div>
      </div>
-      {% if cart %}
-       <form role="form" method="POST" action="/cart-pay-confirmation" name="buy_product_form" class="buy_product">
-           <div class="text-right">
-               <button type="submit" class="btn next-step pay_button">Pagar</button>
-           </div>
-       </form>
-      {% endif %}
+
+    <form role="form" method="POST" action="/cart-pay-confirmation" name="pay_cart_form" class="pay_cart">
+       <div class="text-right">
+           <button type="submit" class="btn next-step pay_button">Pagar</button>
+       </div>
+    </form>
+
  </div>
 
 {% endblock %}

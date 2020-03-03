@@ -13,6 +13,9 @@ $(document).ready(function () {
             })
             .always(function (msg) {
                 $('#messages').html(msg.messages);
+                setTimeout(function () {
+                    $('#messages .alert').alert('close');
+                }, 2000);
             });
     })
 })

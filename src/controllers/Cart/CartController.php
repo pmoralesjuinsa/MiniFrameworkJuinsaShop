@@ -4,6 +4,7 @@
 namespace Juinsa\controllers\Cart;
 
 use Juinsa\controllers\Controller;
+use Juinsa\Services\OrderService;
 use Juinsa\Services\ProductService;
 
 class CartController extends Controller
@@ -14,6 +15,12 @@ class CartController extends Controller
      * @var ProductService
      */
     private ProductService $productService;
+
+    /**
+     * @Inject
+     * @var OrderService
+     */
+    private OrderService $orderService;
 
     public function index()
     {
@@ -72,6 +79,17 @@ class CartController extends Controller
         }
 
         $this->myRenderTemplate("cart/cart-pay.twig.html");
+    }
+
+    public function cartPayConfirmation()
+    {
+        $cart = $this->initializeCart();
+
+        $ok = $this->orderService->createOrder($cart);
+
+        if(!$ok) {
+            $message = "ERROR";
+        }
     }
 
 

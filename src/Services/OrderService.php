@@ -6,21 +6,12 @@ namespace Juinsa\Services;
 
 class OrderService extends Service
 {
-    public function createOrder($cart)
+    public function createOrder()
     {
         try {
             //TODO DEUDA TÉNICA
-            $this->doctrineManager->em->createQueryBuilder()
-                    ->insert('orders')
-                    ->values(
-                        array(
-                            'id_status' => ':status',
-                            'total' => ':totalAmount'
-                        )
-                    )
-                    ->setParameter("status", 1)
-                    ->setParameter("totalAmount", $cart['totalAmount'])
-                ;
+            $this->doctrineManager->em->persist($order);
+            $this->doctrineManager->em->flush();
 
             return true;
         } catch (\Exception $e) {

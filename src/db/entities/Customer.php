@@ -53,14 +53,19 @@ class Customer extends Entity
      */
     protected $updated_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Order", mappedBy="customer")
+     */
+    protected $orders;
+
     public function __construct($customer = null)
     {
-        if (is_null($customer) || !isset($customer->id)) {
+//        if (is_null($customer) || !isset($customer->id)) {
             $this->created_at = new \DateTime('now');
-            return;
-        }
+//            return;
+//        }
 
-        $this->setCustomer($customer);
+//        $this->setCustomer($customer);
     }
 
     /**

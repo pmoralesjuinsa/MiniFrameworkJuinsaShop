@@ -80,17 +80,19 @@ class CartController extends Controller
     public function cartPayConfirmation()
     {
         $this->redirectIfNotLogued();
-
+//
         $cart = $this->initializeCart();
-
-        $ok = $this->orderService->createOrder($cart);
-
+//
+//        $order = new
+//
+//        $ok = $this->orderService->createOrder($order);
+//
         if(!$ok) {
             $this->sessionManager->getFlashBag()->add('danger', 'Error al crear el pedido');
         } else {
             $this->sessionManager->getFlashBag()->add('success', 'Pedido pagado correctamente');
         }
-
+//
         $this->myRenderTemplate("cart/cart-pay-confirmation.twig.html");
     }
 

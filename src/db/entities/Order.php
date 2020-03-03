@@ -3,7 +3,6 @@
 
 namespace Juinsa\db\entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="orders")
  */
 
-class Category extends Entity
+class Order extends Entity
 {
     /**
      * @ORM\Id
@@ -44,7 +43,6 @@ class Category extends Entity
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
-        $this->products = new ArrayCollection();
     }
 
     /**
@@ -109,22 +107,6 @@ class Category extends Entity
     public function setUpdatedAt($updated_at): void
     {
         $this->updated_at = $updated_at;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getProducts(): ArrayCollection
-    {
-        return $this->products;
-    }
-
-    /**
-     * @param ArrayCollection $products
-     */
-    public function setProducts(ArrayCollection $products): void
-    {
-        $this->products = $products;
     }
 
 

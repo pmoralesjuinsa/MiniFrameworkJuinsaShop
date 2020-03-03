@@ -31,11 +31,13 @@ class ProductService extends Service
 
     public function getProductsInfo($productsId)
     {
-        return $this->doctrineManager->em->getRepository(Product::class)->findBy(
-            array(
-                'id' => $productsId
-            )
-        );
+        //TODO DEUDA TÉNICA
+        $rawQuery = "SELECT p.id as productId ,p.name, (SELECT pta.value FROM product_type_attributes pta WHERE pta.id_product_attribute = 7 and pta.id_product = p.id) as price
+                    FROM products p
+                    WHERE p.id IN (".implode(',', $productsId).")";
+        $statement = $this->doctrineManager->em->getConnection()->prepare($rawQuery);
+        $statement->execute();
+        return $statement->fetchAll(5);
     }
 
     public function getProductAttributes($id)

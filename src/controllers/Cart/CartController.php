@@ -84,8 +84,9 @@ class CartController extends Controller
         $productsInfo = $this->productService->getProductsInfo($productsId);
 
         foreach ($productsInfo as $product) {
-            $cart['cart'][$product->getId()]['name'] = $product->getName();
-            $cart['cart'][$product->getId()]['price'] = $product->getName();
+            $cart['cart'][$product->productId]['name'] = $product->name;
+            $cart['cart'][$product->productId]['price'] = $product->price;
+            $cart['cart'][$product->productId]['total'] = $cart['cart'][$product->productId]['quantity'] * $product->price;
         }
 
         return $cart;

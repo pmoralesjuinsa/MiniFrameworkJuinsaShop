@@ -6,12 +6,10 @@ $(document).ready(function(){
             method: "POST",
             url: "/add-to-cart",
             dataType: "json",
-            // contentType: "multipart/form-data",
             data: { cart : $(this).serialize() }
         })
             .done(function( cartResult ) {
-                myCart = jQuery.parseJSON(cartResult);
-                $('#carrito-count').text(myCart.total_items);
+                $('#carrito-count').text(cartResult.total_items);
             })
             .fail(function ( msg ) {
                 alert(msg);

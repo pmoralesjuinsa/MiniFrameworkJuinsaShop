@@ -1,13 +1,12 @@
-<div class="container">
-    <div id="messages">
-        {% if flashMessages %}
-        {% for type,messages in flashMessages %}
-        <div class="alert alert-{{ type }}">
-            {% for message in messages %}
-            {{ message }}
-            {% endfor %}
-        </div>
+{% if flashMessages %}
+    {% for type,messages in flashMessages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }} alert-dismissible fade show">
+                <span>{{ message }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
         {% endfor %}
-        {% endif %}
-    </div>
-</div>
+    {% endfor %}
+{% endif %}

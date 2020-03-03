@@ -12,7 +12,7 @@ $(document).ready(function () {
                 $('#carrito-count').text(cartResult.totalItems);
             })
             .always(function (msg) {
-                $('#messages').text(msg.messages);
+                $('#messages').html(msg.messages);
             });
     })
 })

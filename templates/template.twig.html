@@ -64,7 +64,11 @@
         </div>
     </div>
 
-    {% include "lists/messages_list.twig.html" %}
+    <div class="container">
+        <div id="messages">
+            {% include "lists/messages_list.twig.html" %}
+        </div>
+    </div>
 
     <div class="container">
         {% block body %}

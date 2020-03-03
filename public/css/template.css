@@ -15,6 +15,10 @@
     color: #000;
 }
 
+.barra-superior .barra-logueado {
+    padding-top: 15px;
+}
+
 .bands .title a {
     margin: 15px 0;
     display: inline-block;

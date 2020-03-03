@@ -33,7 +33,7 @@ class CartController extends Controller
 
         $cart = $this->initializeCart();
 
-        $cart = $this->recalculateCart($cart, $postVars);
+        $cart = $this->quantifyProductsCart($cart, $postVars);
 
         $cart = $this->getCartProductsInfo($cart);
 
@@ -67,7 +67,7 @@ class CartController extends Controller
      * @param $postVars
      * @return array
      */
-    protected function recalculateCart(array $cart, $postVars): array
+    protected function quantifyProductsCart(array $cart, $postVars): array
     {
         if (isset($cart['cart'][$postVars['id_product']])) {
             $cart['cart'][$postVars['id_product']]['quantity'] += $postVars['quantity'];

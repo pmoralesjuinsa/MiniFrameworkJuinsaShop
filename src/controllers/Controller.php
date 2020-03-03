@@ -34,8 +34,9 @@ abstract class Controller
     {
         $customerAuthed = $this->sessionManager->get('customerAuthed');
         $flashMessages = $this->sessionManager->getFlashBag()->all();
+        $cart = $this->sessionManager->get('cart');
 
-        $argsWithSession = array_merge($args, ["customerAuthed" => $customerAuthed], ["flashMessages" => $flashMessages]);
+        $argsWithSession = array_merge($args, ["customerAuthed" => $customerAuthed], ["flashMessages" => $flashMessages], ["cart" => $cart]);
 
         $this->viewManager->renderTemplate($template, $argsWithSession);
     }

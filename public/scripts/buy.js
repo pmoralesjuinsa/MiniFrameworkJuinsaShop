@@ -9,7 +9,7 @@ $(document).ready(function(){
             data: { cart : $(this).serialize() }
         })
             .done(function( cartResult ) {
-                $('#carrito-count').text(cartResult.total_items);
+                $('#carrito-count').text(cartResult.totalItems);
             })
             .fail(function ( msg ) {
                 alert(msg);

@@ -26,20 +26,17 @@ class CartController extends Controller
 
         $cart = $this->initializeCart();
 
-        if(isset($cart['cart'][$postVars['id_product']])) {
-            $cart['cart'][$postVars['id_product']] += $postVars['quantity'];
-        } else {
-            $cart['cart'][$postVars['id_product']] = $postVars['quantity'];
+        $cart = $this->recalculateCart($cart, $postVars);
+
+        $totalItems = 0;
+        foreach ($cart['cart'] as $id_product => $quantity) {
+            $totalItems += $quantity;
         }
 
-        $total_items = 0;
-        foreach ($cart['cart'] as $id_product => $quantity) {
-            $total_items += $quantity;
-        }
+        $cart['totalItems'] = $totalItems;
 
         $this->sessionManager->set('cart', $cart);
 
-        $cart['total_items'] = $total_items;
         echo json_encode($cart);
     }
 
@@ -54,5 +51,20 @@ class CartController extends Controller
         }
 
         return $this->sessionManager->get('cart');
+    }
+
+    /**
+     * @param array $cart
+     * @param $postVars
+     * @return array
+     */
+    protected function recalculateCart(array $cart, $postVars): array
+    {
+        if (isset($cart['cart'][$postVars['id_product']])) {
+            $cart['cart'][$postVars['id_product']] += $postVars['quantity'];
+        } else {
+            $cart['cart'][$postVars['id_product']] = $postVars['quantity'];
+        }
+        return $cart;
     }
 }

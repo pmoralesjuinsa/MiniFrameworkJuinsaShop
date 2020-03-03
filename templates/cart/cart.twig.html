@@ -18,14 +18,17 @@
            <div class="col-3">Cantidad</div>
            <div class="col-4 text-right">SubTotal</div>
        </div>
-    {% for itemId,itemValues in cart.cart %}
-        <div class="row">
-          <div class="col-5"><span class="name">{{ itemValues.name }}</span></div>
-           <div class="col-3"><input class="form-control" name="quantity[]" type="number" value="{{itemValues.quantity}}" /></div>
-           <div class="col-4 text-right"><span class="totalProduct">{{ itemValues.total }} €</span></div>
-          <input name="id_product[]" type="hidden" value="{{ itemId }}" />
-        </div>
-    {% endfor %}
+        {% for itemId,itemValues in cart.cart %}
+            <div class="row">
+              <div class="col-5"><span class="name">{{ itemValues.name }}</span></div>
+               <div class="col-3"><input class="form-control" name="quantity[]" type="number" value="{{itemValues.quantity}}" /></div>
+               <div class="col-4 text-right"><span class="totalProduct">{{ itemValues.total }} €</span></div>
+              <input name="id_product[]" type="hidden" value="{{ itemId }}" />
+            </div>
+        {% endfor %}
+       <div class="text-right">
+           <span>{{ cart.totalAmount }}</span>
+       </div>
        <div class="text-right">
            <button type="submit" class="btn next-step pay_button">Ir al pago</button>
        </div>

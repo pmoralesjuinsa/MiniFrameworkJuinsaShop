@@ -38,6 +38,8 @@ class CartController extends Controller
 
             $cart = $this->getCartProductsInfo($cart);
 
+            $cart = $this->getTotalCartAmount($cart);
+
             $cart['totalItems'] = 0;
             foreach ($cart['cart'] as $id_product => $values) {
                 $cart['totalItems'] += $values['quantity'];
@@ -59,10 +61,6 @@ class CartController extends Controller
 
     public function cartPay()
     {
-        $cart = $this->initializeCart();
-
-        var_dump($this->sessionManager->get('customerAuthed'));
-
         $this->myRenderTemplate("cart/cart-pay.twig.html");
     }
 
@@ -104,6 +102,20 @@ class CartController extends Controller
             $cart['cart'][$product->productId]['name'] = $product->name;
             $cart['cart'][$product->productId]['price'] = $product->price;
             $cart['cart'][$product->productId]['total'] = $cart['cart'][$product->productId]['quantity'] * $product->price;
+        }
+
+        return $cart;
+    }
+
+    /**
+     * @param array $cart
+     * @return array
+     */
+    protected function getTotalCartAmount(array $cart)
+    {
+        $cart['totalAmount'] = 0;
+        foreach ($cart['cart'] as $idProd => $values) {
+            $cart['totalAmount'] += $values['quantity'] * $values['price'];
         }
 
         return $cart;

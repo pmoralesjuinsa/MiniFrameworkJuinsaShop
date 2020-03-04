@@ -33,6 +33,7 @@ class Products extends AbstractMigration
     {
         $users = $this->table('products');
         $users->addColumn('name', 'string', ['limit' => 80]);
+        $users->addColumn('id_product_type', 'integer');
         $users->addColumn('created_at', 'datetime');
         $users->addColumn('updated_at', 'datetime', ['null' => true]);
         $users->create();

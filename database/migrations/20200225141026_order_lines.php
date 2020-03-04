@@ -36,7 +36,6 @@ class OrderLines extends AbstractMigration
         $users->addColumn('id_product', 'integer');
         $users->addColumn('product_quantity', 'integer');
         $users->addColumn('product_price', 'double');
-        $users->addColumn('product_total', 'double');
         $users->addColumn('total', 'double');
         $users->addColumn('created_at', 'datetime');
         $users->addColumn('updated_at', 'datetime', ['null' => true]);

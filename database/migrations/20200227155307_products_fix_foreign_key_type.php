@@ -31,9 +31,7 @@ class ProductsFixForeignKeyType extends AbstractMigration
      */
     public function change()
     {
-        //This change need id_product_type at products with a VALID VALUE
         $users = $this->table('products');
-//        $users->addColumn('id_product_type', 'integer');
         $users->addForeignKey('id_product_type', 'product_types', 'id');
         $users->update();
     }

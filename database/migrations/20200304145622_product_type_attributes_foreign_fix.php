@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class ProductTypeAttributes extends AbstractMigration
+class ProductTypeAttributesForeignFix extends AbstractMigration
 {
     /**
      * Change Method.
@@ -32,13 +32,7 @@ class ProductTypeAttributes extends AbstractMigration
     public function change()
     {
         $users = $this->table('product_type_attributes');
-        $users->addColumn('id_product_type', 'integer');
-        $users->addColumn('id_product_attribute', 'integer');
-        $users->addColumn('id_product', 'integer');
-        $users->addColumn('created_at', 'datetime');
-        $users->addColumn('updated_at', 'datetime', ['null' => true]);
-        $users->addForeignKey('id_product_type', 'product_types', 'id', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION']);
-        $users->addForeignKey('id_product_attribute', 'product_attributes', 'id', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION']);
-        $users->create();
+        $users->addForeignKey('id_product', 'products', 'id', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION']);
+        $users->update();
     }
 }

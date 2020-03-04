@@ -132,9 +132,9 @@ class CartController extends Controller
             $orderLine->setProductPrice($product['price']);
             $orderLine->setTotal($product['total']);
             $collection->add($orderLine);
-
-            $order->setOrderLines($collection);
         }
+
+        $order->setOrderLines($collection);
 
         $ok = $this->orderService->createOrder($order);
 

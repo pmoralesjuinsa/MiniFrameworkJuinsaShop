@@ -35,10 +35,9 @@ class ProductAttribute
     protected $updated_at;
 
     /**
-     * Many Groups have Many Users.
-     * @ORM\ManyToMany(targetEntity="ProductType", mappedBy="attributes")
+     * @ORM\OneToMany(targetEntity="ProductTypeAttribute", mappedBy="product_attribute")
      */
-    protected $product_types;
+    protected $values;
 
     public function __construct()
     {

@@ -40,17 +40,7 @@ class ProductType
     protected $products;
 
     /**
-     * Many Product Types have Many Product Attributes.
-     * @ORM\ManyToMany(targetEntity="ProductAttribute", inversedBy="product_types")
-     * @ORM\JoinTable(
-     *     name="product_type_attributes",
-     *     joinColumns={
-     *          @ORM\JoinColumn(name="id_product_type", referencedColumnName="id")
-     *     },
-     *     inverseJoinColumns={
-     *          @ORM\JoinColumn(name="id_product_attribute", referencedColumnName="id")
-     *     }
-     * )
+     * @ORM\OneToMany(targetEntity="ProductTypeAttribute", mappedBy="product_type")
      */
     protected $attributes;
 
@@ -58,6 +48,7 @@ class ProductType
     {
         $this->created_at = new \DateTime('now');
         $this->attributes = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     /**
@@ -125,15 +116,15 @@ class ProductType
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
-    public function getProducts()
+    public function getProducts() : ArrayCollection
     {
         return $this->products;
     }
 
     /**
-     * @param mixed $products
+     * @param ArrayCollection $products
      */
     public function setProducts($products): void
     {

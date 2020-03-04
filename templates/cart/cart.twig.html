@@ -21,9 +21,9 @@
         {% for itemId,itemValues in cart.cart %}
             <div class="row">
               <div class="col-5"><span class="name">{{ itemValues.name }}</span></div>
-               <div class="col-3"><input class="form-control" name="quantity[]" type="number" value="{{itemValues.quantity}}" /></div>
+               <div class="col-3"><input class="form-control quantity" name="quantity[]" type="number" value="{{itemValues.quantity}}" /></div>
                <div class="col-4 text-right"><span class="totalProduct">{{ itemValues.total }} €</span></div>
-              <input name="id_product[]" type="hidden" value="{{ itemId }}" />
+              <input class="id_product" name="id_product[]" type="hidden" value="{{ itemId }}" />
             </div>
         {% endfor %}
        <div class="total-amount text-right">

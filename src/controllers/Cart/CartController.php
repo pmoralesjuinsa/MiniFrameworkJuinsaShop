@@ -45,27 +45,38 @@ class CartController extends Controller
 
             $cart = $this->initializeCart();
 
-            $cart = $this->quantifyProductsCart($cart, $postVars);
+            $this->increaseProductsCart($cart, $postVars);
 
-            $cart = $this->getCartProductsInfo($cart);
-
-            $cart = $this->getTotalCartAmount($cart);
-
-            $cart['totalItems'] = 0;
-            foreach ($cart['cart'] as $id_product => $values) {
-                $cart['totalItems'] += $values['quantity'];
-            }
-
-            $this->sessionManager->set('cart', $cart);
+            $this->cartProcessing($cart);
 
             $this->sessionManager->getFlashBag()->add('success', 'Producto añadido correctamente a tu carrito');
         } catch (\Exception $exception) {
             $this->sessionManager->getFlashBag()->add('danger', 'Ha ocurrido un error al intentar añadir el producto a tu carrito');
         }
 
-        ob_start();
-        $this->myRenderTemplate("lists/messages_list.twig.html");
-        $cart['messages'] = ob_get_clean();
+        $this->renderMessagesToAjaxCart($cart);
+
+        echo json_encode($cart);
+    }
+
+    public function cartModifyQuantity()
+    {
+        try {
+            $this->checkIfValuesToModifyQuantityAreValids();
+
+            $cart = $this->initializeCart();
+
+            $postVars = ['quantity' => (int)$_POST['quantity'], 'id_product' => (int)$_POST['id_product']];
+
+            $cart['cart'][$postVars['id_product']]['quantity'] = $postVars['quantity'];
+
+            $this->cartProcessing($cart);
+
+        } catch (\Exception $exception) {
+            $this->sessionManager->getFlashBag()->add('danger', 'Ha ocurrido un error al intentar modificar el carrito');
+        }
+
+        $this->renderMessagesToAjaxCart($cart);
 
         echo json_encode($cart);
     }
@@ -112,19 +123,20 @@ class CartController extends Controller
     /**
      * @param array $cart
      * @param $postVars
-     * @return array
      */
-    protected function quantifyProductsCart(array $cart, $postVars): array
+    protected function increaseProductsCart(array &$cart, $postVars): void
     {
         if (isset($cart['cart'][$postVars['id_product']])) {
-            $cart['cart'][$postVars['id_product']]['quantity'] += $postVars['quantity'];
+            $cart['cart'][$postVars['id_product']]['quantity'] += (int)$postVars['quantity'];
         } else {
-            $cart['cart'][$postVars['id_product']]['quantity'] = $postVars['quantity'];
+            $cart['cart'][$postVars['id_product']]['quantity'] = (int)$postVars['quantity'];
         }
-        return $cart;
     }
 
-    protected function getCartProductsInfo($cart)
+    /**
+     * @param array $cart
+     */
+    protected function getCartProductsInfo(array &$cart): void
     {
         $productsId = array_keys($cart['cart']);
 
@@ -135,22 +147,17 @@ class CartController extends Controller
             $cart['cart'][$product->productId]['price'] = $product->price;
             $cart['cart'][$product->productId]['total'] = $cart['cart'][$product->productId]['quantity'] * $product->price;
         }
-
-        return $cart;
     }
 
     /**
      * @param array $cart
-     * @return array
      */
-    protected function getTotalCartAmount(array $cart)
+    protected function getTotalCartAmount(array &$cart)
     {
         $cart['totalAmount'] = 0;
         foreach ($cart['cart'] as $idProd => $values) {
             $cart['totalAmount'] += $values['quantity'] * $values['price'];
         }
-
-        return $cart;
     }
 
     protected function redirectIfNotLogued(): void
@@ -160,5 +167,53 @@ class CartController extends Controller
             $this->sessionManager->getFlashBag()->add('info', 'Debes estar logueado para poder comprar');
             $this->redirectTo('/login');
         }
+    }
+
+    /**
+     * @param array $cart
+     */
+    protected function renderMessagesToAjaxCart(array &$cart): void
+    {
+        ob_start();
+        $this->myRenderTemplate("lists/messages_list.twig.html");
+        $cart['messages'] = ob_get_clean();
+    }
+
+    protected function checkIfValuesToModifyQuantityAreValids(): void
+    {
+        if (!isset($_POST['quantity']) || !isset($_POST['id_product'])) {
+            $this->sessionManager->getFlashBag()->add('danger', 'Datos insuficientes para modificar el carrito');
+            return;
+        }
+
+        if (!is_numeric($_POST['quantity']) || !is_numeric($_POST['id_product'])) {
+            $this->sessionManager->getFlashBag()->add('danger', 'Los datos introducidos no son válidos');
+            return;
+        }
+    }
+
+    /**
+     * @param array $cart
+     */
+    protected function getTotalItemsCart(array &$cart): void
+    {
+        $cart['totalItems'] = 0;
+        foreach ($cart['cart'] as $id_product => $values) {
+            $cart['totalItems'] += $values['quantity'];
+        }
+    }
+
+    /**
+     * @param array $cart
+     */
+    protected function cartProcessing(array &$cart): void
+    {
+        $this->getCartProductsInfo($cart);
+
+        $this->getTotalCartAmount($cart);
+
+        $this->getTotalItemsCart($cart);
+
+        $this->sessionManager->set('cart', $cart);
     }
 }

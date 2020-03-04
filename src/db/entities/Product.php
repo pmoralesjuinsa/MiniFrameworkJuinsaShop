@@ -37,6 +37,12 @@ class Product extends Entity
     protected $product_type;
 
     /**
+     * One product has many order lines. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="OrderLine", mappedBy="orderLines")
+     */
+    protected $orderLines;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     protected $created_at;
@@ -132,7 +138,7 @@ class Product extends Entity
     }
 
     /**
-     * @return ProductType
+     * @return mixed
      */
     public function getProductType()
     {
@@ -145,6 +151,22 @@ class Product extends Entity
     public function setProductType($product_type): void
     {
         $this->product_type = $product_type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderLines()
+    {
+        return $this->orderLines;
+    }
+
+    /**
+     * @param mixed $orderLines
+     */
+    public function setOrderLines($orderLines): void
+    {
+        $this->orderLines = $orderLines;
     }
 
 

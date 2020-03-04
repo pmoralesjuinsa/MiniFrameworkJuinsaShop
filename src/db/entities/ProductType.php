@@ -4,6 +4,7 @@
 namespace Juinsa\db\entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -132,17 +133,17 @@ class ProductType
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getAttributes(): ArrayCollection
+    public function getAttributes(): Collection
     {
         return $this->attributes;
     }
 
     /**
-     * @param ArrayCollection $attributes
+     * @param Collection $attributes
      */
-    public function setAttributes(ArrayCollection $attributes): void
+    public function setAttributes(Collection $attributes): void
     {
         $this->attributes = $attributes;
     }

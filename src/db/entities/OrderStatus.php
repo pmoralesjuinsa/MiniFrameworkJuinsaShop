@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="orders")
+ * @ORM\Table(name="order_status")
  */
 
-class Order extends Entity
+class OrderStatus extends Entity
 {
     /**
      * @ORM\Id
@@ -21,9 +21,9 @@ class Order extends Entity
     protected $id;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string")
      */
-    protected $total;
+    protected $value;
 
     /**
      * @ORM\Column(type="datetime")
@@ -36,27 +36,15 @@ class Order extends Entity
     protected $updated_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="orders")
-     * @ORM\JoinColumn(name="id_customer", referencedColumnName="id")
-     */
-    protected $customer;
-
-    /**
      * One order has many order lines. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="OrderLine", mappedBy="orders")
+     * @ORM\OneToMany(targetEntity="Order", mappedBy="status")
      */
-    protected $orderLines;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="OrderStatus", inversedBy="orders")
-     * @ORM\JoinColumn(name="id_status", referencedColumnName="id")
-     */
-    protected $status;
+    protected $orders;
 
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
-        $this->orderLines = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     /**
@@ -78,17 +66,17 @@ class Order extends Entity
     /**
      * @return mixed
      */
-    public function getTotal()
+    public function getValue()
     {
-        return $this->total;
+        return $this->value;
     }
 
     /**
-     * @param mixed $total
+     * @param mixed $value
      */
-    public function setTotal($total): void
+    public function setValue($value): void
     {
-        $this->total = $total;
+        $this->value = $value;
     }
 
     /**
@@ -124,51 +112,21 @@ class Order extends Entity
     }
 
     /**
-     * @return mixed
-     */
-    public function getCustomer()
-    {
-        return $this->customer;
-    }
-
-    /**
-     * @param mixed $customer
-     */
-    public function setCustomer($customer): void
-    {
-        $this->customer = $customer;
-    }
-
-    /**
      * @return ArrayCollection
      */
-    public function getOrderLines(): ArrayCollection
+    public function getOrders(): ArrayCollection
     {
-        return $this->orderLines;
+        return $this->orders;
     }
 
     /**
-     * @param ArrayCollection $orderLines
+     * @param ArrayCollection $orders
      */
-    public function setOrderLines(ArrayCollection $orderLines): void
+    public function setOrders(ArrayCollection $orders): void
     {
-        $this->orderLines = $orderLines;
+        $this->orders = $orders;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
 
-    /**
-     * @param mixed $status
-     */
-    public function setStatus($status): void
-    {
-        $this->status = $status;
-    }
 
 }

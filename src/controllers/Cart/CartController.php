@@ -4,6 +4,8 @@
 namespace Juinsa\controllers\Cart;
 
 use Juinsa\controllers\Controller;
+use Juinsa\db\entities\Order;
+use Juinsa\db\entities\OrderLine;
 use Juinsa\Services\OrderService;
 use Juinsa\Services\ProductService;
 
@@ -113,13 +115,26 @@ class CartController extends Controller
     public function cartPayConfirmation()
     {
         $this->redirectIfNotLogued();
-//
+
         $cart = $this->initializeCart();
-//
-//        $order = new
-//
-//        $ok = $this->orderService->createOrder($order);
-//
+
+        $order = new Order();
+        $order->setStatus(1);
+        $order->setCustomer($this->sessionManager->get('customerAuthed')->getId());
+        $order->total($cart['totalAmount']);
+
+        foreach ($cart['cart'] as $idProduct => $product) {
+            $orderLine = new OrderLine();
+            $orderLine->setProduct($idProduct);
+            $orderLine->setProductQuantity($product['quantity']);
+            $orderLine->setProductPrice($product['price']);
+            $orderLine->setTotal($product['total']);
+
+            $order->setOrderLines($orderLine);
+        }
+
+        $ok = $this->orderService->createOrder($order);
+
         if (!$ok) {
             $this->sessionManager->getFlashBag()->add('danger', 'Error al crear el pedido');
         } else {

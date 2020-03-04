@@ -4,12 +4,13 @@
 namespace Juinsa\Services;
 
 
+use Juinsa\db\entities\Order;
+
 class OrderService extends Service
 {
-    public function createOrder()
+    public function createOrder(Order $order)
     {
         try {
-            //TODO DEUDA TÉNICA
             $this->doctrineManager->em->persist($order);
             $this->doctrineManager->em->flush();
 

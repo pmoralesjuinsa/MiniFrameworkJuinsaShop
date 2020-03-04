@@ -26,7 +26,7 @@ class CartController extends Controller
     {
         $cart = $this->initializeCart();
 
-        if(empty($cart) || empty($cart['cart'])) {
+        if (empty($cart) || empty($cart['cart'])) {
             $this->sessionManager->getFlashBag()->add('warning', 'No tienes ningún producto en tu carrito');
         }
 
@@ -37,7 +37,7 @@ class CartController extends Controller
     public function addToCart()
     {
         try {
-            if(!isset($_POST['cart'])) {
+            if (!isset($_POST['cart'])) {
                 $this->sessionManager->getFlashBag()->add('danger', 'Carrito no disponible');
             }
 
@@ -51,7 +51,8 @@ class CartController extends Controller
 
             $this->sessionManager->getFlashBag()->add('success', 'Producto añadido correctamente a tu carrito');
         } catch (\Exception $exception) {
-            $this->sessionManager->getFlashBag()->add('danger', 'Ha ocurrido un error al intentar añadir el producto a tu carrito');
+            $this->sessionManager->getFlashBag()->add('danger',
+                'Ha ocurrido un error al intentar añadir el producto a tu carrito');
         }
 
         $this->renderMessagesToAjaxCart($cart);
@@ -61,21 +62,12 @@ class CartController extends Controller
 
     public function cartModifyQuantity()
     {
-        try {
-            $cart = $this->initializeCart();
+        $cart = $this->initializeCart();
 
-            if(!$this->checkIfValuesToModifyQuantityAreValids()) {
-                $this->renderMessagesToAjaxCart($cart);
-                echo json_encode($cart);
-                return;
-            }
-
-            $this->setProductQuantity($cart);
-
-            $this->cartProcessing($cart);
-
-        } catch (\Exception $exception) {
-            $this->sessionManager->getFlashBag()->add('danger', 'Ha ocurrido un error al intentar modificar el carrito');
+        if (!isset($_POST['quantity']) || !isset($_POST['id_product'])) {
+            $this->sessionManager->getFlashBag()->add('danger', 'Datos insuficientes para modificar el carrito');
+        } else {
+            $this->cartModifyProcessing($cart, $_POST['id_product'], $_POST['quantity']);
         }
 
         $this->renderMessagesToAjaxCart($cart);
@@ -83,9 +75,37 @@ class CartController extends Controller
         echo json_encode($cart);
     }
 
+    public function cartModifyProcessing(&$cart, $idProduct = null, $quantity = null)
+    {
+        try {
+            if (!$this->checkIfValuesToModifyQuantityAreValids($idProduct, $quantity)) {
+                $this->renderMessagesToAjaxCart($cart);
+                echo json_encode($cart);
+                return;
+            }
+
+            $this->setProductQuantity($cart, $idProduct, $quantity);
+
+            $this->cartProcessing($cart);
+
+        } catch (\Exception $exception) {
+            $this->sessionManager->getFlashBag()->add('danger',
+                'Ha ocurrido un error al intentar modificar el carrito');
+        }
+    }
+
     public function cartPay()
     {
         $this->redirectIfNotLogued();
+
+        $cart = $this->initializeCart();
+
+        $quantities = $_POST['quantities'];
+        $productsId = $_POST['id_products'];
+
+        foreach ($quantities as $key => $quantity) {
+            $this->cartModifyProcessing($cart, $productsId[$key], $quantity);
+        }
 
         $this->myRenderTemplate("cart/cart-pay.twig.html");
     }
@@ -100,7 +120,7 @@ class CartController extends Controller
 //
 //        $ok = $this->orderService->createOrder($order);
 //
-        if(!$ok) {
+        if (!$ok) {
             $this->sessionManager->getFlashBag()->add('danger', 'Error al crear el pedido');
         } else {
             $this->sessionManager->getFlashBag()->add('success', 'Pedido pagado correctamente');
@@ -186,14 +206,9 @@ class CartController extends Controller
     /**
      * @return bool
      */
-    protected function checkIfValuesToModifyQuantityAreValids(): bool
+    protected function checkIfValuesToModifyQuantityAreValids($idProduct, $quantity): bool
     {
-        if (!isset($_POST['quantity']) || !isset($_POST['id_product'])) {
-            $this->sessionManager->getFlashBag()->add('danger', 'Datos insuficientes para modificar el carrito');
-            return false;
-        }
-
-        if (!is_numeric($_POST['quantity']) || !is_numeric($_POST['id_product'])) {
+        if (!is_numeric($quantity) || !is_numeric($idProduct)) {
             $this->sessionManager->getFlashBag()->add('danger', 'Los datos introducidos no son válidos');
             return false;
         }
@@ -217,7 +232,7 @@ class CartController extends Controller
      */
     protected function cartProcessing(array &$cart): void
     {
-        if(empty($cart['cart'])) {
+        if (empty($cart['cart'])) {
             $this->sessionManager->getFlashBag()->add('warning', 'Su carrito está vacío');
             $cart = [];
             $this->sessionManager->set('cart', $cart);
@@ -236,13 +251,13 @@ class CartController extends Controller
     /**
      * @param array $cart
      */
-    protected function setProductQuantity(array &$cart): void
+    protected function setProductQuantity(array &$cart, $idProduct, $quantity): void
     {
-        $postVars = ['quantity' => (int)$_POST['quantity'], 'id_product' => (int)$_POST['id_product']];
+        $postVars = ['quantity' => (int)$quantity, 'id_product' => (int)$idProduct];
 
-        if($postVars['quantity'] == 0) {
+        if ($postVars['quantity'] == 0) {
             unset($cart['cart'][$postVars['id_product']]);
-        } elseif($postVars['quantity'] > 0) {
+        } elseif ($postVars['quantity'] > 0) {
             $cart['cart'][$postVars['id_product']]['quantity'] = $postVars['quantity'];
         }
     }

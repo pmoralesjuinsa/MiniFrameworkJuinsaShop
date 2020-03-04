@@ -43,6 +43,12 @@ class Product extends Entity
     protected $orderLines;
 
     /**
+     * One product has many attributes. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="ProductTypeAttribute", mappedBy="product")
+     */
+    protected $attributes;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     protected $created_at;

@@ -37,6 +37,12 @@ class ProductTypeAttribute
     protected $product_attribute;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="attributes")
+     * @ORM\JoinColumn(name="id_product", referencedColumnName="id")
+     */
+    protected $product;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     protected $created_at;

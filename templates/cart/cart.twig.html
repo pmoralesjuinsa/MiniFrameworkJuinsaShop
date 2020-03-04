@@ -14,15 +14,17 @@
   {% if cart.cart %}
    <form role="form" method="POST" action="/cart-pay" name="pay_cart_form" class="pay_cart">
        <div class="row header">
-           <div class="col-5">Producto</div>
+           <div class="col-3">Producto</div>
            <div class="col-3">Cantidad</div>
-           <div class="col-4 text-right">SubTotal</div>
+           <div class="col-3 text-right">Precio</div>
+           <div class="col-3 text-right">SubTotal</div>
        </div>
         {% for itemId,itemValues in cart.cart %}
             <div class="row product-{{ itemId }}">
-              <div class="col-5"><span class="name">{{ itemValues.name }}</span></div>
+              <div class="col-3"><span class="name">{{ itemValues.name }}</span></div>
                <div class="col-3"><input class="form-control quantity" min="0" name="quantities[]" type="number" value="{{itemValues.quantity}}" /></div>
-               <div class="col-4 text-right"><span class="totalProduct">{{ itemValues.total }}</span> €</div>
+                <div class="col-3 text-right">{{ itemValues.price }} €</div>
+               <div class="col-3 text-right"><span class="totalProduct">{{ itemValues.total }}</span> €</div>
               <input class="id_product" name="id_products[]" type="hidden" value="{{ itemId }}" />
             </div>
         {% endfor %}

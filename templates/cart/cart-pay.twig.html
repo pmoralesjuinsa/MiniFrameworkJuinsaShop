@@ -26,6 +26,15 @@
              <div class="col-9">{{ customerAuthed.phone }}</div>
          </div>
      </div>
+
+
+     <div class="row products">
+         <span class="col-12 font-weight-bold">Productos</span>
+         {% for itemValues in cart.cart %}
+            <div class="col-12">{{itemValues.quantity}} x {{ itemValues.name }} = {{ itemValues.total }} €</div>
+         {% endfor %}
+     </div>
+
      <div class="row total-amount">
          <div class="col-3"><span class="font-weight-bold">Total a pagar:</span></div>
          <div class="col-9 font-weight-bold">{{ cart.totalAmount }} €</div>

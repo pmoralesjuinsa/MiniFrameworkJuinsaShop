@@ -3,6 +3,7 @@
 
 namespace Juinsa\controllers\Cart;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Juinsa\controllers\Controller;
 use Juinsa\db\entities\Order;
 use Juinsa\db\entities\OrderLine;
@@ -121,16 +122,18 @@ class CartController extends Controller
         $order = new Order();
         $order->setStatus(1);
         $order->setCustomer($this->sessionManager->get('customerAuthed')->getId());
-        $order->total($cart['totalAmount']);
+        $order->setTotal($cart['totalAmount']);
 
+        $collection = new ArrayCollection();
         foreach ($cart['cart'] as $idProduct => $product) {
             $orderLine = new OrderLine();
             $orderLine->setProduct($idProduct);
             $orderLine->setProductQuantity($product['quantity']);
             $orderLine->setProductPrice($product['price']);
             $orderLine->setTotal($product['total']);
+            $collection->add($orderLine);
 
-            $order->setOrderLines($orderLine);
+            $order->setOrderLines($collection);
         }
 
         $ok = $this->orderService->createOrder($order);

@@ -3,6 +3,7 @@
 
 namespace Juinsa\db\entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,6 +62,8 @@ class Product extends Entity
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
+        $this->attributes = new ArrayCollection();
+        $this->orderLines = new ArrayCollection();
     }
 
     /**
@@ -133,6 +136,22 @@ class Product extends Entity
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @param mixed $attributes
+     */
+    public function setAttributes($attributes): void
+    {
+        $this->attributes = $attributes;
     }
 
     /**

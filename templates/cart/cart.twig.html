@@ -11,7 +11,7 @@
 {% block body %}
 
  <div class="wrapper cart-page">
-  {% if cart %}
+  {% if cart.cart %}
    <form role="form" method="POST" action="/cart-pay" name="pay_cart_form" class="pay_cart">
        <div class="row header">
            <div class="col-5">Producto</div>

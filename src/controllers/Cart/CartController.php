@@ -26,7 +26,7 @@ class CartController extends Controller
     {
         $cart = $this->initializeCart();
 
-        if(empty($cart)) {
+        if(empty($cart) || empty($cart['cart'])) {
             $this->sessionManager->getFlashBag()->add('warning', 'No tienes ningún producto en tu carrito');
         }
 
@@ -140,6 +140,7 @@ class CartController extends Controller
      */
     protected function getCartProductsInfo(array &$cart): void
     {
+
         $productsId = array_keys($cart['cart']);
 
         $productsInfo = $this->productService->getProductsInfo($productsId);
@@ -149,6 +150,7 @@ class CartController extends Controller
             $cart['cart'][$product->productId]['price'] = $product->price;
             $cart['cart'][$product->productId]['total'] = $cart['cart'][$product->productId]['quantity'] * $product->price;
         }
+
     }
 
     /**
@@ -215,6 +217,13 @@ class CartController extends Controller
      */
     protected function cartProcessing(array &$cart): void
     {
+        if(empty($cart['cart'])) {
+            $this->sessionManager->getFlashBag()->add('warning', 'Su carrito está vacío');
+            $cart = [];
+            $this->sessionManager->set('cart', $cart);
+            return;
+        }
+
         $this->getCartProductsInfo($cart);
 
         $this->getTotalCartAmount($cart);

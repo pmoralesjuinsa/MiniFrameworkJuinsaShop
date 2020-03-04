@@ -30,9 +30,14 @@ $(document).ready(function () {
             data: {quantity: quantity, id_product: id_product}
         })
             .done(function (cart) {
+                if(!cart.cart) {
+                    $('.wrapper.cart-page').html('');
+                    $('#carrito-count').text('0');
+                    return;
+                }
+
                 $.each(cart.cart, function(idProduct, values) {
                     $('.product-' + idProduct + ' .totalProduct').text(values.total);
-                    // $('.product-' + idProduct + ' .quantity').val(product.quantity);
                 });
 
                 $('#carrito-count').text(cart.totalItems);

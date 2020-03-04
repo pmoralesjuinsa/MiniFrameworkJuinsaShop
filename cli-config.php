@@ -7,7 +7,7 @@ require 'bootstrap.php';
 
 // Paths to Entities that we want Doctrine to see
 $paths = array(
-    "src/db/entities"
+    "src/db/entitiesNEW"
 );
 
 // Tells Doctrine what mode we want

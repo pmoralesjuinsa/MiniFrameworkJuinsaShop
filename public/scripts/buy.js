@@ -22,16 +22,21 @@ $(document).ready(function () {
     $('.pay_cart .quantity').change(function(){
         quantity = $(this).val();
         id_product = $(this).parent().parent().children('.id_product').val();
-        console.log(id_product);
 
         $.ajax({
             method: "POST",
             url: "/cart-modify-quantity",
             dataType: "json",
-            data: {quantity: quantity}
+            data: {quantity: quantity, id_product: id_product}
         })
-            .done(function (result) {
-                console.log(result)
+            .done(function (cart) {
+                $.each(cart.cart, function(idProduct, values) {
+                    $('.product-' + idProduct + ' .totalProduct').text(values.total);
+                    // $('.product-' + idProduct + ' .quantity').val(product.quantity);
+                });
+
+                $('#carrito-count').text(cart.totalItems);
+                $('#totalAmountValue').text(cart.totalAmount);
             })
             .fail(function () {
                 alert("error");

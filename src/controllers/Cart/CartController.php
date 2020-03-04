@@ -62,13 +62,15 @@ class CartController extends Controller
     public function cartModifyQuantity()
     {
         try {
-            $this->checkIfValuesToModifyQuantityAreValids();
-
             $cart = $this->initializeCart();
 
-            $postVars = ['quantity' => (int)$_POST['quantity'], 'id_product' => (int)$_POST['id_product']];
+            if(!$this->checkIfValuesToModifyQuantityAreValids()) {
+                $this->renderMessagesToAjaxCart($cart);
+                echo json_encode($cart);
+                return;
+            }
 
-            $cart['cart'][$postVars['id_product']]['quantity'] = $postVars['quantity'];
+            $this->setProductQuantity($cart);
 
             $this->cartProcessing($cart);
 
@@ -179,17 +181,22 @@ class CartController extends Controller
         $cart['messages'] = ob_get_clean();
     }
 
-    protected function checkIfValuesToModifyQuantityAreValids(): void
+    /**
+     * @return bool
+     */
+    protected function checkIfValuesToModifyQuantityAreValids(): bool
     {
         if (!isset($_POST['quantity']) || !isset($_POST['id_product'])) {
             $this->sessionManager->getFlashBag()->add('danger', 'Datos insuficientes para modificar el carrito');
-            return;
+            return false;
         }
 
         if (!is_numeric($_POST['quantity']) || !is_numeric($_POST['id_product'])) {
             $this->sessionManager->getFlashBag()->add('danger', 'Los datos introducidos no son válidos');
-            return;
+            return false;
         }
+
+        return true;
     }
 
     /**
@@ -215,5 +222,19 @@ class CartController extends Controller
         $this->getTotalItemsCart($cart);
 
         $this->sessionManager->set('cart', $cart);
+    }
+
+    /**
+     * @param array $cart
+     */
+    protected function setProductQuantity(array &$cart): void
+    {
+        $postVars = ['quantity' => (int)$_POST['quantity'], 'id_product' => (int)$_POST['id_product']];
+
+        if($postVars['quantity'] == 0) {
+            unset($cart['cart'][$postVars['id_product']]);
+        } elseif($postVars['quantity'] > 0) {
+            $cart['cart'][$postVars['id_product']]['quantity'] = $postVars['quantity'];
+        }
     }
 }

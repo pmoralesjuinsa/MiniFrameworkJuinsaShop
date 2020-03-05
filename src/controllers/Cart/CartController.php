@@ -137,7 +137,6 @@ class CartController extends Controller
         $this->redirectIfNotLogued();
 
         $cart = $this->initializeCart();
-        //7c4a8d09ca3762af61e59520943dc26494f8941b
 
         $status = $this->orderStatusService->getOrderStatusById(1);
         $customerSession = $this->customerService->getCustomerById($this->sessionManager->get('customerAuthed')->getId());

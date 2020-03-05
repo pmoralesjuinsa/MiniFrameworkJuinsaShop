@@ -32,6 +32,7 @@ class ProductTypeAttibutesDeleteIdProduct extends AbstractMigration
     public function change()
     {
         $users = $this->table('product_type_attributes');
+        $users->dropForeignKey('id_product')->save();
         $users->removeColumn('id_product');
         $users->update();
     }

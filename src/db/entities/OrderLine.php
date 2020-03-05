@@ -35,6 +35,11 @@ class OrderLine extends Entity
     protected $total;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    protected $product_name;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     protected $created_at;
@@ -77,6 +82,22 @@ class OrderLine extends Entity
     public function setId($id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProductName()
+    {
+        return $this->product_name;
+    }
+
+    /**
+     * @param mixed $product_name
+     */
+    public function setProductName($product_name): void
+    {
+        $this->product_name = $product_name;
     }
 
     /**

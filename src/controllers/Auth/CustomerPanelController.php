@@ -28,6 +28,11 @@ class CustomerPanelController extends Controller
     {
         $orders = $this->orderService->getOrdersByIdCustomer($this->sessionManager->get('customerAuthed')->getId());
 
-        $this->myRenderTemplate('customer/customer_panel.twig.html', ['orders' => $orders]);
+        $noOrders = '';
+        if(empty($orders)) {
+            $noOrders = "No has realizado ningún pedido";
+        }
+
+        $this->myRenderTemplate('customer/customer_panel.twig.html', ['orders' => $orders, 'noOrders' => $noOrders]);
     }
 }

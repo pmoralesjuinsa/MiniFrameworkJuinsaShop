@@ -297,6 +297,7 @@ class CartController extends Controller
             $orderLine->setProductQuantity($product['quantity']);
             $orderLine->setProductPrice($product['price']);
             $orderLine->setTotal($product['total']);
+            $orderLine->setProductName($productEntity->getName());
 
             $order->addOrderLines($orderLine);
         }

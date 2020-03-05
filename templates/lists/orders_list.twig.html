@@ -30,4 +30,6 @@
             </a>
         {% endfor %}
     </div>
+{% else %}
+    <div class="alert alert-info">{{ noOrders }}</div>
 {% endif %}

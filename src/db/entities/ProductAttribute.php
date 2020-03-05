@@ -35,9 +35,19 @@ class ProductAttribute
     protected $updated_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProductTypeAttribute", mappedBy="product_attribute")
+     * @ORM\ManyToMany(targetEntity="ProductType")
+     */
+    protected $productTypes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ProductAttributeValues")
      */
     protected $values;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Product")
+     */
+    protected $products;
 
     public function __construct()
     {

@@ -44,8 +44,8 @@ class Product extends Entity
     protected $orderLines;
 
     /**
-     * One product has many attributes. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="ProductTypeAttribute", mappedBy="product")
+     * Many product has many attributes. This is the inverse side.
+     * @ORM\ManyToMany(targetEntity="ProductAttribute", mappedBy="products")
      */
     protected $attributes;
 

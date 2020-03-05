@@ -9,6 +9,7 @@ use Juinsa\db\entities\Order;
 use Juinsa\db\entities\OrderLine;
 use Juinsa\db\entities\OrderStatus;
 use Juinsa\db\entities\Product;
+use Juinsa\Services\CustomerService;
 use Juinsa\Services\OrderService;
 use Juinsa\Services\ProductService;
 
@@ -26,6 +27,12 @@ class CartController extends Controller
      * @var OrderService
      */
     private OrderService $orderService;
+
+    /**
+     * @Inject
+     * @var CustomerService
+     */
+    private CustomerService $customerService;
 
     public function index()
     {
@@ -128,7 +135,7 @@ class CartController extends Controller
         //7c4a8d09ca3762af61e59520943dc26494f8941b
 
         $status = $this->orderService->getOrderStatus(1);
-        $customerSession = $this->orderService->getCustomerSession($this->sessionManager->get('customerAuthed')->getId());
+        $customerSession = $this->customerService->getCustomerById($this->sessionManager->get('customerAuthed')->getId());
 
         $order = new Order();
         $order->setStatus($status);

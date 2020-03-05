@@ -27,8 +27,4 @@ class OrderService extends Service
     public function getOrderStatus($id) {
         return $this->doctrineManager->em->getRepository(OrderStatus::class)->findOneById($id);
     }
-
-    public function getCustomerSession($id) {
-        return $this->doctrineManager->em->getRepository(Customer::class)->findOneById($id);
-    }
 }

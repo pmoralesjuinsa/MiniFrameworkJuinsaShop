@@ -9,7 +9,7 @@ use Juinsa\db\entities\Customer;
 class CustomerService extends Service
 {
 
-    public function getCustomerFromDb(Customer $customer): ?Customer
+    public function getCustomerByPasswordAndEmail(Customer $customer): ?Customer
     {
         return $this->doctrineManager->em->getRepository(Customer::class)->findOneBy(
             array(
@@ -18,6 +18,10 @@ class CustomerService extends Service
             )
         );
 
+    }
+
+    public function getCustomerById($id) {
+        return $this->doctrineManager->em->getRepository(Customer::class)->findOneById($id);
     }
 
     public function createCustomer(Customer $customer): ?Customer

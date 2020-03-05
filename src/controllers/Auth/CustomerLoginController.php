@@ -31,7 +31,7 @@ class CustomerLoginController extends Controller
         $customer->email = $email;
         $customer->password = sha1($password);
 
-        $userFound = $this->customerService->getCustomerFromDb($customer);
+        $userFound = $this->customerService->getCustomerByPasswordAndEmail($customer);
 
         $this->sessionManager->setCustomerAuthed($userFound);
 

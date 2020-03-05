@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="product_attributes")
+ * @ORM\Table(name="product_attribute_values")
  */
-class ProductAttribute
+class ProductAttributeValue
 {
     /**
      * @ORM\Id
@@ -35,15 +35,10 @@ class ProductAttribute
     protected $updated_at;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ProductType", inversedBy="attributes")
-     * @ORM\JoinTable(name="product_type_attributes")
+     * @ORM\ManyToOne(targetEntity="ProductAttribute", inversedBy="values")
+     * @JoinColumn(name="id_product_attribute", referencedColumnName="id")
      */
-    protected $product_types;
-
-    /**
-     * @ORM\OneToMany(targetEntity="ProductAttributeValue", mappedBy="attributes")
-     */
-    protected $values;
+    protected $attributes;
 
     /**
      * @ORM\ManyToMany(targetEntity="Product", inversedBy="attributes")
@@ -54,9 +49,6 @@ class ProductAttribute
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
-        $this->product_types = new ArrayCollection();
-        $this->products = new ArrayCollection();
-        $this->values = new ArrayCollection();
     }
 
     /**
@@ -121,54 +113,6 @@ class ProductAttribute
     public function setUpdatedAt($updated_at): void
     {
         $this->updated_at = $updated_at;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getProductTypes(): ArrayCollection
-    {
-        return $this->product_types;
-    }
-
-    /**
-     * @param ArrayCollection $product_types
-     */
-    public function setProductTypes(ArrayCollection $product_types): void
-    {
-        $this->product_types = $product_types;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getValues(): ArrayCollection
-    {
-        return $this->values;
-    }
-
-    /**
-     * @param ArrayCollection $values
-     */
-    public function setValues(ArrayCollection $values): void
-    {
-        $this->values = $values;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getProducts(): ArrayCollection
-    {
-        return $this->products;
-    }
-
-    /**
-     * @param ArrayCollection $products
-     */
-    public function setProducts(ArrayCollection $products): void
-    {
-        $this->products = $products;
     }
 
 }

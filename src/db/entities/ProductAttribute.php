@@ -123,4 +123,52 @@ class ProductAttribute
         $this->updated_at = $updated_at;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getProductTypes(): ArrayCollection
+    {
+        return $this->product_types;
+    }
+
+    /**
+     * @param ArrayCollection $product_types
+     */
+    public function setProductTypes(ArrayCollection $product_types): void
+    {
+        $this->product_types = $product_types;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getValues(): ArrayCollection
+    {
+        return $this->values;
+    }
+
+    /**
+     * @param ArrayCollection $values
+     */
+    public function setValues(ArrayCollection $values): void
+    {
+        $this->values = $values;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProducts(): ArrayCollection
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param ArrayCollection $products
+     */
+    public function setProducts(ArrayCollection $products): void
+    {
+        $this->products = $products;
+    }
+
 }

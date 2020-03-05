@@ -8,6 +8,7 @@ use DI\Annotation\Inject;
 use Juinsa\db\entities\Customer;
 use Juinsa\Services\CustomerService;
 use Juinsa\controllers\Controller;
+use Juinsa\Services\OrderService;
 
 class CustomerPanelController extends Controller
 {
@@ -17,9 +18,16 @@ class CustomerPanelController extends Controller
      */
     private CustomerService $customerService;
 
+    /**
+     * @Inject
+     * @var OrderService
+     */
+    private OrderService $orderService;
+
     public function index()
     {
+        $orders = $this->orderService->getOrdersByIdCustomer($this->sessionManager->get('customerAuthed')->getId());
 
-        $this->myRenderTemplate('panel_customer.twig.html');
+        $this->myRenderTemplate('customer_panel.twig.html', ['orders' => $orders]);
     }
 }

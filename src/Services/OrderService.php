@@ -35,7 +35,7 @@ class OrderService extends Service
     {
         return $this->doctrineManager->em->getRepository(Order::class)->findBy(
             array(
-                'id_customer' => $id_customer
+                'customer' => $id_customer
             )
         );
     }

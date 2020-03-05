@@ -22,7 +22,7 @@ class ProductAttribute
     /**
      * @ORM\Column(type="string")
      */
-    protected $value;
+    protected $name;
 
     /**
      * @ORM\Column(type="datetime")
@@ -35,46 +35,44 @@ class ProductAttribute
     protected $updated_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProductTypeAttribute", mappedBy="product_attribute")
+     * @ORM\ManyToMany(targetEntity="ProductType", inversedBy="attributes")
+     * @ORM\JoinTable(name="product_type_attributes")
+     */
+    protected $product_types;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ProductAttributeValue", mappedBy="attributes")
      */
     protected $values;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Product", inversedBy="attributes")
+     * @ORM\JoinTable(name="attributes_values")
+     */
+    protected $products;
 
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
-        $this->product_type = new ArrayCollection();
+        $this->product_types = new ArrayCollection();
+        $this->products = new ArrayCollection();
+        $this->values = new ArrayCollection();
     }
 
     /**
      * @return mixed
      */
-    public function getValue()
+    public function getName()
     {
-        return $this->value;
+        return $this->name;
     }
 
     /**
-     * @param mixed $value
+     * @param mixed $name
      */
-    public function setValue($value): void
+    public function setName($name): void
     {
-        $this->value = $value;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getProductType(): ArrayCollection
-    {
-        return $this->product_type;
-    }
-
-    /**
-     * @param ArrayCollection $product_type
-     */
-    public function setProductType(ArrayCollection $product_type): void
-    {
-        $this->product_type = $product_type;
+        $this->name = $name;
     }
 
     /**
@@ -123,6 +121,54 @@ class ProductAttribute
     public function setUpdatedAt($updated_at): void
     {
         $this->updated_at = $updated_at;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProductTypes(): ArrayCollection
+    {
+        return $this->product_types;
+    }
+
+    /**
+     * @param ArrayCollection $product_types
+     */
+    public function setProductTypes(ArrayCollection $product_types): void
+    {
+        $this->product_types = $product_types;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getValues(): ArrayCollection
+    {
+        return $this->values;
+    }
+
+    /**
+     * @param ArrayCollection $values
+     */
+    public function setValues(ArrayCollection $values): void
+    {
+        $this->values = $values;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProducts(): ArrayCollection
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param ArrayCollection $products
+     */
+    public function setProducts(ArrayCollection $products): void
+    {
+        $this->products = $products;
     }
 
 }

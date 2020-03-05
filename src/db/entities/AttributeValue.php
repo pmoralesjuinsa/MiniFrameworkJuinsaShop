@@ -3,14 +3,14 @@
 
 namespace Juinsa\db\entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="product_type_attributes")
+ * @ORM\Table(name="attributes_values")
  */
-class ProductTypeAttribute
+
+class AttributeValue extends Entity
 {
     /**
      * @ORM\Id
@@ -28,7 +28,6 @@ class ProductTypeAttribute
      * @ORM\Column(type="datetime")
      */
     protected $updated_at;
-
 
     public function __construct()
     {
@@ -82,7 +81,6 @@ class ProductTypeAttribute
     {
         $this->updated_at = $updated_at;
     }
-
 
 
 }

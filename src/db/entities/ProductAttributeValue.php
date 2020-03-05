@@ -4,14 +4,13 @@
 namespace Juinsa\db\entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="product_types")
+ * @ORM\Table(name="product_attribute_values")
  */
-class ProductType
+class ProductAttributeValue
 {
     /**
      * @ORM\Id
@@ -36,36 +35,20 @@ class ProductType
     protected $updated_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="product_type")
-     */
-    protected $products;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="ProductAttribute", mappedBy="product_types")
+     * @ORM\ManyToOne(targetEntity="ProductAttribute", inversedBy="values")
+     * @JoinColumn(name="id_product_attribute", referencedColumnName="id")
      */
     protected $attributes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Product", inversedBy="attributes")
+     * @ORM\JoinTable(name="attributes_values")
+     */
+    protected $products;
 
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
-        $this->attributes = new ArrayCollection();
-        $this->products = new ArrayCollection();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
     }
 
     /**
@@ -82,6 +65,22 @@ class ProductType
     public function setName($name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
     }
 
     /**
@@ -114,38 +113,6 @@ class ProductType
     public function setUpdatedAt($updated_at): void
     {
         $this->updated_at = $updated_at;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getProducts() : ArrayCollection
-    {
-        return $this->products;
-    }
-
-    /**
-     * @param ArrayCollection $products
-     */
-    public function setProducts($products): void
-    {
-        $this->products = $products;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getAttributes(): Collection
-    {
-        return $this->attributes;
-    }
-
-    /**
-     * @param Collection $attributes
-     */
-    public function setAttributes(Collection $attributes): void
-    {
-        $this->attributes = $attributes;
     }
 
 }

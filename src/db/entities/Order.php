@@ -4,6 +4,7 @@
 namespace Juinsa\db\entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -140,9 +141,9 @@ class Order extends Entity
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getOrderLines(): ArrayCollection
+    public function getOrderLines(): Collection
     {
         return $this->orderLines;
     }

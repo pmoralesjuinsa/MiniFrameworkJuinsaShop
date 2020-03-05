@@ -151,7 +151,7 @@ class CartController extends Controller
 
         $order = $this->orderService->insertOrder($order);
 
-        if (!$order->getId()) {
+        if (!$order->getOrderLines() || !$order->getId()) {
             $this->sessionManager->getFlashBag()->add('danger', 'Error al crear el pedido');
         } else {
             $this->sessionManager->remove('cart');

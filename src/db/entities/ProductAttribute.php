@@ -42,7 +42,6 @@ class ProductAttribute
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
-        $this->product_type = new ArrayCollection();
     }
 
     /**
@@ -59,22 +58,6 @@ class ProductAttribute
     public function setName($name): void
     {
         $this->name = $name;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getProductType(): ArrayCollection
-    {
-        return $this->product_type;
-    }
-
-    /**
-     * @param ArrayCollection $product_type
-     */
-    public function setProductType(ArrayCollection $product_type): void
-    {
-        $this->product_type = $product_type;
     }
 
     /**

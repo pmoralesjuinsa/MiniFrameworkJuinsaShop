@@ -9,7 +9,7 @@ use Juinsa\db\entities\Order;
 
 class OrderService extends Service
 {
-    public function createOrder(Order $order): Order
+    public function insertOrder(Order $order): Order
     {
         try {
             $this->doctrineManager->em->persist($order);

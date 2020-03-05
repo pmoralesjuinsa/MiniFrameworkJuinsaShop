@@ -147,23 +147,14 @@ class CartController extends Controller
         $order->setCustomer($customerSession);
         $order->setTotal($cart['totalAmount']);
 
-        foreach ($cart['cart'] as $idProduct => $product) {
-            $productEntity = $this->productService->getProduct($idProduct);
+        $this->createOrderLines($cart, $order);
 
-            $orderLine = new OrderLine();
-            $orderLine->setProduct($productEntity);
-            $orderLine->setProductQuantity($product['quantity']);
-            $orderLine->setProductPrice($product['price']);
-            $orderLine->setTotal($product['total']);
-
-            $order->addOrderLines($orderLine);
-        }
-
-        $this->orderService->createOrder($order);
+        $order = $this->orderService->insertOrder($order);
 
         if (!$order->getId()) {
             $this->sessionManager->getFlashBag()->add('danger', 'Error al crear el pedido');
         } else {
+            $this->sessionManager->remove('cart');
             $this->sessionManager->getFlashBag()->add('success', 'Pedido pagado correctamente');
         }
 //
@@ -300,6 +291,25 @@ class CartController extends Controller
             unset($cart['cart'][$postVars['id_product']]);
         } elseif ($postVars['quantity'] > 0) {
             $cart['cart'][$postVars['id_product']]['quantity'] = $postVars['quantity'];
+        }
+    }
+
+    /**
+     * @param array $cart
+     * @param Order $order
+     */
+    protected function createOrderLines(array $cart, Order &$order): void
+    {
+        foreach ($cart['cart'] as $idProduct => $product) {
+            $productEntity = $this->productService->getProduct($idProduct);
+
+            $orderLine = new OrderLine();
+            $orderLine->setProduct($productEntity);
+            $orderLine->setProductQuantity($product['quantity']);
+            $orderLine->setProductPrice($product['price']);
+            $orderLine->setTotal($product['total']);
+
+            $order->addOrderLines($orderLine);
         }
     }
 }

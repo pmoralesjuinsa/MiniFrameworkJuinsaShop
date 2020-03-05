@@ -35,9 +35,10 @@ class ProductAttribute
     protected $updated_at;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ProductType")
+     * @ORM\ManyToMany(targetEntity="ProductType", inversedBy="attributes")
+     * @ORM\JoinTable(name="attributes_values")
      */
-    protected $productTypes;
+    protected $product_types;
 
     /**
      * @ORM\OneToMany(targetEntity="ProductAttributeValues")

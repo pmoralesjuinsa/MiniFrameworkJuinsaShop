@@ -41,7 +41,7 @@ class ProductType
     protected $products;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProductTypeAttribute", mappedBy="product_type")
+     * @ORM\ManyToMany(targetEntity="ProductAttribute", mappedBy="product_types")
      */
     protected $attributes;
 

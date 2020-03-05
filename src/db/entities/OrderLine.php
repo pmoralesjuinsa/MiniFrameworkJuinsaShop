@@ -20,31 +20,17 @@ class OrderLine extends Entity
     protected $id;
 
     /**
-     * Many order lines have one order. This is the owning side.
-     * @ORM\ManyToOne(targetEntity="Order", inversedBy="orderLines")
-     * @ORM\JoinColumn(name="id_order", referencedColumnName="id")
-     */
-    protected $order;
-
-    /**
-     * Many order lines have one product. This is the owning side.
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="orderLines")
-     * @ORM\JoinColumn(name="id_product", referencedColumnName="id")
-     */
-    protected $product;
-
-    /**
      * @ORM\Column(type="integer")
      */
-    protected $productQuantity;
+    protected $product_quantity;
 
     /**
-     * @ORM\Column(type="double")
+     * @ORM\Column(type="float")
      */
-    protected $productPrice;
+    protected $product_price;
 
     /**
-     * @ORM\Column(type="double")
+     * @ORM\Column(type="float")
      */
     protected $total;
 
@@ -59,10 +45,18 @@ class OrderLine extends Entity
     protected $updated_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="orders")
-     * @ORM\JoinColumn(name="id_customer", referencedColumnName="id")
+     * Many order lines have one order. This is the owning side.
+     * @ORM\ManyToOne(targetEntity="Order", inversedBy="orderLines", cascade={"persist"})
+     * @ORM\JoinColumn(name="id_order", referencedColumnName="id")
      */
-    protected $customer;
+    protected $order;
+
+    /**
+     * Many order lines have one product. This is the owning side.
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="orderLines", cascade={"persist"})
+     * @ORM\JoinColumn(name="id_product", referencedColumnName="id")
+     */
+    protected $product;
 
     public function __construct()
     {
@@ -125,7 +119,7 @@ class OrderLine extends Entity
      */
     public function getProductQuantity()
     {
-        return $this->productQuantity;
+        return $this->product_quantity;
     }
 
     /**
@@ -133,7 +127,7 @@ class OrderLine extends Entity
      */
     public function setProductQuantity($productQuantity): void
     {
-        $this->productQuantity = $productQuantity;
+        $this->product_quantity = $productQuantity;
     }
 
     /**
@@ -141,7 +135,7 @@ class OrderLine extends Entity
      */
     public function getProductPrice()
     {
-        return $this->productPrice;
+        return $this->product_price;
     }
 
     /**
@@ -149,7 +143,7 @@ class OrderLine extends Entity
      */
     public function setProductPrice($productPrice): void
     {
-        $this->productPrice = $productPrice;
+        $this->product_price = $productPrice;
     }
 
     /**
@@ -198,22 +192,6 @@ class OrderLine extends Entity
     public function setUpdatedAt($updated_at): void
     {
         $this->updated_at = $updated_at;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCustomer()
-    {
-        return $this->customer;
-    }
-
-    /**
-     * @param mixed $customer
-     */
-    public function setCustomer($customer): void
-    {
-        $this->customer = $customer;
     }
 
 }

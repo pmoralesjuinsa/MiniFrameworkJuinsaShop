@@ -127,17 +127,16 @@ class CartController extends Controller
         $cart = $this->initializeCart();
         //7c4a8d09ca3762af61e59520943dc26494f8941b
 
-        $status = new OrderStatus();
-        $status->setId(1);
+        $status = $this->orderService->getOrderStatus(1);
+        $customerSession = $this->orderService->getCustomerSession($this->sessionManager->get('customerAuthed')->getId());
 
         $order = new Order();
         $order->setStatus($status);
-        $order->setCustomer($this->sessionManager->get('customerAuthed'));
+        $order->setCustomer($customerSession);
         $order->setTotal($cart['totalAmount']);
 
         foreach ($cart['cart'] as $idProduct => $product) {
-            $productEntity = new Product();
-            $productEntity->setId($idProduct);
+            $productEntity = $this->productService->getProduct($idProduct);
 
             $orderLine = new OrderLine();
             $orderLine->setProduct($productEntity);

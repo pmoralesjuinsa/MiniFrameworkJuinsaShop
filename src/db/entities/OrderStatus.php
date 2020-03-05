@@ -35,16 +35,16 @@ class OrderStatus extends Entity
      */
     protected $updated_at;
 
-    /**
-     * One order has many order lines. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="Order", mappedBy="status")
-     */
-    protected $orders;
+//    /**
+//     * One order has many order lines. This is the inverse side.
+//     * @ORM\OneToMany(targetEntity="Order", mappedBy="status")
+//     */
+//    protected $orders;
 
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
-        $this->orders = new ArrayCollection();
+//        $this->orders = new ArrayCollection();
     }
 
     /**
@@ -111,22 +111,20 @@ class OrderStatus extends Entity
         $this->updated_at = $updated_at;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getOrders(): ArrayCollection
-    {
-        return $this->orders;
-    }
-
-    /**
-     * @param ArrayCollection $orders
-     */
-    public function setOrders(ArrayCollection $orders): void
-    {
-        $this->orders = $orders;
-    }
-
-
+//    /**
+//     * @return ArrayCollection
+//     */
+//    public function getOrders(): ArrayCollection
+//    {
+//        return $this->orders;
+//    }
+//
+//    /**
+//     * @param ArrayCollection $orders
+//     */
+//    public function setOrders(ArrayCollection $orders): void
+//    {
+//        $this->orders = $orders;
+//    }
 
 }

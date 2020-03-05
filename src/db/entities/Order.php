@@ -36,19 +36,19 @@ class Order extends Entity
     protected $updated_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="orders", cascade={"persist"})
      * @ORM\JoinColumn(name="id_customer", referencedColumnName="id")
      */
     protected $customer;
 
     /**
      * One order has many order lines. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="OrderLine", mappedBy="orders")
+     * @ORM\OneToMany(targetEntity="OrderLine", mappedBy="order", cascade={"persist"})
      */
     protected $orderLines;
 
     /**
-     * @ORM\ManyToOne(targetEntity="OrderStatus", inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity="OrderStatus", cascade={"persist"})
      * @ORM\JoinColumn(name="id_status", referencedColumnName="id")
      */
     protected $status;

@@ -208,5 +208,4 @@ class Customer extends Entity
         $this->orders = $orders;
     }
 
-
 }

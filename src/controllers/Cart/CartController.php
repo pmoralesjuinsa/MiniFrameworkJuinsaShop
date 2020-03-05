@@ -3,14 +3,13 @@
 
 namespace Juinsa\controllers\Cart;
 
-use Doctrine\Common\Collections\ArrayCollection;
+
 use Juinsa\controllers\Controller;
 use Juinsa\db\entities\Order;
 use Juinsa\db\entities\OrderLine;
-use Juinsa\db\entities\OrderStatus;
-use Juinsa\db\entities\Product;
 use Juinsa\Services\CustomerService;
 use Juinsa\Services\OrderService;
+use Juinsa\Services\OrderStatusService;
 use Juinsa\Services\ProductService;
 
 class CartController extends Controller
@@ -33,6 +32,12 @@ class CartController extends Controller
      * @var CustomerService
      */
     private CustomerService $customerService;
+
+    /**
+     * @Inject
+     * @var OrderStatusService
+     */
+    private OrderStatusService $orderStatusService;
 
     public function index()
     {
@@ -134,7 +139,7 @@ class CartController extends Controller
         $cart = $this->initializeCart();
         //7c4a8d09ca3762af61e59520943dc26494f8941b
 
-        $status = $this->orderService->getOrderStatus(1);
+        $status = $this->orderStatusService->getOrderStatusById(1);
         $customerSession = $this->customerService->getCustomerById($this->sessionManager->get('customerAuthed')->getId());
 
         $order = new Order();

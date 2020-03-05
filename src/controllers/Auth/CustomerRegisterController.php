@@ -18,7 +18,7 @@ class CustomerRegisterController extends Controller
 
     public function index()
     {
-        $this->myRenderTemplate('customer_register.twig.html');
+        $this->myRenderTemplate('customer/customer_register.twig.html');
     }
 
     public function register()

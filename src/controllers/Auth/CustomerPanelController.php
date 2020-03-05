@@ -28,6 +28,6 @@ class CustomerPanelController extends Controller
     {
         $orders = $this->orderService->getOrdersByIdCustomer($this->sessionManager->get('customerAuthed')->getId());
 
-        $this->myRenderTemplate('customer_panel.twig.html', ['orders' => $orders]);
+        $this->myRenderTemplate('customer/customer_panel.twig.html', ['orders' => $orders]);
     }
 }

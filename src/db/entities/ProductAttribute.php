@@ -22,7 +22,7 @@ class ProductAttribute
     /**
      * @ORM\Column(type="string")
      */
-    protected $value;
+    protected $name;
 
     /**
      * @ORM\Column(type="datetime")
@@ -48,17 +48,17 @@ class ProductAttribute
     /**
      * @return mixed
      */
-    public function getValue()
+    public function getName()
     {
-        return $this->value;
+        return $this->name;
     }
 
     /**
-     * @param mixed $value
+     * @param mixed $name
      */
-    public function setValue($value): void
+    public function setName($name): void
     {
-        $this->value = $value;
+        $this->name = $name;
     }
 
     /**

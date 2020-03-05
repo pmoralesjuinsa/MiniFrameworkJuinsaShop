@@ -1,0 +1,32 @@
+{% extends "template.twig.html" %}
+
+{% block styles %}
+ <link rel="stylesheet" href="/css/customer_panel.css">
+{% endblock %}
+
+{% block title %}
+ <h1>Panel de {{ customerAuthed.name }}</h1>
+{% endblock %}
+
+{% block body %}
+
+ <div class="row customer-page">
+  <div class="col-12 col-md-3">
+   <div class="imagen">
+    IMAGEN
+   </div>
+  </div>
+  <div class="col-12 col-md-9">
+   <div><span class="font-weight-bold">Nombre: </span>{{ customerAuthed.name }}</div>
+   <div><span class="font-weight-bold">Email: </span>{{ customerAuthed.email }}</div>
+   <div><span class="font-weight-bold">Teléfono: </span>{{ customerAuthed.phone }}</div>
+   <div><span class="font-weight-bold">Dirección: </span>{{ customerAuthed.address }}</div>
+   <div><span class="font-weight-bold">Usuario desde: </span>{{ customerAuthed.created_at }}</div>
+  </div>
+  <div class="col-12">
+   <h2>Pedidos</h2>
+    {% include "lists/orders_list.twig.html" %}
+  </div>
+ </div>
+
+{% endblock %}

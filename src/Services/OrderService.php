@@ -9,7 +9,11 @@ use Juinsa\db\entities\Order;
 
 class OrderService extends Service
 {
-    public function insertOrder(Order $order): Order
+    /**
+     * @param Order $order
+     * @return Order|null
+     */
+    public function insertOrder(Order $order): ?Order
     {
         try {
             $this->doctrineManager->em->persist($order);
@@ -21,5 +25,18 @@ class OrderService extends Service
         }
 
         return null;
+    }
+
+    /**
+     * @param $id_customer
+     * @return array|object[]
+     */
+    public function getOrdersByIdCustomer($id_customer)
+    {
+        return $this->doctrineManager->em->getRepository(Order::class)->findBy(
+            array(
+                'id_customer' => $id_customer
+            )
+        );
     }
 }

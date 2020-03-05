@@ -1,0 +1,11 @@
+{% if orders %}
+    <div class="row orders_list list">
+        {% for order in orders %}
+            <div class="col-3">
+                <div class="order item_list">
+                    <a href="/orders/{{ order.id }}/">{{ order.id }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

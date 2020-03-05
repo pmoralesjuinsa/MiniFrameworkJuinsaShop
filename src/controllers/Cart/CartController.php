@@ -138,17 +138,7 @@ class CartController extends Controller
 
         $cart = $this->initializeCart();
 
-        $status = $this->orderStatusService->getOrderStatusById(1);
-        $customerSession = $this->customerService->getCustomerById($this->sessionManager->get('customerAuthed')->getId());
-
-        $order = new Order();
-        $order->setStatus($status);
-        $order->setCustomer($customerSession);
-        $order->setTotal($cart['totalAmount']);
-
-        $this->createOrderLines($cart, $order);
-
-        $order = $this->orderService->insertOrder($order);
+        $order = $this->createOrderAndPutToDB($cart);
 
         if (!$order->getOrderLines() || !$order->getId()) {
             $this->sessionManager->getFlashBag()->add('danger', 'Error al crear el pedido');
@@ -310,5 +300,26 @@ class CartController extends Controller
 
             $order->addOrderLines($orderLine);
         }
+    }
+
+    /**
+     * @param array $cart
+     * @return Order
+     */
+    protected function createOrderAndPutToDB(array $cart): Order
+    {
+        $status = $this->orderStatusService->getOrderStatusById(1);
+        $customerSession = $this->customerService->getCustomerById($this->sessionManager->get('customerAuthed')->getId());
+
+        $order = new Order();
+        $order->setStatus($status);
+        $order->setCustomer($customerSession);
+        $order->setTotal($cart['totalAmount']);
+
+        $this->createOrderLines($cart, $order);
+
+        $order = $this->orderService->insertOrder($order);
+
+        return $order;
     }
 }

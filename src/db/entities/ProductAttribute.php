@@ -36,7 +36,7 @@ class ProductAttribute
 
     /**
      * @ORM\ManyToMany(targetEntity="ProductType", inversedBy="attributes")
-     * @ORM\JoinTable(name="attributes_values")
+     * @ORM\JoinTable(name="product_type_attributes")
      */
     protected $product_types;
 
@@ -46,13 +46,17 @@ class ProductAttribute
     protected $values;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Product")
+     * @ORM\ManyToMany(targetEntity="Product", inversedBy="attributes")
+     * @ORM\JoinTable(name="attributes_values")
      */
     protected $products;
 
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
+        $this->product_types = new ArrayCollection();
+        $this->products = new ArrayCollection();
+        $this->values = new ArrayCollection();
     }
 
     /**

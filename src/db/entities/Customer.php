@@ -3,6 +3,7 @@
 
 namespace Juinsa\db\entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -60,12 +61,7 @@ class Customer extends Entity
 
     public function __construct($customer = null)
     {
-//        if (is_null($customer) || !isset($customer->id)) {
-            $this->created_at = new \DateTime('now');
-//            return;
-//        }
-
-//        $this->setCustomer($customer);
+         $this->created_at = new \DateTime('now');
     }
 
     /**
@@ -197,18 +193,19 @@ class Customer extends Entity
     }
 
     /**
-     * @param $customer
+     * @return ArrayCollection
      */
-    protected function setCustomer($customer): void
+    public function getOrders()
     {
-        $this->address = $customer->address;
-        $this->password = $customer->password;
-        $this->email = $customer->email;
-        $this->phone = $customer->phone;
-        $this->name = $customer->name;
-        $this->id = $customer->id;
-        $this->updated_at = $customer->updated_at;
-        $this->created_at = $customer->created_at;
+        return $this->orders;
+    }
+
+    /**
+     * @param ArrayCollection $orders
+     */
+    public function setOrders($orders): void
+    {
+        $this->orders = $orders;
     }
 
 

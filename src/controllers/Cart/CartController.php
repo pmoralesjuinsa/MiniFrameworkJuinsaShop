@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Juinsa\controllers\Controller;
 use Juinsa\db\entities\Order;
 use Juinsa\db\entities\OrderLine;
+use Juinsa\db\entities\OrderStatus;
+use Juinsa\db\entities\Product;
 use Juinsa\Services\OrderService;
 use Juinsa\Services\ProductService;
 
@@ -68,7 +70,10 @@ class CartController extends Controller
         $cart = $this->initializeCart();
 
         if (!isset($_POST['quantity']) || !isset($_POST['id_product'])) {
-            $this->sessionManager->getFlashBag()->add('danger', 'Datos insuficientes para modificar el carrito');
+            $this->sessionManager->getFlashBag()->add(
+                'danger',
+                'Datos insuficientes para modificar el carrito'
+            );
         } else {
             $this->cartModifyProcessing($cart, $_POST['id_product'], $_POST['quantity']);
         }
@@ -92,8 +97,10 @@ class CartController extends Controller
             $this->cartProcessing($cart);
 
         } catch (\Exception $exception) {
-            $this->sessionManager->getFlashBag()->add('danger',
-                'Ha ocurrido un error al intentar modificar el carrito');
+            $this->sessionManager->getFlashBag()->add(
+                'danger',
+                'Ha ocurrido un error al intentar modificar el carrito'
+            );
         }
     }
 
@@ -118,27 +125,32 @@ class CartController extends Controller
         $this->redirectIfNotLogued();
 
         $cart = $this->initializeCart();
+        //7c4a8d09ca3762af61e59520943dc26494f8941b
+
+        $status = new OrderStatus();
+        $status->setId(1);
 
         $order = new Order();
-        $order->setStatus(1);
-        $order->setCustomer($this->sessionManager->get('customerAuthed')->getId());
+        $order->setStatus($status);
+        $order->setCustomer($this->sessionManager->get('customerAuthed'));
         $order->setTotal($cart['totalAmount']);
 
-        $collection = new ArrayCollection();
         foreach ($cart['cart'] as $idProduct => $product) {
+            $productEntity = new Product();
+            $productEntity->setId($idProduct);
+
             $orderLine = new OrderLine();
-            $orderLine->setProduct($idProduct);
+            $orderLine->setProduct($productEntity);
             $orderLine->setProductQuantity($product['quantity']);
             $orderLine->setProductPrice($product['price']);
             $orderLine->setTotal($product['total']);
-            $collection->add($orderLine);
+
+            $order->addOrderLines($orderLine);
         }
 
-        $order->setOrderLines($collection);
+        $this->orderService->createOrder($order);
 
-        $ok = $this->orderService->createOrder($order);
-
-        if (!$ok) {
+        if (!$order->getId()) {
             $this->sessionManager->getFlashBag()->add('danger', 'Error al crear el pedido');
         } else {
             $this->sessionManager->getFlashBag()->add('success', 'Pedido pagado correctamente');

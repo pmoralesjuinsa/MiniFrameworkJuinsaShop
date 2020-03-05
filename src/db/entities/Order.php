@@ -148,11 +148,26 @@ class Order extends Entity
     }
 
     /**
-     * @param ArrayCollection $orderLines
+     * @param OrderLine $orderLine
+     * @return Order
      */
-    public function setOrderLines(ArrayCollection $orderLines): void
+    public function addOrderLines(OrderLine $orderLine)
     {
-        $this->orderLines = $orderLines;
+        $this->orderLines->add($orderLine);
+        $orderLine->setOrder($this);
+
+        return $this;
+    }
+
+    /**
+     * @param OrderLine $orderLine
+     * @return Order
+     */
+    public function removeOrderLines(OrderLine $orderLine)
+    {
+        $this->orderLines->removeElement($orderLine);
+
+        return $this;
     }
 
     /**

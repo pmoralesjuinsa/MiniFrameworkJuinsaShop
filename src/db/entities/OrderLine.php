@@ -3,7 +3,6 @@
 
 namespace Juinsa\db\entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -65,16 +64,9 @@ class OrderLine extends Entity
      */
     protected $customer;
 
-    /**
-     * One order has many order lines. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="OrderLine", mappedBy="orders")
-     */
-    protected $orderLines;
-
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
-        $this->orderLines = new ArrayCollection();
     }
 
     /**
@@ -94,7 +86,7 @@ class OrderLine extends Entity
     }
 
     /**
-     * @return mixed
+     * @return Order
      */
     public function getOrder()
     {
@@ -102,11 +94,14 @@ class OrderLine extends Entity
     }
 
     /**
-     * @param mixed $order
+     * @param Order $order
+     * @return OrderLine
      */
-    public function setOrder($order): void
+    public function setOrder(Order $order): OrderLine
     {
         $this->order = $order;
+
+        return $this;
     }
 
     /**
@@ -220,22 +215,5 @@ class OrderLine extends Entity
     {
         $this->customer = $customer;
     }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getOrderLines(): ArrayCollection
-    {
-        return $this->orderLines;
-    }
-
-    /**
-     * @param ArrayCollection $orderLines
-     */
-    public function setOrderLines(ArrayCollection $orderLines): void
-    {
-        $this->orderLines = $orderLines;
-    }
-
 
 }

@@ -8,26 +8,24 @@
             </div>
         </div>
         {% for order in orders %}
-            <a href="/orders/{{ order.id }}">
-                <div class="order item_list col-12">
-                    <div class="row">
-                        <div class="col-2 text-left">
-                            {{ order.id }}
-                        </div>
-                        <div class="col-7 text-left">
-                            <div class="row">
-                                {% for line in order.OrderLines %}
-                                    <div class="col-6">{{ line.productName }}</div>
-                                    <div class="col-6">{{ line.productQuantity }} x {{ line.productPrice }} € = {{ line.total }} €</div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <div class="col-3 text-right">
-                            {{ order.total }} €
+            <div class="order item_list col-12">
+                <div class="row">
+                    <div class="col-2 text-left">
+                        {{ order.id }}
+                    </div>
+                    <div class="col-7 text-left">
+                        <div class="row">
+                            {% for line in order.OrderLines %}
+                                <div class="col-6">{{ line.productName }}</div>
+                                <div class="col-6">{{ line.productQuantity }} x {{ line.productPrice }} € = {{ line.total }} €</div>
+                            {% endfor %}
                         </div>
                     </div>
+                    <div class="col-3 text-right">
+                        {{ order.total }} €
+                    </div>
                 </div>
-            </a>
+            </div>
         {% endfor %}
     </div>
 {% else %}

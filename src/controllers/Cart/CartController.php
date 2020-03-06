@@ -27,20 +27,6 @@ class CartController extends Controller
         $this->myRenderTemplate("cart/cart.twig.html", ["cart" => $cart]);
     }
 
-    /**
-     * @param array $cart
-     */
-    protected function setProductQuantity(array &$cart, $idProduct, $quantity): void
-    {
-        $postVars = ['quantity' => (int)$quantity, 'id_product' => (int)$idProduct];
-
-        if ($postVars['quantity'] == 0) {
-            unset($cart['cart'][$postVars['id_product']]);
-        } elseif ($postVars['quantity'] > 0) {
-            $cart['cart'][$postVars['id_product']]['quantity'] = $postVars['quantity'];
-        }
-    }
-
     //MOVER FUERA - USADO POR TODOS
 
     /**
@@ -67,8 +53,19 @@ class CartController extends Controller
         }
     }
 
+    /**
+     * @param array $cart
+     */
+    protected function renderMessagesToAjaxCart(array &$cart): void
+    {
+        ob_start();
+        $this->myRenderTemplate("lists/messages_list.twig.html");
+        $cart['messages'] = ob_get_clean();
+    }
+
     //MOVER FUERA - USADO AQUI EN CART Y EN CARTPAY
 
+    //---------------- CART MODIFY PROCESSING ----------------
     public function cartModifyProcessing(&$cart, $idProduct = null, $quantity = null)
     {
         try {
@@ -91,6 +88,20 @@ class CartController extends Controller
     }
 
     /**
+     * @param array $cart
+     */
+    protected function setProductQuantity(array &$cart, $idProduct, $quantity): void
+    {
+        $postVars = ['quantity' => (int)$quantity, 'id_product' => (int)$idProduct];
+
+        if ($postVars['quantity'] == 0) {
+            unset($cart['cart'][$postVars['id_product']]);
+        } elseif ($postVars['quantity'] > 0) {
+            $cart['cart'][$postVars['id_product']]['quantity'] = $postVars['quantity'];
+        }
+    }
+
+    /**
      * @return bool
      */
     protected function checkIfValuesToModifyQuantityAreValids($idProduct, $quantity): bool
@@ -103,17 +114,11 @@ class CartController extends Controller
         return true;
     }
 
-    //USADO POR CART Y CART AJAX
-    /**
-     * @param array $cart
-     */
-    protected function renderMessagesToAjaxCart(array &$cart): void
-    {
-        ob_start();
-        $this->myRenderTemplate("lists/messages_list.twig.html");
-        $cart['messages'] = ob_get_clean();
-    }
+    //---------------- END CART MODIFY PROCESSING ----------------
 
+    //USADO POR CART Y CART AJAX
+
+    //---------- PROCESO REFACTORIZADO ---------
     /**
      * @param array $cart
      */
@@ -174,4 +179,5 @@ class CartController extends Controller
             $cart['totalItems'] += $values['quantity'];
         }
     }
+    //---------- END PROCESO REFACTORIZADO ---------
 }

@@ -44,8 +44,11 @@ class Product extends Entity
     protected $orderLines;
 
     /**
-     * Many product has many attributes. This is the inverse side.
-     * @ORM\ManyToMany(targetEntity="ProductAttribute", mappedBy="products")
+     * @ORM\ManyToMany(targetEntity="ProductAttribute", inversedBy="products")
+     * @ORM\JoinTable(name="attributes_values",
+     *     joinColumns={@ORM\JoinColumn(name="id_product", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_product_attribute", referencedColumnName="id")}
+     *     )
      */
     protected $attributes;
 

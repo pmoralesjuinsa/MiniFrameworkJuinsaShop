@@ -21,22 +21,23 @@ class ProductController extends Controller
 
     public function showProductInfo($id, $name)
     {
-        $product = $this->productService->getProduct($id);
+        $productInfo = $this->productService->getAllProductInfo($id);
 
-        $associatedAttributes = [];
-        if(!$product) {
+        $productData = [];
+        if(!$productInfo) {
             $this->sessionManager->getFlashBag()->add("danger", "No se ha encontrado el producto");
         } else {
-            //TODO DEUDA TÉCNICA
-            $attributes = $product->getAttributes();
 
-            foreach ($attributes as $attribute) {
-//                var_dump($attribute->getValue());
-                $associatedAttributes[$attribute->getProductAttribute()->getId()] = $attribute->getValue();
+            foreach ($productInfo as $infos) {
+                $productData['id'] = $infos->id;
+                $productData['name'] = $infos->name;
+                $productData['attributes'][$infos->attributeId]['name'] = $infos->attributeName;
+                $productData['attributes'][$infos->attributeId]['values'][] = $infos->attributeValue;
             }
+
         }
 
-        $this->myRenderTemplate("product.twig.html", ["product" => $product, "attributes" => $associatedAttributes]);
+        $this->myRenderTemplate("product.twig.html", ["product" => $productData]);
     }
 
 }

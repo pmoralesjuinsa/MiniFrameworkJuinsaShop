@@ -4,6 +4,7 @@
 namespace Juinsa\db\entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,8 +47,8 @@ class ProductAttribute
     protected $values;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Product", inversedBy="attributes")
-     * @ORM\JoinTable(name="attributes_values")
+     * Many product has many attributes. This is the inverse side.
+     * @ORM\ManyToMany(targetEntity="Product", mappedBy="attributes")
      */
     protected $products;
 
@@ -140,9 +141,9 @@ class ProductAttribute
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getValues(): ArrayCollection
+    public function getValues(): Collection
     {
         return $this->values;
     }

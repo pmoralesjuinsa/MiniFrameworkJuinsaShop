@@ -184,7 +184,7 @@ class CartController extends Controller
 
         $productsId = array_keys($cart['cart']);
 
-        $productsInfo = $this->productService->getProductsInfo($productsId);
+        $productsInfo = $this->productService->getProductsPrice($productsId);
 
         foreach ($productsInfo as $product) {
             $cart['cart'][$product->productId]['name'] = $product->name;

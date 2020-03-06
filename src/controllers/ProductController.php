@@ -29,9 +29,10 @@ class ProductController extends Controller
         } else {
 
             foreach ($productInfo as $infos) {
-                $productData[$infos->id]['name'] = $infos->name;
-                $productData[$infos->id]['attributes'][$infos->attributeId]['name'] = $infos->attributeName;
-                $productData[$infos->id]['attributes'][$infos->attributeId]['values'][] = $infos->attributeValue;
+                $productData['id'] = $infos->id;
+                $productData['name'] = $infos->name;
+                $productData['attributes'][$infos->attributeId]['name'] = $infos->attributeName;
+                $productData['attributes'][$infos->attributeId]['values'][] = $infos->attributeValue;
             }
 
         }

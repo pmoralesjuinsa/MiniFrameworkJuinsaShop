@@ -48,7 +48,6 @@ class ProductService extends Service
 
     public function getProductsPrice($productsId)
     {
-        //TODO DEUDA TÉNICA
         $rawQuery = "SELECT p.id as productId, p.name, pav.value as price
                         FROM products p
                         LEFT JOIN attributes_values av on p.id = av.id_product

@@ -22,7 +22,7 @@ class ProductAttributeValue
     /**
      * @ORM\Column(type="string")
      */
-    protected $name;
+    protected $value;
 
     /**
      * @ORM\Column(type="datetime")
@@ -36,7 +36,7 @@ class ProductAttributeValue
 
     /**
      * @ORM\ManyToOne(targetEntity="ProductAttribute", inversedBy="values")
-     * @JoinColumn(name="id_product_attribute", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_product_attribute", referencedColumnName="id")
      */
     protected $attributes;
 
@@ -54,17 +54,17 @@ class ProductAttributeValue
     /**
      * @return mixed
      */
-    public function getName()
+    public function getValue()
     {
-        return $this->name;
+        return $this->value;
     }
 
     /**
-     * @param mixed $name
+     * @param mixed $value
      */
-    public function setName($name): void
+    public function setValue($value): void
     {
-        $this->name = $name;
+        $this->value = $value;
     }
 
     /**

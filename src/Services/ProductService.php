@@ -14,15 +14,15 @@ use Juinsa\db\entities\ProductTypeAttribute;
 class ProductService extends Service
 {
 
-    public function getProductsByCategoryId($idCategory): ?array
-    {
-        return $this->doctrineManager->em->getRepository(Product::class)->findBy(
-            array(
-                "category" => $idCategory
-            )
-        );
-
-    }
+//    public function getProductsByCategoryId($idCategory): ?array
+//    {
+//        return $this->doctrineManager->em->getRepository(Product::class)->findBy(
+//            array(
+//                "category" => $idCategory
+//            )
+//        );
+//
+//    }
 
     public function getProduct($id): ?object
     {

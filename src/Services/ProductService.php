@@ -28,7 +28,7 @@ class ProductService extends Service
 
     public function getAllProductInfo($id_product)
     {
-        $rawQuery = "SELECT p.id, p.name, pa.name as attributeName, pav.value as attributeValue
+        $rawQuery = "SELECT p.id, p.name, pa.name as attributeName, pa.id as attributeId, pav.value as attributeValue
                         FROM products p
                         LEFT JOIN attributes_values av on p.id = av.id_product
                         LEFT JOIN product_attribute_values pav on av.id_product_attribute_value = pav.id

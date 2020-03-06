@@ -19,8 +19,9 @@
      </div>
      <div class="col-12 col-md-6">
          <div class="product">
+             <div class="name attribute">{{ product.name }}</div>
+             {% if product.attributes %}
              <form role="form" method="POST" name="buy_product_form" class="buy_product">
-                 <div class="name attribute">{{ product.name }}</div>
                  {% for idAttribute, attribute in product.attributes %}
                      {% if idAttribute == 8 %}
                         <div class="attribute caducidad">Fecha caducidad:{{ attribute.values.0|date("d/m/Y")|default('0') }}</div>
@@ -33,6 +34,7 @@
                  <input name="id_product" type="hidden" value="{{ product.id }}"/>
                  <button type="submit" class="btn buy_button">Comprar</button>
              </form>
+             {% endif %}
          </div>
      </div>
  </div>

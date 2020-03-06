@@ -27,32 +27,6 @@ class CartController extends Controller
         $this->myRenderTemplate("cart/cart.twig.html", ["cart" => $cart]);
     }
 
-    public function addToCart()
-    {
-        try {
-            if (!isset($_POST['cart'])) {
-                $this->sessionManager->getFlashBag()->add('danger', 'Carrito no disponible');
-            }
-
-            parse_str($_POST['cart'], $postVars);
-
-            $cart = $this->initializeCart();
-
-            $this->increaseProductsCart($cart, $postVars);
-
-            $this->cartProcessing($cart);
-
-            $this->sessionManager->getFlashBag()->add('success', 'Producto añadido correctamente a tu carrito');
-        } catch (\Exception $exception) {
-            $this->sessionManager->getFlashBag()->add('danger',
-                'Ha ocurrido un error al intentar añadir el producto a tu carrito');
-        }
-
-        $this->renderMessagesToAjaxCart($cart);
-
-        echo json_encode($cart);
-    }
-
     public function cartModifyQuantity()
     {
         $cart = $this->initializeCart();
@@ -69,19 +43,6 @@ class CartController extends Controller
         $this->renderMessagesToAjaxCart($cart);
 
         echo json_encode($cart);
-    }
-
-    /**
-     * @param array $cart
-     * @param $postVars
-     */
-    protected function increaseProductsCart(array &$cart, $postVars): void
-    {
-        if (isset($cart['cart'][$postVars['id_product']])) {
-            $cart['cart'][$postVars['id_product']]['quantity'] += (int)$postVars['quantity'];
-        } else {
-            $cart['cart'][$postVars['id_product']]['quantity'] = (int)$postVars['quantity'];
-        }
     }
 
     /**
@@ -113,20 +74,6 @@ class CartController extends Controller
         }
     }
 
-
-
-    /**
-     * @param array $cart
-     */
-    protected function renderMessagesToAjaxCart(array &$cart): void
-    {
-        ob_start();
-        $this->myRenderTemplate("lists/messages_list.twig.html");
-        $cart['messages'] = ob_get_clean();
-    }
-
-
-
     /**
      * @param array $cart
      */
@@ -136,27 +83,6 @@ class CartController extends Controller
         foreach ($cart['cart'] as $id_product => $values) {
             $cart['totalItems'] += $values['quantity'];
         }
-    }
-
-    /**
-     * @param array $cart
-     */
-    protected function cartProcessing(array &$cart): void
-    {
-        if (empty($cart['cart'])) {
-            $this->sessionManager->getFlashBag()->add('warning', 'Su carrito está vacío');
-            $cart = [];
-            $this->sessionManager->set('cart', $cart);
-            return;
-        }
-
-        $this->getCartProductsInfo($cart);
-
-        $this->getTotalCartAmount($cart);
-
-        $this->getTotalItemsCart($cart);
-
-        $this->sessionManager->set('cart', $cart);
     }
 
     /**
@@ -233,5 +159,37 @@ class CartController extends Controller
         }
 
         return true;
+    }
+
+    //USADO POR CART Y CART AJAX
+    /**
+     * @param array $cart
+     */
+    protected function renderMessagesToAjaxCart(array &$cart): void
+    {
+        ob_start();
+        $this->myRenderTemplate("lists/messages_list.twig.html");
+        $cart['messages'] = ob_get_clean();
+    }
+
+    /**
+     * @param array $cart
+     */
+    protected function cartProcessing(array &$cart): void
+    {
+        if (empty($cart['cart'])) {
+            $this->sessionManager->getFlashBag()->add('warning', 'Su carrito está vacío');
+            $cart = [];
+            $this->sessionManager->set('cart', $cart);
+            return;
+        }
+
+        $this->getCartProductsInfo($cart);
+
+        $this->getTotalCartAmount($cart);
+
+        $this->getTotalItemsCart($cart);
+
+        $this->sessionManager->set('cart', $cart);
     }
 }

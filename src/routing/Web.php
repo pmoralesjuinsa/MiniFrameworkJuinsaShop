@@ -22,7 +22,7 @@ class Web
                 $route->addRoute('POST','/register',['Juinsa\controllers\Auth\CustomerRegisterController','register']);
                 $route->addRoute('GET', '/categories/{id:\d+}[/{name}]', ['Juinsa\controllers\CategoryController', 'showCategoryInfo']);
                 $route->addRoute('GET', '/products/{id:\d+}[/{name}]', ['Juinsa\controllers\ProductController', 'showProductInfo']);
-                $route->addRoute('POST','/add-to-cart',['Juinsa\controllers\Cart\CartController','addToCart']);
+                $route->addRoute('POST','/add-to-cart',['Juinsa\controllers\Cart\CartAjaxController','addToCart']);
                 $route->addRoute('GET','/cart',['Juinsa\controllers\Cart\CartController','index']);
                 $route->addRoute('POST','/cart-pay',['Juinsa\controllers\Cart\CartPayController','index']);
                 $route->addRoute('POST','/cart-pay-confirmation',['Juinsa\controllers\Cart\CartPayConfirmationController','index']);

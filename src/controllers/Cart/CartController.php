@@ -5,11 +5,6 @@ namespace Juinsa\controllers\Cart;
 
 
 use Juinsa\controllers\Controller;
-use Juinsa\db\entities\Order;
-use Juinsa\db\entities\OrderLine;
-use Juinsa\Services\CustomerService;
-use Juinsa\Services\OrderService;
-use Juinsa\Services\OrderStatusService;
 use Juinsa\Services\ProductService;
 
 class CartController extends Controller
@@ -21,24 +16,6 @@ class CartController extends Controller
      */
     private ProductService $productService;
 
-    /**
-     * @Inject
-     * @var OrderService
-     */
-    private OrderService $orderService;
-
-    /**
-     * @Inject
-     * @var CustomerService
-     */
-    private CustomerService $customerService;
-
-    /**
-     * @Inject
-     * @var OrderStatusService
-     */
-    private OrderStatusService $orderStatusService;
-
     public function index()
     {
         $cart = $this->initializeCart();
@@ -48,7 +25,6 @@ class CartController extends Controller
         }
 
         $this->myRenderTemplate("cart/cart.twig.html", ["cart" => $cart]);
-
     }
 
     public function addToCart()
@@ -95,74 +71,6 @@ class CartController extends Controller
         echo json_encode($cart);
     }
 
-    public function cartModifyProcessing(&$cart, $idProduct = null, $quantity = null)
-    {
-        try {
-            if (!$this->checkIfValuesToModifyQuantityAreValids($idProduct, $quantity)) {
-                $this->renderMessagesToAjaxCart($cart);
-                echo json_encode($cart);
-                return;
-            }
-
-            $this->setProductQuantity($cart, $idProduct, $quantity);
-
-            $this->cartProcessing($cart);
-
-        } catch (\Exception $exception) {
-            $this->sessionManager->getFlashBag()->add(
-                'danger',
-                'Ha ocurrido un error al intentar modificar el carrito'
-            );
-        }
-    }
-
-    public function cartPay()
-    {
-        $this->redirectIfNotLogued();
-
-        $cart = $this->initializeCart();
-
-        $quantities = $_POST['quantities'];
-        $productsId = $_POST['id_products'];
-
-        foreach ($quantities as $key => $quantity) {
-            $this->cartModifyProcessing($cart, $productsId[$key], $quantity);
-        }
-
-        $this->myRenderTemplate("cart/cart-pay.twig.html");
-    }
-
-    public function cartPayConfirmation()
-    {
-        $this->redirectIfNotLogued();
-
-        $cart = $this->initializeCart();
-
-        $order = $this->createOrderAndPutToDB($cart);
-
-        if (!$order->getOrderLines() || !$order->getId()) {
-            $this->sessionManager->getFlashBag()->add('danger', 'Error al crear el pedido');
-        } else {
-            $this->sessionManager->remove('cart');
-            $this->sessionManager->getFlashBag()->add('success', 'Pedido pagado correctamente');
-        }
-//
-        $this->myRenderTemplate("cart/cart-pay-confirmation.twig.html");
-    }
-
-
-    /**
-     * @return array
-     */
-    protected function initializeCart(): array
-    {
-        if (!$this->sessionManager->has('cart')) {
-            $this->sessionManager->set('cart', []);
-        }
-
-        return $this->sessionManager->get('cart');
-    }
-
     /**
      * @param array $cart
      * @param $postVars
@@ -205,14 +113,7 @@ class CartController extends Controller
         }
     }
 
-    protected function redirectIfNotLogued(): void
-    {
-        if (!$this->sessionManager->has('customerAuthed')) {
-            //TODO este mensaje flash no va
-            $this->sessionManager->getFlashBag()->add('info', 'Debes estar logueado para poder comprar');
-            $this->redirectTo('/login');
-        }
-    }
+
 
     /**
      * @param array $cart
@@ -224,18 +125,7 @@ class CartController extends Controller
         $cart['messages'] = ob_get_clean();
     }
 
-    /**
-     * @return bool
-     */
-    protected function checkIfValuesToModifyQuantityAreValids($idProduct, $quantity): bool
-    {
-        if (!is_numeric($quantity) || !is_numeric($idProduct)) {
-            $this->sessionManager->getFlashBag()->add('danger', 'Los datos introducidos no son válidos');
-            return false;
-        }
 
-        return true;
-    }
 
     /**
      * @param array $cart
@@ -283,44 +173,65 @@ class CartController extends Controller
         }
     }
 
+    //MOVER FUERA - USADO POR TODOS
+
     /**
-     * @param array $cart
-     * @param Order $order
+     * @return array
      */
-    protected function createOrderLines(array $cart, Order &$order): void
+    protected function initializeCart(): array
     {
-        foreach ($cart['cart'] as $idProduct => $product) {
-            $productEntity = $this->productService->getProduct($idProduct);
+        if (!$this->sessionManager->has('cart')) {
+            $this->sessionManager->set('cart', []);
+        }
 
-            $orderLine = new OrderLine();
-            $orderLine->setProduct($productEntity);
-            $orderLine->setProductQuantity($product['quantity']);
-            $orderLine->setProductPrice($product['price']);
-            $orderLine->setTotal($product['total']);
-            $orderLine->setProductName($productEntity->getName());
+        return $this->sessionManager->get('cart');
+    }
 
-            $order->addOrderLines($orderLine);
+    /**
+     * @return void
+     */
+    protected function redirectIfNotLogued(): void
+    {
+        if (!$this->sessionManager->has('customerAuthed')) {
+            //TODO este mensaje flash no va
+            $this->sessionManager->getFlashBag()->add('info', 'Debes estar logueado para poder comprar');
+            $this->redirectTo('/login');
+        }
+    }
+
+    //MOVER FUERA - USADO AQUI EN CART Y EN CARTPAY
+
+    public function cartModifyProcessing(&$cart, $idProduct = null, $quantity = null)
+    {
+        try {
+            if (!$this->checkIfValuesToModifyQuantityAreValids($idProduct, $quantity)) {
+                $this->renderMessagesToAjaxCart($cart);
+                echo json_encode($cart);
+                return;
+            }
+
+            $this->setProductQuantity($cart, $idProduct, $quantity);
+
+            $this->cartProcessing($cart);
+
+        } catch (\Exception $exception) {
+            $this->sessionManager->getFlashBag()->add(
+                'danger',
+                'Ha ocurrido un error al intentar modificar el carrito'
+            );
         }
     }
 
     /**
-     * @param array $cart
-     * @return Order
+     * @return bool
      */
-    protected function createOrderAndPutToDB(array $cart): Order
+    protected function checkIfValuesToModifyQuantityAreValids($idProduct, $quantity): bool
     {
-        $status = $this->orderStatusService->getOrderStatusById(1);
-        $customerSession = $this->customerService->getCustomerById($this->sessionManager->get('customerAuthed')->getId());
+        if (!is_numeric($quantity) || !is_numeric($idProduct)) {
+            $this->sessionManager->getFlashBag()->add('danger', 'Los datos introducidos no son válidos');
+            return false;
+        }
 
-        $order = new Order();
-        $order->setStatus($status);
-        $order->setCustomer($customerSession);
-        $order->setTotal($cart['totalAmount']);
-
-        $this->createOrderLines($cart, $order);
-
-        $order = $this->orderService->insertOrder($order);
-
-        return $order;
+        return true;
     }
 }

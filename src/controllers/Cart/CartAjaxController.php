@@ -15,19 +15,25 @@ class CartAjaxController extends CartController
     public function addToCart()
     {
         try {
-            if (!isset($_POST['cart'])) {
-                $this->sessionManager->getFlashBag()->add('danger', 'Carrito no disponible');
-            }
-
-            parse_str($_POST['cart'], $postVars);
-
             $cart = $this->initializeCart();
 
-            $this->increaseProductsCart($cart, $postVars);
+            if (!isset($_POST['cart'])) {
+                $this->sessionManager->getFlashBag()->add('danger', 'Carrito no disponible');
+            } else {
+                parse_str($_POST['cart'], $postVars);
 
-            $this->cartProcessing($cart);
 
-            $this->sessionManager->getFlashBag()->add('success', 'Producto añadido correctamente a tu carrito');
+                if (!isset($postVars['quantity']) || (int)$postVars['quantity'] <= 0) {
+                    $this->sessionManager->getFlashBag()->add('danger', 'Tienes que elegir una cantidad válida');
+                } else {
+
+                    $this->increaseProductsCart($cart, $postVars);
+
+                    $this->cartProcessing($cart);
+
+                    $this->sessionManager->getFlashBag()->add('success', 'Producto añadido correctamente a tu carrito');
+                }
+            }
         } catch (\Exception $exception) {
             $this->sessionManager->getFlashBag()->add('danger',
                 'Ha ocurrido un error al intentar añadir el producto a tu carrito');

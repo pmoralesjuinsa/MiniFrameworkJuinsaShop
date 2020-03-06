@@ -27,64 +27,6 @@ class CartController extends Controller
         $this->myRenderTemplate("cart/cart.twig.html", ["cart" => $cart]);
     }
 
-    public function cartModifyQuantity()
-    {
-        $cart = $this->initializeCart();
-
-        if (!isset($_POST['quantity']) || !isset($_POST['id_product'])) {
-            $this->sessionManager->getFlashBag()->add(
-                'danger',
-                'Datos insuficientes para modificar el carrito'
-            );
-        } else {
-            $this->cartModifyProcessing($cart, $_POST['id_product'], $_POST['quantity']);
-        }
-
-        $this->renderMessagesToAjaxCart($cart);
-
-        echo json_encode($cart);
-    }
-
-    /**
-     * @param array $cart
-     */
-    protected function getCartProductsInfo(array &$cart): void
-    {
-
-        $productsId = array_keys($cart['cart']);
-
-        $productsInfo = $this->productService->getProductsPrice($productsId);
-
-        foreach ($productsInfo as $product) {
-            $cart['cart'][$product->productId]['name'] = $product->name;
-            $cart['cart'][$product->productId]['price'] = $product->price;
-            $cart['cart'][$product->productId]['total'] = $cart['cart'][$product->productId]['quantity'] * $product->price;
-        }
-
-    }
-
-    /**
-     * @param array $cart
-     */
-    protected function getTotalCartAmount(array &$cart)
-    {
-        $cart['totalAmount'] = 0;
-        foreach ($cart['cart'] as $idProd => $values) {
-            $cart['totalAmount'] += $values['quantity'] * $values['price'];
-        }
-    }
-
-    /**
-     * @param array $cart
-     */
-    protected function getTotalItemsCart(array &$cart): void
-    {
-        $cart['totalItems'] = 0;
-        foreach ($cart['cart'] as $id_product => $values) {
-            $cart['totalItems'] += $values['quantity'];
-        }
-    }
-
     /**
      * @param array $cart
      */
@@ -191,5 +133,45 @@ class CartController extends Controller
         $this->getTotalItemsCart($cart);
 
         $this->sessionManager->set('cart', $cart);
+    }
+
+    /**
+     * @param array $cart
+     */
+    protected function getCartProductsInfo(array &$cart): void
+    {
+
+        $productsId = array_keys($cart['cart']);
+
+        $productsInfo = $this->productService->getProductsPrice($productsId);
+
+        foreach ($productsInfo as $product) {
+            $cart['cart'][$product->productId]['name'] = $product->name;
+            $cart['cart'][$product->productId]['price'] = $product->price;
+            $cart['cart'][$product->productId]['total'] = $cart['cart'][$product->productId]['quantity'] * $product->price;
+        }
+
+    }
+
+    /**
+     * @param array $cart
+     */
+    protected function getTotalCartAmount(array &$cart)
+    {
+        $cart['totalAmount'] = 0;
+        foreach ($cart['cart'] as $idProd => $values) {
+            $cart['totalAmount'] += $values['quantity'] * $values['price'];
+        }
+    }
+
+    /**
+     * @param array $cart
+     */
+    protected function getTotalItemsCart(array &$cart): void
+    {
+        $cart['totalItems'] = 0;
+        foreach ($cart['cart'] as $id_product => $values) {
+            $cart['totalItems'] += $values['quantity'];
+        }
     }
 }

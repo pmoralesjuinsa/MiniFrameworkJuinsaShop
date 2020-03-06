@@ -51,4 +51,22 @@ class CartAjaxController extends CartController
         }
     }
 
+    public function cartModifyQuantity()
+    {
+        $cart = $this->initializeCart();
+
+        if (!isset($_POST['quantity']) || !isset($_POST['id_product'])) {
+            $this->sessionManager->getFlashBag()->add(
+                'danger',
+                'Datos insuficientes para modificar el carrito'
+            );
+        } else {
+            $this->cartModifyProcessing($cart, $_POST['id_product'], $_POST['quantity']);
+        }
+
+        $this->renderMessagesToAjaxCart($cart);
+
+        echo json_encode($cart);
+    }
+
 }

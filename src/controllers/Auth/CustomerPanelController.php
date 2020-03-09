@@ -18,6 +18,8 @@ class CustomerPanelController extends Controller
 
     public function index()
     {
+        $this->redirectIfNotLoguedAsCustomer();
+
         $orders = $this->orderService->getOrdersByIdCustomer($this->sessionManager->get('customerAuthed')->getId());
 
         $noOrders = '';

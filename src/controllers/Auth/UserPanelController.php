@@ -13,9 +13,4 @@ class UserPanelController extends UserController
         $this->myRenderTemplate('user/user_panel.twig.html');
     }
 
-    public function a()
-    {
-
-    }
-
 }

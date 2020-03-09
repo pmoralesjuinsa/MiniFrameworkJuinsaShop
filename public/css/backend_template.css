@@ -5,6 +5,7 @@
 
 .barra-superior {
     background: #002752;
+    color: #fff;
 }
 
 .barra-superior a {
@@ -12,7 +13,7 @@
 }
 
 .barra-superior a:hover, .barra-superior a:active, .barra-superior a:focus {
-    color: #000;
+    color: magenta;
 }
 
 .barra-superior .barra-logueado {
@@ -28,7 +29,7 @@
 
 .bands .title a:hover, .bands .title a:focus, .bands .title a:active {
     text-decoration: none;
-    color: #002752;
+    color: magenta;
 }
 
 .page-title h1 {

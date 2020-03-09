@@ -19,6 +19,8 @@ class CustomerLoginController extends Controller
 
     public function index()
     {
+        $this->redirectIfLoguedAsCustomer();
+
         $this->myRenderTemplate('customer/customer_login.twig.html');
     }
 

@@ -9,6 +9,8 @@ class UserLoginController extends UserController
 {
     public function index()
     {
+        $this->redirectIfLoguedAsUser();
+
         $this->myRenderTemplate('user/user_login.twig.html');
     }
 
@@ -32,7 +34,7 @@ class UserLoginController extends UserController
 
         $this->sessionManager->getFlashBag()->add('danger', 'Wrong email and/or password');
 
-        $this->redirectTo("/admin-login");
+        $this->redirectTo("/admin/login");
     }
 
 }

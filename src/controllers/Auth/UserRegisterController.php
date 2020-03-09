@@ -26,6 +26,15 @@ class UserRegisterController extends UserController
 
         $this->userService->createUser($user);
 
-        $this->redirectTo("/");
+        if($user->id) {
+            $mensaje = "Ya puedes administrar la web!";
+            $this->sessionManager->getFlashBag()->add("success", $mensaje);
+            $this->redirectTo("/admin/login");
+            return;
+        }
+
+        $mensaje = "Lo sentimos! Ha ocurrido un error inesperado al intentar crear tu cuenta de usuario";
+        $this->sessionManager->getFlashBag()->add("danger", $mensaje);
+        $this->redirectTo("/admin/register");
     }
 }

@@ -41,5 +41,46 @@ abstract class Controller
         $this->viewManager->renderTemplate($template, $argsWithSession);
     }
 
+    /**
+     * @return void
+     */
+    protected function redirectIfNotLoguedAsCustomer(): void
+    {
+        if (!$this->sessionManager->has('customerAuthed')) {
+            $this->sessionManager->getFlashBag()->add('info', 'Para poder acceder debes estar logueado como cliente');
+            $this->redirectTo('/login');
+        }
+    }
+
+    /**
+     * @return void
+     */
+    protected function redirectIfLoguedAsCustomer(): void
+    {
+        if ($this->sessionManager->has('customerAuthed')) {
+            $this->redirectTo('/');
+        }
+    }
+
+    /**
+     * @return void
+     */
+    protected function redirectIfNotLoguedAsUser(): void
+    {
+        if (!$this->sessionManager->has('userAuthed')) {
+            $this->sessionManager->getFlashBag()->add('info', 'Sección disponible sólo para administradores');
+            $this->redirectTo('/admin/login');
+        }
+    }
+
+    /**
+     * @return void
+     */
+    protected function redirectIfLoguedAsUser(): void
+    {
+        if ($this->sessionManager->has('userAuthed')) {
+            $this->redirectTo('/admin/panel');
+        }
+    }
 
 }

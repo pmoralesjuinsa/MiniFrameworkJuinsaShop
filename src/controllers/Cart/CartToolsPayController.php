@@ -36,18 +36,6 @@ class CartToolsPayController extends Controller
     }
 
     /**
-     * @return void
-     */
-    protected function redirectIfNotLogued(): void
-    {
-        if (!$this->sessionManager->has('customerAuthed')) {
-            //TODO este mensaje flash no va
-            $this->sessionManager->getFlashBag()->add('info', 'Debes estar logueado para poder comprar');
-            $this->redirectTo('/login');
-        }
-    }
-
-    /**
      * @param array $cart
      */
     protected function renderMessagesToAjaxCart(array &$cart): void

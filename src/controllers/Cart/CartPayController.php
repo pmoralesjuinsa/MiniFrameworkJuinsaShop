@@ -9,7 +9,7 @@ class CartPayController extends CartToolsPayController
 
     public function index()
     {
-        $this->redirectIfNotLogued();
+        $this->redirectIfNotLoguedAsCustomer();
 
         $cart = $this->initializeCart();
 

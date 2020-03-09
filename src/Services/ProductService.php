@@ -83,15 +83,15 @@ class ProductService extends Service
         if(!is_null($id)) {
             $rawQuery .= " WHERE p.id = :id";
         } elseif(!is_null($name)) {
-            $rawQuery .= " WHERE p.name LIKE '%:name%'";
+            $rawQuery .= " WHERE p.name LIKE :name";
         }
 
         $statement = $this->doctrineManager->em->getConnection()->prepare($rawQuery);
 
         if(!is_null($id)) {
-            $statement->bindParam('id', $id);
+            $statement->bindValue('id', $id);
         } elseif(!is_null($name)) {
-            $statement->bindParam('name', $name);
+            $statement->bindValue('name', "%".$name."%");
         }
 
         $statement->execute();

@@ -64,8 +64,20 @@
     </div>
 
     <div class="container-fluid">
-        {% block body %}
-        {%  endblock %}
+        <div class="row">
+            {% if userAuthed %}
+                <div class="col-3">
+                    {% include "admin/admin_menu.twig.html" %}
+                </div>
+                {% set contentclass = 'col-9' %}
+            {% else %}
+                {% set contentclass = 'col-12' %}
+            {% endif %}
+            <div class="{{ contentclass }}">
+                {% block body %}
+                {%  endblock %}
+            </div>
+        </div>
     </div>
     <script
             src="https://code.jquery.com/jquery-3.4.1.min.js"

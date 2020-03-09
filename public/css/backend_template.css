@@ -58,3 +58,8 @@
     color: #fd7e14;
     border-color: #fd7e14;
 }
+
+#\#admin-menu {
+    border-right: 1px solid #002752;
+    height: 100%;
+}

@@ -14,7 +14,7 @@
                 <label for="category">Category</label>
                 <select class="form-control" id="category" name="category">
                     {% for category in categories %}
-                    <option value="1">Uno</option>
+                        <option value="{{ category.id }}">{{ category.name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -22,7 +22,7 @@
                 <label for="type-product">Type Product</label>
                 <select class="form-control" id="type-product" name="type-product">
                     {% for type in productTypes %}
-                    <option value="1">Uno</option>
+                        <option value="{{ type.id }}">{{ type.name }}</option>
                     {% endfor %}
                 </select>
             </div>

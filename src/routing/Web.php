@@ -13,11 +13,6 @@ class Web
             function (\Fastroute\RouteCollector $route){
                 $route->addRoute('GET','/',['Juinsa\controllers\HomeController','index']);
                 $route->addRoute('GET','/who',['Juinsa\controllers\WhoController','index']);
-                $route->addRoute('GET','/admin/register',['Juinsa\controllers\Auth\UserRegisterController','index']);
-                $route->addRoute('POST','/admin/register',['Juinsa\controllers\Auth\UserRegisterController','register']);
-                $route->addRoute('GET','/admin/login',['Juinsa\controllers\Auth\UserLoginController','index']);
-                $route->addRoute('POST','/admin/login',['Juinsa\controllers\Auth\UserLoginController','login']);
-                $route->addRoute('GET','/admin/panel',['Juinsa\controllers\Auth\UserPanelController','index']);
                 $route->addRoute('GET','/login',['Juinsa\controllers\Auth\CustomerLoginController','index']);
                 $route->addRoute('POST','/login',['Juinsa\controllers\Auth\CustomerLoginController','login']);
                 $route->addRoute('GET','/logout',['Juinsa\controllers\Auth\CustomerLoginController','logout']);
@@ -31,6 +26,14 @@ class Web
                 $route->addRoute('POST','/cart-pay',['Juinsa\controllers\Cart\CartPayController','index']);
                 $route->addRoute('POST','/cart-pay-confirmation',['Juinsa\controllers\Cart\CartPayConfirmationController','index']);
                 $route->addRoute('GET','/myPanel',['Juinsa\controllers\Auth\CustomerPanelController','index']);
+                $route->addRoute('GET','/admin/register',['Juinsa\controllers\Auth\UserRegisterController','index']);
+                $route->addRoute('POST','/admin/register',['Juinsa\controllers\Auth\UserRegisterController','register']);
+                $route->addRoute('GET','/admin/login',['Juinsa\controllers\Auth\UserLoginController','index']);
+                $route->addRoute('POST','/admin/login',['Juinsa\controllers\Auth\UserLoginController','login']);
+                $route->addRoute('GET','/admin/myPanel',['Juinsa\controllers\Auth\UserPanelController','index']);
+                $route->addRoute('GET','/admin/panel',['Juinsa\controllers\Admin\AdminController','index']);
+                $route->addRoute('GET','/admin/{action:edit|delete}/{entity}/{id:\d+}',['Juinsa\controllers\Auth\UserPanelController','index']);
+                $route->addRoute('GET','/admin/list/products',['Juinsa\controllers\Auth\AdminController','list']);
             }
         );
     }

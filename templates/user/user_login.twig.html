@@ -1,0 +1,17 @@
+{% extends "template.twig.html" %}
+{% block title %}
+    <h2 class="form-signin-heading">Admin Login</h2>
+    <hr class="colorgraph">
+{% endblock %}
+{% block body %}
+    <div class="wrapper">
+        <form role="form" method="POST" name="login_form" class="form-signing">
+            <input type="text" class="form-control" name="email" placeholder="Correo electrónico" required=""
+                   autofocus=""/>
+            <input type="password" class="form-control" name="password" placehoder="Password" required=""/>
+            <button class="btn btn-lg btn-primary btn-block" name="submit" value="Login" type="Submit">
+                Entrar
+            </button>
+        </form>
+    </div>
+{% endblock %}

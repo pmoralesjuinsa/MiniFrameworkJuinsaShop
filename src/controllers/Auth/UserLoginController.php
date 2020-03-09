@@ -9,7 +9,7 @@ class UserLoginController extends UserController
 {
     public function index()
     {
-        $this->myRenderTemplate('register_user.twig.html');
+        $this->myRenderTemplate('user/user_login.twig.html');
     }
 
     public function login()
@@ -17,11 +17,11 @@ class UserLoginController extends UserController
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $customer = new User();
-        $customer->email = $email;
-        $customer->password = sha1($password);
+        $user = new User();
+        $user->email = $email;
+        $user->password = sha1($password);
 
-        $userFound = $this->userService->getUserByPasswordAndEmail($customer);
+        $userFound = $this->userService->getUserByPasswordAndEmail($user);
 
         $this->sessionManager->setUserAuthed($userFound);
 
@@ -35,10 +35,4 @@ class UserLoginController extends UserController
         $this->redirectTo("/admin-login");
     }
 
-    public function logout()
-    {
-        $this->sessionManager->invalidate();
-
-        $this->redirectTo("/");
-    }
 }

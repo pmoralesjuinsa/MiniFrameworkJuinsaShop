@@ -28,7 +28,12 @@ class UserService extends Service
 
     public function getUserByPasswordAndEmail($user)
     {
-
+        return $this->doctrineManager->em->getRepository(User::class)->findOneBy(
+            array(
+                'email' => $user->email,
+                'password' => $user->password
+            )
+        );
     }
 
 }

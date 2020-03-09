@@ -4,7 +4,7 @@
 namespace Juinsa\controllers\Cart;
 
 
-class CartAjaxController extends CartController
+class CartAjaxController extends CartToolsPayController
 {
 
     public function index()

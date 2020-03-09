@@ -11,7 +11,7 @@ use Juinsa\Services\OrderService;
 use Juinsa\Services\OrderStatusService;
 use Juinsa\Services\ProductService;
 
-class CartPayConfirmationController extends CartController
+class CartPayConfirmationController extends CartToolsPayController
 {
 
     /**

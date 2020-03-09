@@ -59,7 +59,12 @@
     border-color: #fd7e14;
 }
 
-#\#admin-menu {
+#admin-menu {
     border-right: 1px solid #002752;
     height: 100%;
+}
+
+.admin-list .titles {
+    border: 1px solid #002752;
+    color: #002752;
 }

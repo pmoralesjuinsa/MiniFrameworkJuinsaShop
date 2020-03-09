@@ -33,6 +33,7 @@ class Web
                 $route->addRoute('GET','/admin/myPanel',['Juinsa\controllers\Auth\UserPanelController','index']);
                 $route->addRoute('GET','/admin/panel',['Juinsa\controllers\Admin\AdminController','index']);
                 $route->addRoute('GET','/admin/products',['Juinsa\controllers\Admin\Product\ProductListAdminController','index']);
+                $route->addRoute('POST','/admin/products',['Juinsa\controllers\Admin\Product\ProductListAdminController','search']);
                 $route->addRoute('GET','/admin/product/{action:edit|delete}/{id:\d+}',['Juinsa\controllers\Admin\Product\ProductAdminController','index']);
             }
         );

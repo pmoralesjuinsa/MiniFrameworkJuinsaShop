@@ -4,18 +4,21 @@
 namespace Juinsa\controllers\Admin;
 
 use Juinsa\controllers\Controller;
-use DI\Annotation\Inject;
+use Juinsa\SessionManager;
 use Juinsa\ViewManager;
 
 class AdminController extends Controller
 {
 
-    protected $adminMenu;
+    public function __construct(ViewManager $viewManager, SessionManager $sessionManager)
+    {
+        parent::__construct($viewManager, $sessionManager);
+
+        $this->redirectIfNotLoguedAsUser();
+    }
 
     public function index()
     {
-        $this->redirectIfNotLoguedAsUser();
-
         $this->myRenderTemplate('admin/admin.twig.html');
     }
 }

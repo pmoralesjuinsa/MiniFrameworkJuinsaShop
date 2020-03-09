@@ -9,17 +9,14 @@ use Juinsa\ViewManager;
 abstract class Controller
 {
 
-    /**
-     * @Inject
-     * @var SessionManager
-     */
     protected SessionManager $sessionManager;
 
     protected ViewManager $viewManager;
 
-    public function __construct(ViewManager $viewManager)
+    public function __construct(ViewManager $viewManager, SessionManager $sessionManager)
     {
         $this->viewManager = $viewManager;
+        $this->sessionManager = $sessionManager;
     }
 
     public abstract function index();
@@ -32,18 +29,7 @@ abstract class Controller
 
     public function myRenderTemplate($template, $args = [])
     {
-        $customerAuthed = $this->sessionManager->get('customerAuthed');
-        $userAuthed = $this->sessionManager->get('userAuthed');
-        $flashMessages = $this->sessionManager->getFlashBag()->all();
-        $cart = $this->sessionManager->get('cart');
-
-        $argsWithSession = array_merge(
-            $args,
-            ["customerAuthed" => $customerAuthed],
-            ["flashMessages" => $flashMessages],
-            ["cart" => $cart],
-            ['userAuthed' => $userAuthed]
-        );
+        $argsWithSession = $this->combineDefaultArguments($args);
 
         $this->viewManager->renderTemplate($template, $argsWithSession);
     }
@@ -88,6 +74,27 @@ abstract class Controller
         if ($this->sessionManager->has('userAuthed')) {
             $this->redirectTo('/admin/panel');
         }
+    }
+
+    /**
+     * @param $args
+     * @return array
+     */
+    protected function combineDefaultArguments($args): array
+    {
+        $customerAuthed = $this->sessionManager->get('customerAuthed');
+        $userAuthed = $this->sessionManager->get('userAuthed');
+        $flashMessages = $this->sessionManager->getFlashBag()->all();
+        $cart = $this->sessionManager->get('cart');
+
+        $argsWithSession = array_merge(
+            $args,
+            ["customerAuthed" => $customerAuthed],
+            ["flashMessages" => $flashMessages],
+            ["cart" => $cart],
+            ['userAuthed' => $userAuthed]
+        );
+        return $argsWithSession;
     }
 
 }

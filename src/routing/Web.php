@@ -17,6 +17,7 @@ class Web
                 $route->addRoute('POST','/admin/register',['Juinsa\controllers\Auth\UserRegisterController','register']);
                 $route->addRoute('GET','/admin/login',['Juinsa\controllers\Auth\UserLoginController','index']);
                 $route->addRoute('POST','/admin/login',['Juinsa\controllers\Auth\UserLoginController','login']);
+                $route->addRoute('GET','/admin/panel',['Juinsa\controllers\Auth\UserPanelController','index']);
                 $route->addRoute('GET','/login',['Juinsa\controllers\Auth\CustomerLoginController','index']);
                 $route->addRoute('POST','/login',['Juinsa\controllers\Auth\CustomerLoginController','login']);
                 $route->addRoute('GET','/logout',['Juinsa\controllers\Auth\CustomerLoginController','logout']);

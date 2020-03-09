@@ -1,0 +1,59 @@
+.bands {
+    border-bottom: 5px solid #002752;
+    margin-bottom: 20px;
+}
+
+.barra-superior {
+    background: #002752;
+}
+
+.barra-superior a {
+    color: #fff;
+}
+
+.barra-superior a:hover, .barra-superior a:active, .barra-superior a:focus {
+    color: #000;
+}
+
+.barra-superior .barra-logueado {
+    padding-top: 15px;
+}
+
+.bands .title a {
+    margin: 15px 0;
+    display: inline-block;
+    color: #000;
+    font-size: 40px;
+}
+
+.bands .title a:hover, .bands .title a:focus, .bands .title a:active {
+    text-decoration: none;
+    color: #002752;
+}
+
+.page-title h1 {
+    font-size: 30px;
+    margin: 30px 0 40px;
+}
+
+.list .item_list {
+    border: 1px solid #002752;
+    padding: 10px;
+    text-align: center;
+}
+
+.buy_button, .pay_button {
+    display: block;
+    background: #fd7e14;
+    color: #fff;
+    font-size: 20px;
+    text-transform: uppercase;
+    border: 1px solid #fff;
+    margin: 30px 0 20px;
+}
+
+.buy_button:hover, .pay_button:hover {
+    background: #fff;
+    color: #fd7e14;
+    border-color: #fd7e14;
+}

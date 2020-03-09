@@ -4,11 +4,7 @@
 namespace Juinsa\Services;
 
 
-use Doctrine\ORM\Query\Expr\Join;
 use Juinsa\db\entities\Product;
-use Juinsa\db\entities\ProductAttribute;
-use Juinsa\db\entities\ProductType;
-use Juinsa\db\entities\ProductTypeAttribute;
 
 
 class ProductService extends Service
@@ -24,6 +20,24 @@ class ProductService extends Service
 //        );
 //
 //    }
+
+    /**
+     * @param Product $product
+     * @return Product|null
+     */
+    public function createProduct(Product $product): ?Product
+    {
+        try {
+            $this->doctrineManager->em->persist($product);
+            $this->doctrineManager->em->flush();
+
+            return $product;
+        } catch (\Exception $e) {
+            $this->logManagaer->error($e->getMessage());
+        }
+
+        return null;
+    }
 
     public function getAllProductInfo($id_product)
     {

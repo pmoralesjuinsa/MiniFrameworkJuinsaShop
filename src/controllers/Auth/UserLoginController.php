@@ -3,10 +3,9 @@
 
 namespace Juinsa\controllers\Auth;
 
-
 use Juinsa\db\entities\User;
 
-class UserRegisterController extends UserController
+class UserLoginController extends UserController
 {
     public function index()
     {

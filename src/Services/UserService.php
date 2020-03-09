@@ -8,6 +8,10 @@ use Juinsa\db\entities\User;
 
 class UserService extends Service
 {
+    /**
+     * @param User $user
+     * @return User|null
+     */
     public function createUser(User $user): ?User
     {
         try {
@@ -20,6 +24,11 @@ class UserService extends Service
         }
 
         return null;
+    }
+
+    public function getUserByPasswordAndEmail($user)
+    {
+
     }
 
 }

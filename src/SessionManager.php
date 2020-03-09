@@ -5,6 +5,7 @@ namespace Juinsa;
 
 
 use Juinsa\db\entities\Customer;
+use Juinsa\db\entities\User;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class SessionManager extends Session
@@ -19,17 +20,35 @@ class SessionManager extends Session
             return null;
         }
 
-        $this->cleanCustomerAuthedVars($customer);
+        $this->cleanAuthedVars($customer);
 
         $this->set('customerAuthed', $customer);
         return $customer;
     }
 
     /**
-     * @param Customer $customer
+     * @param Customer|User $customer
      */
-    protected function cleanCustomerAuthedVars(Customer &$customer): void
+    protected function cleanAuthedVars(&$customer): void
     {
         $customer->setPassword(null);
     }
+
+    /**
+     * @var User|null $user
+     * @return mixed
+     */
+    public function setUserAuthed(?User $user): ?object
+    {
+        if(is_null($user)) {
+            return null;
+        }
+
+        $this->cleanAuthedVars($user);
+
+        $this->set('userAuthed', $user);
+        return $user;
+    }
+
+
 }

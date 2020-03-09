@@ -12,18 +12,32 @@ class UserLoginController extends UserController
         $this->myRenderTemplate('register_user.twig.html');
     }
 
-    public function register()
+    public function login()
     {
-        $name = $_POST['name'];
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $user = new User();
-        $user->name = $name;
-        $user->email = $email;
-        $user->password = sha1($password);
+        $customer = new User();
+        $customer->email = $email;
+        $customer->password = sha1($password);
 
-        $this->userService->createUser($user);
+        $userFound = $this->userService->getUserByPasswordAndEmail($customer);
+
+        $this->sessionManager->setUserAuthed($userFound);
+
+        if (!is_null($this->sessionManager->get('userAuthed'))) {
+            $this->redirectTo("/admin/panel");
+            return;
+        }
+
+        $this->sessionManager->getFlashBag()->add('danger', 'Wrong email and/or password');
+
+        $this->redirectTo("/admin-login");
+    }
+
+    public function logout()
+    {
+        $this->sessionManager->invalidate();
 
         $this->redirectTo("/");
     }

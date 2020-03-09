@@ -10,9 +10,10 @@ $(document).ready(function () {
         })
             .done(function (attributes) {
                 $('#new-product .attributes').html('');
-                $.each(cart.cart, function(id, name) {
-                    $('#new-product .attributes').append("<label>" + name + "</label><input type='text' name='attributes[" + id + "]'>");
-                    $('.product-' + idProduct + ' .totalProduct').text(values.total);
+                $.each(attributes, function(row, values) {
+                    console.log(id);
+                    console.log(name);
+                    $('#new-product .attributes').append("<label>" + values.name + "</label><input type='text' name='attributes[" + values.id + "]'>");
                 });
 
             })

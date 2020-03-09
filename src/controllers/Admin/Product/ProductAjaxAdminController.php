@@ -18,7 +18,7 @@ class ProductAjaxAdminController extends AdminController
      */
     public function getAttributes(): void
     {
-        $attributes = ['id' => 7, 'name' => 'price'];
+        $attributes = [ 0 => ['id' => 7, 'name' => 'price']];
 
         echo json_encode($attributes);
     }

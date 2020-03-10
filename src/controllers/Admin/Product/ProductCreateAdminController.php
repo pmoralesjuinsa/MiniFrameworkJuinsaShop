@@ -7,7 +7,6 @@ use Juinsa\db\entities\AttributeValue;
 use Juinsa\db\entities\Product;
 use Juinsa\db\entities\ProductAttributeValue;
 use Juinsa\Services\ProductAttributeService;
-use Juinsa\Services\ProductAttributeValueService;
 
 class ProductCreateAdminController extends ProductAdminController
 {
@@ -17,12 +16,6 @@ class ProductCreateAdminController extends ProductAdminController
      * @var ProductAttributeService
      */
     protected ProductAttributeService $productAttributeService;
-
-    /**
-     * @Inject
-     * @var ProductAttributeValueService
-     */
-    protected ProductAttributeValueService $productAttributeValueService;
 
     public function index()
     {
@@ -52,7 +45,6 @@ class ProductCreateAdminController extends ProductAdminController
                     $productAttributeValue = new ProductAttributeValue();
                     $productAttributeValue->setAttributes($productAttributeEntity);
                     $productAttributeValue->setValue($value);
-                    $productAttributeValue = $this->productAttributeValueService->createProductAttributeValue($productAttributeValue);
 
                     $attributeValue = new AttributeValue();
                     $attributeValue->setProduct($product);
@@ -65,8 +57,9 @@ class ProductCreateAdminController extends ProductAdminController
 
             $product = $this->productService->createProduct($product);
 
-            if(!$product) {
-                $this->sessionManager->getFlashBag()->add('danger', "Ha ocurrido un error al intentar insertar el producto");
+            if (!$product) {
+                $this->sessionManager->getFlashBag()->add('danger',
+                    "Ha ocurrido un error al intentar insertar el producto");
             }
         }
 

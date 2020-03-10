@@ -5,9 +5,16 @@ namespace Juinsa\controllers\Admin\Product;
 
 
 use Juinsa\controllers\Admin\AdminController;
+use Juinsa\Services\AttributeService;
 
 class ProductAjaxAdminController extends AdminController
 {
+    /**
+     * @Inject
+     * @var AttributeService
+     */
+    protected AttributeService $attributeService;
+
     public function index()
     {
 
@@ -19,12 +26,22 @@ class ProductAjaxAdminController extends AdminController
     public function getAttributes(): void
     {
         $attributesContainer = [];
-        $attributes = [ 0 => ['id' => 7, 'name' => 'price']];
-        $this->sessionManager->getFlashBag()->add('danger', 'peligrooo');
+
+        if (!isset($_POST['productType'])) {
+            $this->sessionManager->getFlashBag()->add('danger', 'No se ha elegido ningún tipo de producto');
+        } else {
+            $idProductType = (int)$_POST['productType'];
+
+            if (empty($idProductType) || $idProductType <= 0) {
+                $this->sessionManager->getFlashBag()->add('danger', 'No se ha elegido un tipo de producto válido');
+            } else {
+                $attributes = $this->attributeService->getAttributesByProductTypeId($idProductType);
+
+                $this->renderAttributesForAjax($attributes, $attributesContainer);
+            }
+        }
 
         $this->renderMessagesToAjax($attributesContainer);
-
-        $this->renderAttributesForAjax($attributes, $attributesContainer);
 
         echo json_encode($attributesContainer);
     }

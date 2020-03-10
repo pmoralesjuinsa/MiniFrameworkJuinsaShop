@@ -1,0 +1,21 @@
+{% extends "backend_template.twig.html" %}
+{% block title %}
+    <div class="container">
+        <h2 class="form-signin-heading">Registro de Admin</h2>
+        <hr class="colorgraph">
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="wrapper">
+            <form role="form" method="POST" name="register_form" class="form-signing">
+                <input type="text" class="form-control" name="name" placeholder="Nombre" required="" autofocus=""/>
+                <input type="text" class="form-control" name="email" placeholder="Correo electrónico" required=""
+                       autofocus=""/>
+                <input type="password" class="form-control" name="password" placehoder="Password" required=""/>
+                <button class="btn btn-lg btn-primary btn-block" name="submit" value="Register" type="Submit">Registro
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

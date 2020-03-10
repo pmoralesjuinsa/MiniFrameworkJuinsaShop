@@ -19,6 +19,8 @@ class CustomerLoginController extends Controller
 
     public function index()
     {
+        $this->redirectIfLoguedAsCustomer();
+
         $this->myRenderTemplate('customer/customer_login.twig.html');
     }
 
@@ -31,9 +33,9 @@ class CustomerLoginController extends Controller
         $customer->email = $email;
         $customer->password = sha1($password);
 
-        $userFound = $this->customerService->getCustomerByPasswordAndEmail($customer);
+        $customerFound = $this->customerService->getCustomerByPasswordAndEmail($customer);
 
-        $this->sessionManager->setCustomerAuthed($userFound);
+        $this->sessionManager->setCustomerAuthed($customerFound);
 
         if (!is_null($this->sessionManager->get('customerAuthed'))) {
             $this->redirectTo("/");

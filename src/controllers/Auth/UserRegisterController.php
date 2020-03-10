@@ -3,22 +3,14 @@
 
 namespace Juinsa\controllers\Auth;
 
-use Juinsa\controllers\Controller;
-use DI\Annotation\Inject;
+
 use Juinsa\db\entities\User;
-use Juinsa\Services\UserService;
 
-class UserRegisterController extends Controller
+class UserRegisterController extends UserController
 {
-    /**
-     * @Inject
-     * @var UserService
-     */
-    private UserService $userService;
-
     public function index()
     {
-        $this->myRenderTemplate('register_user.twig.html');
+        $this->myRenderTemplate('user/user_register.twig.html');
     }
 
     public function register()
@@ -34,6 +26,15 @@ class UserRegisterController extends Controller
 
         $this->userService->createUser($user);
 
-        $this->redirectTo("/");
+        if($user->id) {
+            $mensaje = "Ya puedes administrar la web!";
+            $this->sessionManager->getFlashBag()->add("success", $mensaje);
+            $this->redirectTo("/admin/login");
+            return;
+        }
+
+        $mensaje = "Lo sentimos! Ha ocurrido un error inesperado al intentar crear tu cuenta de usuario";
+        $this->sessionManager->getFlashBag()->add("danger", $mensaje);
+        $this->redirectTo("/admin/register");
     }
 }

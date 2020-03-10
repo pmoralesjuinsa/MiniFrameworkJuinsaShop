@@ -35,28 +35,6 @@ class CartToolsPayController extends Controller
         return $this->sessionManager->get('cart');
     }
 
-    /**
-     * @return void
-     */
-    protected function redirectIfNotLogued(): void
-    {
-        if (!$this->sessionManager->has('customerAuthed')) {
-            //TODO este mensaje flash no va
-            $this->sessionManager->getFlashBag()->add('info', 'Debes estar logueado para poder comprar');
-            $this->redirectTo('/login');
-        }
-    }
-
-    /**
-     * @param array $cart
-     */
-    protected function renderMessagesToAjaxCart(array &$cart): void
-    {
-        ob_start();
-        $this->myRenderTemplate("lists/messages_list.twig.html");
-        $cart['messages'] = ob_get_clean();
-    }
-
     //MOVER FUERA - USADO AQUI EN CART Y EN CARTPAY
 
     //---------------- CART MODIFY PROCESSING ----------------
@@ -64,7 +42,7 @@ class CartToolsPayController extends Controller
     {
         try {
             if (!$this->checkIfValuesToModifyQuantityAreValids($idProduct, $quantity)) {
-                $this->renderMessagesToAjaxCart($cart);
+                $this->renderMessagesToAjax($cart);
                 echo json_encode($cart);
                 return;
             }

@@ -39,7 +39,7 @@ class CartAjaxController extends CartToolsPayController
                 'Ha ocurrido un error al intentar añadir el producto a tu carrito');
         }
 
-        $this->renderMessagesToAjaxCart($cart);
+        $this->renderMessagesToAjax($cart);
 
         echo json_encode($cart);
     }
@@ -70,7 +70,7 @@ class CartAjaxController extends CartToolsPayController
             $this->cartModifyProcessing($cart, $_POST['id_product'], $_POST['quantity']);
         }
 
-        $this->renderMessagesToAjaxCart($cart);
+        $this->renderMessagesToAjax($cart);
 
         echo json_encode($cart);
     }

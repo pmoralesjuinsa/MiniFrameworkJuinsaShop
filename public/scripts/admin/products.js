@@ -10,12 +10,9 @@ $(document).ready(function () {
         })
             .done(function (attributes) {
                 $('#new-product .attributes').html('');
-                $.each(attributes, function(row, values) {
-                    console.log(id);
-                    console.log(name);
-                    $('#new-product .attributes').append("<label>" + values.name + "</label><input type='text' name='attributes[" + values.id + "]'>");
-                });
-
+                if(attributes.html) {
+                    $('#new-product .attributes').html(attributes.html);
+                }
             })
             .fail(function () {
                 alert("error getting the product type attributes");

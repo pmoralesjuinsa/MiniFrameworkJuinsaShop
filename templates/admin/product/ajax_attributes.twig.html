@@ -1,0 +1,20 @@
+{% if attributes %}
+    <div class="section-title">Attributes:</div>
+    {% set count = 0 %}
+    {% for attribute in attributes %}
+        {% if count is divisible by(2) %}
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <label for="{{ attribute.name }}">{{ attribute.name }}</label>
+                    <input class="form-control" type="text" value="" id="{{ attribute.name }}" name="attributes[{{ attribute.id }}]">
+                </div>
+        {% else %}
+                <div class="col-12 col-sm-6">
+                    <label for="{{ attribute.name }}">{{ attribute.name }}</label>
+                    <input class="form-control" type="text" value="" id="{{ attribute.name }}" name="attributes[{{ attribute.id }}]">
+                </div>
+            </div>
+        {% endif %}
+        {% set count = count + 1 %}
+    {% endfor %}
+{% endif %}

@@ -68,3 +68,11 @@
     border: 1px solid #002752;
     color: #002752;
 }
+
+.section-title {
+    margin: 25px 0 5px;
+}
+
+#new-product .attributes label {
+    text-transform: capitalize;
+}

@@ -97,4 +97,15 @@ abstract class Controller
         return $argsWithSession;
     }
 
+    /**
+     * @param array $elArray
+     */
+    protected function renderMessagesToAjax(array &$elArray): void
+    {
+        //ESTA FUNCION SE REPITE EN CARRITO
+        ob_start();
+        $this->myRenderTemplate("lists/messages_list.twig.html");
+        $elArray['messages'] = ob_get_clean();
+    }
+
 }

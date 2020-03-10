@@ -7,12 +7,12 @@
     <form method="POST" id="new-product">
         <div class="form-group">
             <label for="name">Name</label>
-            <input maxlength="80" type="text" class="form-control" id="name" name="name">
+            <input maxlength="80" type="text" class="form-control" id="name" name="product[name]">
         </div>
         <div class="row">
             <div class="col">
                 <label for="category">Category</label>
-                <select class="form-control" id="category" name="category">
+                <select class="form-control" id="category" name="product[category]">
                     {% for category in categories %}
                         <option value="{{ category.id }}">{{ category.name }}</option>
                     {% endfor %}
@@ -20,7 +20,7 @@
             </div>
             <div class="col">
                 <label for="type-product">Type Product</label>
-                <select class="form-control" id="type-product" name="type-product">
+                <select class="form-control" id="type-product" name="product[type-product]">
                     {% for type in productTypes %}
                         <option value="{{ type.id }}">{{ type.name }}</option>
                     {% endfor %}

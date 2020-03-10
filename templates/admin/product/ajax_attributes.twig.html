@@ -6,12 +6,12 @@
             <div class="row">
                 <div class="col-12 col-sm-6">
                     <label for="{{ attribute.name }}">{{ attribute.name }}</label>
-                    <input class="form-control" type="text" value="" id="{{ attribute.name }}" name="attributes[{{ attribute.id }}]">
+                    <input class="form-control" type="text" value="" id="{{ attribute.name }}" name="product[attributes][{{ attribute.id }}]">
                 </div>
         {% else %}
                 <div class="col-12 col-sm-6">
                     <label for="{{ attribute.name }}">{{ attribute.name }}</label>
-                    <input class="form-control" type="text" value="" id="{{ attribute.name }}" name="attributes[{{ attribute.id }}]">
+                    <input class="form-control" type="text" value="" id="{{ attribute.name }}" name="product[attributes][{{ attribute.id }}]">
                 </div>
             </div>
         {% endif %}

@@ -34,4 +34,13 @@ class ProductTypeService extends Service
         return $this->doctrineManager->em->getRepository(ProductType::class)->findAll();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getProductTypeById($id)
+    {
+        return $this->doctrineManager->em->getRepository(ProductType::class)->findOneById($id);
+    }
+
 }

@@ -26,7 +26,7 @@ class ProductCreateAdminController extends ProductAdminController
     {
         $product = [];
 
-        if ($this->checkIfAllVarsAreValid()) {
+        if (!$this->checkIfAllVarsAreValid()) {
             $this->exitAftersShowsCreateProductPage();
         }
 
@@ -44,6 +44,9 @@ class ProductCreateAdminController extends ProductAdminController
         if (!$product) {
             $this->sessionManager->getFlashBag()->add('danger',
                 "Ha ocurrido un error al intentar insertar el producto");
+        } else {
+            $this->sessionManager->getFlashBag()->add('success',
+                "Producto añadido correctamente");
         }
 
         $this->showCreateProductPage();

@@ -136,6 +136,8 @@ class ProductCreateAdminController extends ProductAdminController
             $this->sessionManager->getFlashBag()->add('danger', 'No se ha encontrado ningún producto con el id seleccionado');
         }
 
+        var_dump($product->attributeValues);
+
         $this->showCreateProductPage($product);
     }
 

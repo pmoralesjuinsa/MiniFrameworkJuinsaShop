@@ -33,29 +33,18 @@ class ProductCreateAdminController extends ProductAdminController
             $product->setName($postVars['name']);
 
             $category = $this->categoryService->getCategory((int)$postVars['category']);
+            if(!$category) {
+                $this->sessionManager->getFlashBag()->add('danger', 'Error al localizar la categoría seleccionada');
+            }
             $product->setCategory($category);
 
             $productType = $this->productTypeService->getProductTypeById((int)$postVars['productType']);
+            if(!$productType) {
+                $this->sessionManager->getFlashBag()->add('danger', 'Error al localizar el tipo de producto seleccionado');
+            }
             $product->setProductType($productType);
 
-            foreach ($postVars['attributes'] as $id => $value) {
-                if (!empty($value)) {
-                    $productAttributeEntity = $this->productAttributeService->getProductAttributebyId((int)$id);
-
-                    $productAttributeValue = new ProductAttributeValue();
-                    $productAttributeValue->setAttributes($productAttributeEntity);
-                    $productAttributeValue->setValue($value);
-
-                    $attributeValue = new AttributeValue();
-                    $attributeValue->setProduct($product);
-                    $attributeValue->setAttributeValue($productAttributeValue);
-                    $attributeValue->setProductAttribute($productAttributeEntity);
-
-                    $product->addAttributeValues($attributeValue);
-                }
-            }
-
-            $product = $this->productService->createProduct($product);
+            $this->buildAttributesValuesLines($postVars, $product);
 
             if (!$product) {
                 $this->sessionManager->getFlashBag()->add('danger',
@@ -71,6 +60,7 @@ class ProductCreateAdminController extends ProductAdminController
      */
     protected function checkIfAllVarsAreValid(): bool
     {
+        //TODO hacer un método más fiable de comprobar los valores
         if (!isset($_POST['product'])) {
             $this->sessionManager->getFlashBag()->add('danger', 'No has rellenado ningún dato del producto');
             return false;
@@ -107,6 +97,32 @@ class ProductCreateAdminController extends ProductAdminController
 
         $this->myRenderTemplate('admin/product/create.twig.html',
             ['categories' => $categories, 'productTypes' => $productTypes, 'product' => $product]);
+    }
+
+    /**
+     * @param $postVars
+     * @param Product $product
+     */
+    protected function buildAttributesValuesLines($postVars, Product &$product): void
+    {
+        foreach ($postVars['attributes'] as $id => $value) {
+            if (!empty($value)) {
+                $productAttributeEntity = $this->productAttributeService->getProductAttributebyId((int)$id);
+
+                $productAttributeValue = new ProductAttributeValue();
+                $productAttributeValue->setAttributes($productAttributeEntity);
+                $productAttributeValue->setValue($value);
+
+                $attributeValue = new AttributeValue();
+                $attributeValue->setProduct($product);
+                $attributeValue->setAttributeValue($productAttributeValue);
+                $attributeValue->setProductAttribute($productAttributeEntity);
+
+                $product->addAttributeValues($attributeValue);
+            }
+        }
+
+        $product = $this->productService->createProduct($product);
     }
 
 

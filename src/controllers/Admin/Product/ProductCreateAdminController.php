@@ -33,14 +33,15 @@ class ProductCreateAdminController extends ProductAdminController
             $product->setName($postVars['name']);
 
             $category = $this->categoryService->getCategory((int)$postVars['category']);
-            if(!$category) {
+            if (!$category) {
                 $this->sessionManager->getFlashBag()->add('danger', 'Error al localizar la categoría seleccionada');
             }
             $product->setCategory($category);
 
             $productType = $this->productTypeService->getProductTypeById((int)$postVars['productType']);
-            if(!$productType) {
-                $this->sessionManager->getFlashBag()->add('danger', 'Error al localizar el tipo de producto seleccionado');
+            if (!$productType) {
+                $this->sessionManager->getFlashBag()->add('danger',
+                    'Error al localizar el tipo de producto seleccionado');
             }
             $product->setProductType($productType);
 

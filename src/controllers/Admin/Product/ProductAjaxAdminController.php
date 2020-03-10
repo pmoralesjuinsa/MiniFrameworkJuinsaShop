@@ -25,7 +25,7 @@ class ProductAjaxAdminController extends AdminController
      */
     public function getAttributes(): void
     {
-        $attributesContainer = [];
+        $attributesContainer = $attributes = [];
 
         if (!isset($_POST['productType'])) {
             $this->sessionManager->getFlashBag()->add('danger', 'No se ha elegido ningún tipo de producto');
@@ -37,11 +37,15 @@ class ProductAjaxAdminController extends AdminController
             } else {
                 $attributes = $this->attributeService->getAttributesByProductTypeId($idProductType);
 
-                $this->renderAttributesForAjax($attributes, $attributesContainer);
+                if(!$attributes) {
+                    $this->sessionManager->getFlashBag()->add('warning', 'Éste tipo de producto no tiene atributos asociados');
+                }
             }
         }
 
         $this->renderMessagesToAjax($attributesContainer);
+
+        $this->renderAttributesForAjax($attributes, $attributesContainer);
 
         echo json_encode($attributesContainer);
     }

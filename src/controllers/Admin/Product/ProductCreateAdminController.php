@@ -18,7 +18,8 @@ class ProductCreateAdminController extends ProductAdminController
     public function create()
     {
         $product = [];
-
+        var_dump($_POST);
+        die();
         $this->myRenderTemplate('admin/product/create.twig.html', ['product' => $product]);
     }
 }

@@ -76,3 +76,7 @@
 #new-product .attributes label {
     text-transform: capitalize;
 }
+
+.backend .tools {
+    margin-bottom: 20px;
+}

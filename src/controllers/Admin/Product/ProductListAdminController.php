@@ -23,7 +23,8 @@ class ProductListAdminController extends ProductAdminController
                 $products = $this->productService->getProductAdminList(null, $nameOrId);
             }
         } else {
-            $this->sessionManager->getFlashBag()->add('warning', 'No has introducido ningún dato por el que buscar');
+            $this->index();
+            die();
         }
 
         $this->myRenderTemplate('admin/product/list.twig.html', ['products' => $products]);

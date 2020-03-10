@@ -6,7 +6,7 @@ namespace Juinsa\Services;
 
 use Juinsa\db\entities\ProductAttribute;
 
-class AttributeService extends Service
+class ProductAttributeService extends Service
 {
     /**
      * @param ProductAttribute $productAttribute
@@ -50,6 +50,11 @@ class AttributeService extends Service
 
         return null;
 
+    }
+
+    public function getProductAttributeById($id)
+    {
+        return $this->doctrineManager->em->getRepository(ProductAttribute::class)->findOneById($id);
     }
 
 }

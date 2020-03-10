@@ -5,15 +5,15 @@ namespace Juinsa\controllers\Admin\Product;
 
 
 use Juinsa\controllers\Admin\AdminController;
-use Juinsa\Services\AttributeService;
+use Juinsa\Services\ProductAttributeService;
 
 class ProductAjaxAdminController extends AdminController
 {
     /**
      * @Inject
-     * @var AttributeService
+     * @var ProductAttributeService
      */
-    protected AttributeService $attributeService;
+    protected ProductAttributeService $attributeService;
 
     public function index()
     {

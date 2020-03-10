@@ -3,7 +3,9 @@
 
 namespace Juinsa\db\entities;
 
+use AttributesValues;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -44,13 +46,9 @@ class Product extends Entity
     protected $orderLines;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ProductAttribute", inversedBy="products")
-     * @ORM\JoinTable(name="attributes_values",
-     *     joinColumns={@ORM\JoinColumn(name="id_product", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_product_attribute", referencedColumnName="id")}
-     *     )
+     * @ORM\OnetoMany(targetEntity="AttributeValue", mappedBy="product", cascade={"persist"})
      */
-    protected $attributes;
+    protected $attributeValues;
 
     /**
      * @ORM\Column(type="datetime")
@@ -65,8 +63,24 @@ class Product extends Entity
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
-        $this->attributes = new ArrayCollection();
         $this->orderLines = new ArrayCollection();
+        $this->attributeValues = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAttributeValues(): Collection
+    {
+        return $this->attributeValues;
+    }
+
+    /**
+     * @param ArrayCollection $attributeValues
+     */
+    public function setAttributeValues(ArrayCollection $attributeValues): void
+    {
+        $this->attributeValues = $attributeValues;
     }
 
     /**
@@ -139,22 +153,6 @@ class Product extends Entity
     public function getCategory()
     {
         return $this->category;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
-
-    /**
-     * @param mixed $attributes
-     */
-    public function setAttributes($attributes): void
-    {
-        $this->attributes = $attributes;
     }
 
     /**

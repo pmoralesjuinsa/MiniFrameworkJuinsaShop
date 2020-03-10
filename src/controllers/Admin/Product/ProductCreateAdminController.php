@@ -3,9 +3,19 @@
 
 namespace Juinsa\controllers\Admin\Product;
 
+use Juinsa\db\entities\AttributeValue;
+use Juinsa\db\entities\Product;
+use Juinsa\db\entities\ProductAttributeValue;
+use Juinsa\Services\ProductAttributeService;
 
 class ProductCreateAdminController extends ProductAdminController
 {
+
+    /**
+     * @Inject
+     * @var ProductAttributeService
+     */
+    protected ProductAttributeService $productAttributeService;
 
     public function index()
     {
@@ -16,29 +26,67 @@ class ProductCreateAdminController extends ProductAdminController
     {
         $product = [];
 
-        $this->checkIfAllVarsAreValid();
+        if ($this->checkIfAllVarsAreValid()) {
+            $postVars = $_POST['product'];
 
-        $postVars = $_POST['product'];
+            $product = new Product();
+            $product->setName($postVars['name']);
+            $product->setCategory($postVars['category']);
+            $product->setProductType($postVars['productType']);
 
-        $this->showCreateProductPage($product);
-    }
+            foreach ($postVars['attributes'] as $id => $value) {
+                if (!empty($value)) {
+                    //buscar con el servicio product attribute con el id
+                    $productAttributeEntity = $this->productAttributeService->getProductAttributebyId($id);
 
-    protected function checkIfAllVarsAreValid(): void
-    {
-        if (!isset($_POST['product'])) {
-            $this->sessionManager->getFlashBag()->add('danger', 'No has rellenado ningún dato del producto');
-        } else {
-            if (empty($_POST['product']['name'])) {
-                $this->sessionManager->getFlashBag()->add('danger', 'El nombre no puede estar en blanco');
+                    $productAttributeValue = new ProductAttributeValue();
+                    $productAttributeValue->setAttributes($productAttributeEntity);
+                    $productAttributeValue->setValue($value);
+
+
+
+                    $product->addAttributeValues();
+                }
             }
 
-            if (empty($_POST['product']['attributes'][7])) {
-                $this->sessionManager->getFlashBag()->add('danger', 'El producto debe tener un precio');
-            }
+            $this->productService->createProduct($product);
         }
 
         $this->showCreateProductPage();
-        die();
+    }
+
+    /**
+     * @return bool
+     */
+    protected function checkIfAllVarsAreValid(): bool
+    {
+        if (!isset($_POST['product'])) {
+            $this->sessionManager->getFlashBag()->add('danger', 'No has rellenado ningún dato del producto');
+            return false;
+        } else {
+            $postVars = $_POST['product'];
+            if (empty($postVars['name'])) {
+                $this->sessionManager->getFlashBag()->add('danger', 'El nombre no puede estar en blanco');
+                return false;
+            }
+
+            if (empty($postVars['category'])) {
+                $this->sessionManager->getFlashBag()->add('danger', 'Debes elegir una categoría');
+                return false;
+            }
+
+            if (empty($postVars['productType'])) {
+                $this->sessionManager->getFlashBag()->add('danger', 'Debes elegir un tipo de producto');
+                return false;
+            }
+
+            if (empty($postVars['attributes'][7])) {
+                $this->sessionManager->getFlashBag()->add('danger', 'El producto debe tener un precio');
+                return false;
+            }
+        }
+
+        return true;
     }
 
     protected function showCreateProductPage($product = null): void

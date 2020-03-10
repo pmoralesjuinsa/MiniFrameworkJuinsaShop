@@ -36,28 +36,43 @@ class ProductAttribute
     protected $updated_at;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ProductType", inversedBy="attributes")
+     * @ORM\ManyToMany(targetEntity="ProductType", inversedBy="attributes", cascade={"persist"})
      * @ORM\JoinTable(name="product_type_attributes")
      */
     protected $product_types;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProductAttributeValue", mappedBy="attributes")
+     * @ORM\OneToMany(targetEntity="ProductAttributeValue", mappedBy="attributes", cascade={"persist"})
      */
     protected $values;
 
     /**
-     * Many product has many attributes. This is the inverse side.
-     * @ORM\ManyToMany(targetEntity="Product", mappedBy="attributes")
+     * @ORM\OnetoMany(targetEntity="AttributeValue", mappedBy="productAttribute", cascade={"persist"})
      */
-    protected $products;
+    protected $attributeValues;
 
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
         $this->product_types = new ArrayCollection();
-        $this->products = new ArrayCollection();
         $this->values = new ArrayCollection();
+        $this->attributeValues = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAttributeValues(): Collection
+    {
+        return $this->attributeValues;
+    }
+
+    /**
+     * @param ArrayCollection $attributeValues
+     */
+    public function setAttributeValues(ArrayCollection $attributeValues): void
+    {
+        $this->attributeValues = $attributeValues;
     }
 
     /**
@@ -156,20 +171,5 @@ class ProductAttribute
         $this->values = $values;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getProducts(): ArrayCollection
-    {
-        return $this->products;
-    }
-
-    /**
-     * @param ArrayCollection $products
-     */
-    public function setProducts(ArrayCollection $products): void
-    {
-        $this->products = $products;
-    }
 
 }

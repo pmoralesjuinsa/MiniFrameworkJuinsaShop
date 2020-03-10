@@ -4,15 +4,16 @@
     {% for attribute in attributes %}
         {% if count is divisible by(2) %}
             <div class="row">
+        {% endif %}
                 <div class="col-12 col-sm-6">
                     <label for="{{ attribute.name }}">{{ attribute.name }}</label>
-                    <input class="form-control" type="text" value="" id="{{ attribute.name }}" name="product[attributes][{{ attribute.id }}]">
+                    {% if attribute.id == 8 %}
+                        <input class="form-control" type="date" value="" id="{{ attribute.name }}" name="product[attributes][{{ attribute.id }}]">
+                    {% else %}
+                        <input class="form-control" type="text" value="" id="{{ attribute.name }}" name="product[attributes][{{ attribute.id }}]">
+                    {% endif %}
                 </div>
-        {% else %}
-                <div class="col-12 col-sm-6">
-                    <label for="{{ attribute.name }}">{{ attribute.name }}</label>
-                    <input class="form-control" type="text" value="" id="{{ attribute.name }}" name="product[attributes][{{ attribute.id }}]">
-                </div>
+        {% if count is not divisible by(2) %}
             </div>
         {% endif %}
         {% set count = count + 1 %}

@@ -36,16 +36,18 @@ class ProductCreateAdminController extends ProductAdminController
 
             foreach ($postVars['attributes'] as $id => $value) {
                 if (!empty($value)) {
-                    //buscar con el servicio product attribute con el id
                     $productAttributeEntity = $this->productAttributeService->getProductAttributebyId($id);
 
                     $productAttributeValue = new ProductAttributeValue();
                     $productAttributeValue->setAttributes($productAttributeEntity);
                     $productAttributeValue->setValue($value);
 
+                    $attributeValue = new AttributeValue();
+                    $attributeValue->setProduct($product);
+                    $attributeValue->setAttributeValue($productAttributeValue);
+                    $attributeValue->setProductAttribute($productAttributeEntity);
 
-
-                    $product->addAttributeValues();
+                    $product->addAttributeValues($attributeValue);
                 }
             }
 

@@ -76,11 +76,26 @@ class Product extends Entity
     }
 
     /**
-     * @param ArrayCollection $attributeValues
+     * @param AttributeValue $attributeValue
+     * @return Product
      */
-    public function setAttributeValues(ArrayCollection $attributeValues): void
+    public function addAttributeValues(AttributeValue $attributeValue)
     {
-        $this->attributeValues = $attributeValues;
+        $this->attributeValues->add($attributeValue);
+        $attributeValue->setProduct($this);
+
+        return $this;
+    }
+
+    /**
+     * @param AttributeValue $attributeValue
+     * @return Product
+     */
+    public function removeAttributeValues(AttributeValue $attributeValue)
+    {
+        $this->attributeValues->removeElement($attributeValue);
+
+        return $this;
     }
 
     /**

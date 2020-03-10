@@ -27,31 +27,23 @@ class ProductCreateAdminController extends ProductAdminController
         $product = [];
 
         if ($this->checkIfAllVarsAreValid()) {
-            $postVars = $_POST['product'];
+            $this->exitAftersShowsCreateProductPage();
+        }
 
-            $product = new Product();
-            $product->setName($postVars['name']);
+        $postVars = $_POST['product'];
 
-            $category = $this->categoryService->getCategory((int)$postVars['category']);
-            if (!$category) {
-                $this->sessionManager->getFlashBag()->add('danger',
-                    'Error al localizar la categoría seleccionada');
-            }
-            $product->setCategory($category);
+        $product = new Product();
+        $product->setName($postVars['name']);
 
-            $productType = $this->productTypeService->getProductTypeById((int)$postVars['productType']);
-            if (!$productType) {
-                $this->sessionManager->getFlashBag()->add('danger',
-                    'Error al localizar el tipo de producto seleccionado');
-            }
-            $product->setProductType($productType);
+        $this->setCategoryToProduct((int)$postVars['category'], $product);
 
-            $this->buildAttributesValuesLines($postVars, $product);
+        $this->setProductTypeToProduct((int)$postVars['productType'], $product);
 
-            if (!$product) {
-                $this->sessionManager->getFlashBag()->add('danger',
-                    "Ha ocurrido un error al intentar insertar el producto");
-            }
+        $this->buildAttributesValuesLines($postVars, $product);
+
+        if (!$product) {
+            $this->sessionManager->getFlashBag()->add('danger',
+                "Ha ocurrido un error al intentar insertar el producto");
         }
 
         $this->showCreateProductPage();
@@ -63,34 +55,36 @@ class ProductCreateAdminController extends ProductAdminController
     protected function checkIfAllVarsAreValid(): bool
     {
         //TODO hacer un método más fiable de comprobar los valores
+        //TODO aplicar también chain responsability
         if (!isset($_POST['product'])) {
             $this->sessionManager->getFlashBag()->add('danger', 'No has rellenado ningún dato del producto');
             return false;
-        } else {
-            $postVars = $_POST['product'];
-            if (empty($postVars['name'])) {
-                $this->sessionManager->getFlashBag()->add('danger', 'El nombre no puede estar en blanco');
-                return false;
-            }
+        }
 
-            if (empty($postVars['category'])) {
-                $this->sessionManager->getFlashBag()->add('danger', 'Debes elegir una categoría');
-                return false;
-            }
+        $postVars = $_POST['product'];
+        if (empty($postVars['name'])) {
+            $this->sessionManager->getFlashBag()->add('danger', 'El nombre no puede estar en blanco');
+            return false;
+        }
 
-            if (empty($postVars['productType'])) {
-                $this->sessionManager->getFlashBag()->add('danger', 'Debes elegir un tipo de producto');
-                return false;
-            }
+        if (empty($postVars['category'])) {
+            $this->sessionManager->getFlashBag()->add('danger', 'Debes elegir una categoría');
+            return false;
+        }
 
-            if (empty($postVars['attributes'][7])) {
-                $this->sessionManager->getFlashBag()->add('danger', 'El producto debe tener un precio');
-                return false;
-            }
+        if (empty($postVars['productType'])) {
+            $this->sessionManager->getFlashBag()->add('danger', 'Debes elegir un tipo de producto');
+            return false;
+        }
+
+        if (empty($postVars['attributes'][7])) {
+            $this->sessionManager->getFlashBag()->add('danger', 'El producto debe tener un precio');
+            return false;
         }
 
         return true;
     }
+
 
     protected function showCreateProductPage($product = null): void
     {
@@ -127,5 +121,62 @@ class ProductCreateAdminController extends ProductAdminController
         $product = $this->productService->createProduct($product);
     }
 
+    /**
+     * @param integer $id
+     * @return void
+     */
+    public function edit($id): void
+    {
+        $product = $this->productService->getProduct($id);
+
+        if(!$product) {
+            $this->sessionManager->getFlashBag()->add('danger', 'No se ha encontrado ningún producto con el id seleccionado');
+        }
+
+        var_dump($product->attributeValues);
+
+        $this->showCreateProductPage($product);
+    }
+
+    /**
+     * @return void
+     */
+    protected function exitAftersShowsCreateProductPage(): void
+    {
+        $this->showCreateProductPage();
+        die();
+    }
+
+    /**
+     * @param integer $idCategory
+     * @param Product $product
+     */
+    protected function setCategoryToProduct($idCategory, Product &$product): void
+    {
+        $category = $this->categoryService->getCategory($idCategory);
+        if (!$category) {
+            $this->sessionManager->getFlashBag()->add('danger',
+                'Error al localizar la categoría seleccionada');
+            $this->exitAftersShowsCreateProductPage();
+        }
+
+        $product->setCategory($category);
+    }
+
+    /**
+     * @param integer $idProductType
+     * @param Product $product
+     */
+    protected function setProductTypeToProduct($idProductType, Product &$product): void
+    {
+        $productType = $this->productTypeService->getProductTypeById($idProductType);
+        if (!$productType) {
+            $this->sessionManager->getFlashBag()->add('danger',
+                'Error al localizar el tipo de producto seleccionado');
+            $this->exitAftersShowsCreateProductPage();
+        }
+
+        $product->setProductType($productType);
+    }
 
 }

@@ -34,7 +34,10 @@
                     <div class="col-4">{{ product.name }}</div>
                     <div class="col-2">{{ product.price }}</div>
                     <div class="col-3">{{ product.category }}</div>
-                    <div class="col-1">Iconos</div>
+                    <div class="col-1">
+                        <a href="/admin/product/edit/{{ product.id }}">Edit</a>
+                        <a href="/admin/product/delete/{{ product.id }}">Delete</a>
+                    </div>
                 {% endfor %}
             </div>
         </div>

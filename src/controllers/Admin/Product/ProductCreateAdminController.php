@@ -30,16 +30,9 @@ class ProductCreateAdminController extends ProductAdminController
             $this->exitAftersShowsCreateProductPage();
         }
 
-        $postVars = $_POST['product'];
-
         $product = new Product();
-        $product->setName($postVars['name']);
 
-        $this->setCategoryToProduct((int)$postVars['category'], $product);
-
-        $this->setProductTypeToProduct((int)$postVars['productType'], $product);
-
-        $this->buildAttributesValuesLines($postVars, $product);
+        $this->productProcessing($product);
 
         if (!$product) {
             $this->sessionManager->getFlashBag()->add('danger',
@@ -50,52 +43,6 @@ class ProductCreateAdminController extends ProductAdminController
         }
 
         $this->showCreateProductPage();
-    }
-
-    /**
-     * @return bool
-     */
-    protected function checkIfAllVarsAreValid(): bool
-    {
-        //TODO hacer un método más fiable de comprobar los valores
-        //TODO aplicar también chain responsability
-        if (!isset($_POST['product'])) {
-            $this->sessionManager->getFlashBag()->add('danger', 'No has rellenado ningún dato del producto');
-            return false;
-        }
-
-        $postVars = $_POST['product'];
-        if (empty($postVars['name'])) {
-            $this->sessionManager->getFlashBag()->add('danger', 'El nombre no puede estar en blanco');
-            return false;
-        }
-
-        if (empty($postVars['category'])) {
-            $this->sessionManager->getFlashBag()->add('danger', 'Debes elegir una categoría');
-            return false;
-        }
-
-        if (empty($postVars['productType'])) {
-            $this->sessionManager->getFlashBag()->add('danger', 'Debes elegir un tipo de producto');
-            return false;
-        }
-
-        if (empty($postVars['attributes'][7])) {
-            $this->sessionManager->getFlashBag()->add('danger', 'El producto debe tener un precio');
-            return false;
-        }
-
-        return true;
-    }
-
-
-    protected function showCreateProductPage($product = null): void
-    {
-        $categories = $this->categoryService->getCategories();
-        $productTypes = $this->productTypeService->getProductTypes();
-
-        $this->myRenderTemplate('admin/product/create.twig.html',
-            ['categories' => $categories, 'productTypes' => $productTypes, 'product' => $product]);
     }
 
     /**
@@ -122,31 +69,6 @@ class ProductCreateAdminController extends ProductAdminController
         }
 
         $product = $this->productService->createProduct($product);
-    }
-
-    /**
-     * @param integer $id
-     * @return void
-     */
-    public function edit($id): void
-    {
-        $product = $this->productService->getProduct($id);
-
-        if(!$product) {
-            $this->sessionManager->getFlashBag()->add('danger',
-                'No se ha encontrado ningún producto con el id seleccionado');
-        }
-
-        $this->showCreateProductPage($product);
-    }
-
-    /**
-     * @return void
-     */
-    protected function exitAftersShowsCreateProductPage(): void
-    {
-        $this->showCreateProductPage();
-        die();
     }
 
     /**
@@ -179,6 +101,22 @@ class ProductCreateAdminController extends ProductAdminController
         }
 
         $product->setProductType($productType);
+    }
+
+    /**
+     * @param $product
+     */
+    protected function productProcessing(&$product): void
+    {
+        $postVars = $_POST['product'];
+
+        $product->setName($postVars['name']);
+
+        $this->setCategoryToProduct((int)$postVars['category'], $product);
+
+        $this->setProductTypeToProduct((int)$postVars['productType'], $product);
+
+        $this->buildAttributesValuesLines($postVars, $product);
     }
 
 }

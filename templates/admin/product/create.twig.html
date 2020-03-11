@@ -41,7 +41,7 @@
         {% set btnText = 'Create' %}
         {% if product.id %}
             {% set btnText = 'Edit' %}
-            <input type="hidden" id="productId" value="{{ product.id }}" />
+            <input type="hidden" id="productId" name="product[id]" value="{{ product.id }}" />
         {% endif %}
         <button type="submit" class="btn btn-primary">{{ btnText }}</button>
     </form>

@@ -19,11 +19,7 @@ class CategoryCreateAdminController extends CategoryAdminController
      */
     public function create()
     {
-        if(empty($_POST['name'])) {
-            $this->sessionManager->getFlashBag()->add('danger', 'El nombre no puede estar en blanco');
-            $this->myRenderTemplate('admin/category/create.twig.html');
-            die();
-        }
+        $this->checkIfAllVarsAreValid();
 
         $category = new Category();
 
@@ -40,11 +36,4 @@ class CategoryCreateAdminController extends CategoryAdminController
         $this->showCreatePage();
     }
 
-    /**
-     * @param Category|null $category
-     */
-    protected function showCreatePage($category = null)
-    {
-        $this->myRenderTemplate('admin/category/create.twig.html', ['category' => $category]);
-    }
 }

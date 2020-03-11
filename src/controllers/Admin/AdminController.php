@@ -21,4 +21,15 @@ class AdminController extends Controller
     {
         $this->myRenderTemplate('admin/admin.twig.html');
     }
+
+    /**
+     * @param string $entity
+     * @return void
+     */
+    protected function exitAftersShowsCreatePage($entity): void
+    {
+        $this->myRenderTemplate("admin/$entity/create.twig.html");
+        die();
+    }
+
 }

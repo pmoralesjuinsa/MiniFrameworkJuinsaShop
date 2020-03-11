@@ -31,11 +31,12 @@ class ProductEditAdminController extends ProductAdminController
 
     public function editSave($id)
     {
-        $product = $this->productService->getProduct((int)$id);
-
         if (!$this->checkIfAllVarsAreValid(true)) {
-            $this->exitAftersShowsCreatePage($this->entity);
+            $this->edit($id);
+            die();
         }
+
+        $product = $this->productService->getProduct((int)$id);
 
         $this->productProcessingEdit($product);
 

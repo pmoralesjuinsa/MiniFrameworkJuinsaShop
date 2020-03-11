@@ -22,13 +22,14 @@ class CategoryEditAdminController extends CategoryAdminController
         $this->showCreatePage($category);
     }
 
-    public function editSave()
+    public function editSave($id)
     {
         if (!$this->checkIfAllVarsAreValid(true)) {
-            $this->exitAftersShowsCreatePage($this->entity);
+            $this->edit($id);
+            die();
         }
 
-        $category = $this->categoryService->getCategory((int)$_POST['id']);
+        $category = $this->categoryService->getCategory((int)$id);
 
         $category->setName($_POST['name']);
 

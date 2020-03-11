@@ -42,7 +42,7 @@ class ProductAttributeValue
     protected $attributes;
 
     /**
-     * @ORM\OnetoMany(targetEntity="AttributeValue", mappedBy="attributeValue", cascade={"persist"})
+     * @ORM\OnetoMany(targetEntity="AttributeValue", mappedBy="attributeValue", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $attributeValues;
 

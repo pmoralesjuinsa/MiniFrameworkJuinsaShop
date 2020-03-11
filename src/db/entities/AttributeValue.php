@@ -36,7 +36,7 @@ class AttributeValue extends Entity
     protected $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProductAttributeValue", inversedBy="attributeValues", cascade={"persist"}, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="ProductAttributeValue", inversedBy="attributeValues", cascade={"persist", "remove"}, fetch="EAGER")
      * @ORM\JoinColumn(name="id_product_attribute_value", referencedColumnName="id")
      */
     protected $attributeValue;

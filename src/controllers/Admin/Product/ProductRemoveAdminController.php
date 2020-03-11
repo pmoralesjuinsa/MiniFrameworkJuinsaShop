@@ -12,11 +12,11 @@ class ProductRemoveAdminController extends ProductAdminController
     }
 
     /**
-     * @param integer $idProduct
+     * @param integer $id
      */
-    public function removeProduct($idProduct)
+    public function removeProduct($id)
     {
-        if($this->productService->removeProduct($idProduct)) {
+        if($this->productService->removeProduct($id)) {
             $this->sessionManager->getFlashBag()->add('success', 'Producto eliminado correctamente');
         } else {
             $this->sessionManager->getFlashBag()->add('danger', 'Error al intentar borrar el producto');

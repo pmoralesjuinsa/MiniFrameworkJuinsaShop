@@ -46,7 +46,7 @@ class Product extends Entity
     protected $orderLines;
 
     /**
-     * @ORM\OnetoMany(targetEntity="AttributeValue", mappedBy="product", cascade={"persist"}, fetch="EAGER")
+     * @ORM\OnetoMany(targetEntity="AttributeValue", mappedBy="product", cascade={"persist", "remove"}, orphanRemoval=true, fetch="EAGER")
      */
     protected $attributeValues;
 

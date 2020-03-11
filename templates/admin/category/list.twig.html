@@ -31,8 +31,8 @@
                 </div>
                 {% for category in categories %}
                     <div class="col-2">{{ category.id }}</div>
-                    <div class="col-4">{{ category.name }}</div>
-                    <div class="col-2">{{ category.createdAt|date("d/m/Y") }}</div>
+                    <div class="col-3">{{ category.name }}</div>
+                    <div class="col-3">{{ category.createdAt|date("d/m/Y") }}</div>
                     <div class="col-3">{{ category.updatedAt|date("d/m/Y") }}</div>
                     <div class="col-1">
                         <a href="/admin/category/edit/{{ category.id }}">Edit</a>

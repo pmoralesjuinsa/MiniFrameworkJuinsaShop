@@ -31,8 +31,8 @@
                 </div>
                 {% for type in productTypes %}
                     <div class="col-2">{{ type.id }}</div>
-                    <div class="col-4">{{ type.name }}</div>
-                    <div class="col-2">{{ type.createdAt|date("d/m/Y") }}</div>
+                    <div class="col-3">{{ type.name }}</div>
+                    <div class="col-3">{{ type.createdAt|date("d/m/Y") }}</div>
                     <div class="col-3">{{ type.updatedAt|date("d/m/Y") }}</div>
                     <div class="col-1">
                         <a href="/admin/producttype/edit/{{ type.id }}">Edit</a>

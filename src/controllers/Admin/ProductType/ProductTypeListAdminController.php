@@ -11,7 +11,7 @@ class ProductTypeListAdminController extends ProductTypeAdminController
         if(is_null($productTypes)) {
             $productTypes = $this->productTypeService->getProductTypes();
         }
-        $this->myRenderTemplate('admin/producttype/list.twig.html', ['$productTypes' => $productTypes]);
+        $this->myRenderTemplate('admin/producttype/list.twig.html', ['productTypes' => $productTypes]);
     }
 
     public function search()

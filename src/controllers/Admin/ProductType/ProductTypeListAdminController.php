@@ -20,9 +20,9 @@ class ProductTypeListAdminController extends ProductTypeAdminController
         if(isset($_POST['nameOrId']) && $_POST['nameOrId'] != '') {
             $nameOrId = $_POST['nameOrId'];
             if(is_numeric($_POST['nameOrId'])) {
-                $productTypes = $this->categoryService->getCategoryAdminList((int)$nameOrId);
+                $productTypes = $this->productTypeService->getProductTypeAdminList((int)$nameOrId);
             } else {
-                $productTypes = $this->categoryService->getCategoryAdminList(null, $nameOrId);
+                $productTypes = $this->productTypeService->getProductTypeAdminList(null, $nameOrId);
             }
         }
 

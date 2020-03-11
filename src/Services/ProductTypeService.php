@@ -27,6 +27,26 @@ class ProductTypeService extends Service
     }
 
     /**
+     * @param integer|null $id
+     * @param string|null $name
+     * @return mixed[]|null
+     */
+    public function getProductTypeAdminList($id = null, $name = null)
+    {
+        try {
+            $rawQuery = "SELECT pt.id, pt.name, pt.updated_at, pt.created_at
+                    FROM product_types pt";
+
+            return $this->modifyQueryForSearch("pt", $id, $name, $rawQuery);
+
+        } catch (\Exception $exception) {
+            $this->logManagaer->error($exception->getMessage());
+        }
+
+        return null;
+    }
+
+    /**
      * @return array|object[]
      */
     public function getProductTypes()

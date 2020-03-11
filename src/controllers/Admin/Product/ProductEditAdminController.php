@@ -29,15 +29,13 @@ class ProductEditAdminController extends ProductAdminController
         $this->showCreateProductPage($product);
     }
 
-    public function editSave()
+    public function editSave($id)
     {
-        $product = [];
+        $product = $this->productService->getProduct((int)$id);
 
         if (!$this->checkIfAllVarsAreValid(true)) {
             $this->exitAftersShowsCreatePage($this->entity);
         }
-
-        $product = $this->productService->getProduct((int)$_POST['product']['id']);
 
         $this->productProcessingEdit($product);
 

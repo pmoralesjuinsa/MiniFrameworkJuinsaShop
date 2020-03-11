@@ -9,14 +9,14 @@ function loadAttributes(productType)
         .done(function (attributes) {
             $('#new-product .attributes').html('');
             if(attributes.html) {
-                $('#new-product .attributes').html(attributes.html);
+                $('#new-product .attributes').append(attributes.html);
             }
         })
         .fail(function () {
             alert("error getting the product type attributes");
         })
         .always(function (msg) {
-            $('#messages').html(msg.messages);
+            $('#messages').append(msg.messages);
         });
 }
 

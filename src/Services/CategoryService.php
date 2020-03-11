@@ -9,6 +9,24 @@ use Juinsa\db\entities\Category;
 class CategoryService extends Service
 {
 
+    /**
+     * @param Category $category
+     * @return Category|null
+     */
+    public function createCategory(Category $category)
+    {
+        try {
+            $this->doctrineManager->em->persist($category);
+            $this->doctrineManager->em->flush();
+
+            return $category;
+        } catch (\Exception $exception) {
+            $this->logManagaer->error($exception->getMessage());
+        }
+
+        return null;
+    }
+
     public function getCategories(): ?array
     {
         return $this->doctrineManager->em->getRepository(Category::class)->findAll();

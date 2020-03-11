@@ -39,7 +39,7 @@ class ProductEditAdminController extends ProductAdminController
 
         $product = $this->productService->getProduct((int)$_POST['product']['id']);
 
-        $this->editProductProcessing($product);
+        $this->productProcessingEdit($product);
 
         if (!$product) {
             $this->sessionManager->getFlashBag()->add('danger',
@@ -57,7 +57,7 @@ class ProductEditAdminController extends ProductAdminController
     /**
      * @param Product $product
      */
-    protected function editProductProcessing(&$product): void
+    protected function productProcessingEdit(&$product): void
     {
         $postVars = $_POST['product'];
 

@@ -6,9 +6,11 @@ namespace Juinsa\controllers\Admin\Category;
 
 class CategoryListAdminController extends CategoryAdminController
 {
-    public function index()
+    public function index($categories = null)
     {
-        $categories = $this->categoryService->getCategories();
+        if(is_null($categories)) {
+            $categories = $this->categoryService->getCategories();
+        }
         $this->myRenderTemplate('admin/category/list.twig.html', ['categories' => $categories]);
     }
 
@@ -22,11 +24,8 @@ class CategoryListAdminController extends CategoryAdminController
             } else {
                 $categories = $this->categoryService->getCategoryAdminList(null, $nameOrId);
             }
-        } else {
-            $this->index();
-            die();
         }
 
-        $this->myRenderTemplate('admin/product/list.twig.html', ['categories' => $categories]);
+        $this->index($categories);
     }
 }

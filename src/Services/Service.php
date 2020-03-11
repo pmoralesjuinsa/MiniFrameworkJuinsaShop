@@ -26,13 +26,13 @@ abstract class Service
      * @param string $rawQuery
      * @return mixed[]|null
      */
-    protected function modifyQueryForSearch($id, $name, string $rawQuery)
+    protected function modifyQueryForSearch($alias, $id, $name, string $rawQuery)
     {
         try {
             if (!is_null($id)) {
-                $rawQuery .= " WHERE p.id = :id";
+                $rawQuery .= " WHERE ".$alias.".id = :id";
             } elseif (!is_null($name)) {
-                $rawQuery .= " WHERE p.name LIKE :name";
+                $rawQuery .= " WHERE ".$alias.".name LIKE :name";
             }
 
             $statement = $this->doctrineManager->em->getConnection()->prepare($rawQuery);

@@ -114,7 +114,7 @@ class ProductService extends Service
                         LEFT JOIN categories c on p.id_category = c.id
                         ";
 
-            return $this->modifyQueryForSearch($id, $name, $rawQuery);
+            return $this->modifyQueryForSearch("p", $id, $name, $rawQuery);
         } catch (\Exception $e) {
             $this->logManagaer->error($e->getMessage());
         }

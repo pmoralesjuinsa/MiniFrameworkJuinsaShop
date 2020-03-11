@@ -24,8 +24,6 @@ class CategoryEditAdminController extends CategoryAdminController
 
     public function editSave()
     {
-        $category = [];
-
         if (!$this->checkIfAllVarsAreValid(true)) {
             $this->exitAftersShowsCreatePage($this->entity);
         }

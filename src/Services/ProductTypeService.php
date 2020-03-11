@@ -47,6 +47,26 @@ class ProductTypeService extends Service
     }
 
     /**
+     * @param integer $idProductType
+     * @return bool
+     */
+    public function remove($idProductType)
+    {
+        try {
+            $productType = $this->getProductTypeById($idProductType);
+
+            $this->doctrineManager->em->remove($productType);
+            $this->doctrineManager->em->flush();
+
+            return true;
+        } catch (\Exception $e) {
+            $this->logManagaer->error($e->getMessage());
+        }
+
+        return false;
+    }
+
+    /**
      * @return array|object[]
      */
     public function getProductTypes()

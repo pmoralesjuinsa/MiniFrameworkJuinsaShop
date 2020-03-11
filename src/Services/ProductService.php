@@ -39,19 +39,26 @@ class ProductService extends Service
         return null;
     }
 
-//    public function updateProduct(Product $product): ?Product
-//    {
-//        try {
-//            $this->doctrineManager->em->persist($product);
-//            $this->doctrineManager->em->flush();
-//
-//            return $product;
-//        } catch (\Exception $e) {
-//            $this->logManagaer->error($e->getMessage());
-//        }
-//
-//        return null;
-//    }
+    /**
+     * @param $idProduct
+     * @return bool
+     */
+    public function removeProduct($idProduct): bool
+    {
+        try {
+            $product = $this->getProduct($idProduct);
+
+            $this->doctrineManager->em->remove($product);
+            $this->doctrineManager->em->flush();
+
+            return true;
+        } catch (\Exception $e) {
+            $this->logManagaer->error($e->getMessage());
+        }
+
+        return false;
+
+    }
 
     public function getAllProductInfo($id_product)
     {

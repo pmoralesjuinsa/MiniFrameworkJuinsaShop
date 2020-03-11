@@ -39,6 +39,7 @@ class Web
                 $route->addRoute('POST','/admin/product/attributes',['Juinsa\controllers\Admin\Product\ProductAjaxAdminController','getAttributes']);
                 $route->addRoute('GET','/admin/product/edit/{id:\d+}',['Juinsa\controllers\Admin\Product\ProductEditAdminController','edit']);
                 $route->addRoute('POST','/admin/product/edit/{id:\d+}',['Juinsa\controllers\Admin\Product\ProductEditAdminController','editSave']);
+                $route->addRoute('GET','/admin/product/remove/{id:\d+}',['Juinsa\controllers\Admin\Product\ProductRemoveAdminController','removeProduct']);
             }
         );
     }

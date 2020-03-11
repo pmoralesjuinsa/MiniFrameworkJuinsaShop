@@ -34,7 +34,7 @@ class ProductEditAdminController extends ProductAdminController
         $product = [];
 
         if (!$this->checkIfAllVarsAreValid(true)) {
-            $this->exitAftersShowsCreateProductPage();
+            $this->exitAftersShowsCreatePage($this->entity);
         }
 
         $product = $this->productService->getProduct((int)$_POST['product']['id']);

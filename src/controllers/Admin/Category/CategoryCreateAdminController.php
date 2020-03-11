@@ -11,7 +11,7 @@ class CategoryCreateAdminController extends CategoryAdminController
 
     public function index()
     {
-        $this->myRenderTemplate('admin/category/create.twig.html');
+        $this->showCreatePage();
     }
 
     /**
@@ -37,6 +37,14 @@ class CategoryCreateAdminController extends CategoryAdminController
             $this->sessionManager->getFlashBag()->add('success', 'Categoría insertada correctamente');
         }
 
+        $this->showCreatePage();
+    }
+
+    /**
+     * @param Category|null $category
+     */
+    protected function showCreatePage($category = null)
+    {
         $this->myRenderTemplate('admin/category/create.twig.html', ['category' => $category]);
     }
 }

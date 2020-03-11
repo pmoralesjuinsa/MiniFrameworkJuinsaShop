@@ -30,19 +30,19 @@ class AttributeValue extends Entity
     protected $updated_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="attributeValues", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="attributeValues", cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinColumn(name="id_product", referencedColumnName="id")
      */
     protected $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProductAttributeValue", inversedBy="attributeValues", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="ProductAttributeValue", inversedBy="attributeValues", cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinColumn(name="id_product_attribute_value", referencedColumnName="id")
      */
     protected $attributeValue;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProductAttribute", inversedBy="attributeValues", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="ProductAttribute", inversedBy="attributeValues", cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinColumn(name="id_product_attribute", referencedColumnName="id")
      */
     protected $productAttribute;

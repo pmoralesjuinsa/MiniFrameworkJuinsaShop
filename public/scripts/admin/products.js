@@ -4,7 +4,7 @@ function loadAttributes(productType)
         method: "POST",
         url: "/admin/product/attributes",
         dataType: "json",
-        data: {productType: productType}
+        data: {productType: productType, productId: $('#new-product #productId').val()}
     })
         .done(function (attributes) {
             $('#new-product .attributes').html('');

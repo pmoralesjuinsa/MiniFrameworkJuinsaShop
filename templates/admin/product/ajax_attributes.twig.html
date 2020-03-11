@@ -7,11 +7,11 @@
         {% endif %}
                 <div class="col-12 col-sm-6">
                     <label for="{{ attribute.name }}">{{ attribute.name }}</label>
+                    {% set type = 'text' %}
                     {% if attribute.id == 8 %}
-                        <input class="form-control" type="date" value="" id="{{ attribute.name }}" name="product[attributes][{{ attribute.id }}]">
-                    {% else %}
-                        <input class="form-control" type="text" value="" id="{{ attribute.name }}" name="product[attributes][{{ attribute.id }}]">
+                        {% set type = 'date' %}
                     {% endif %}
+                    <input class="form-control" type="{{ type }}" value="{{ productAttributes[attribute.id] }}" id="{{ attribute.name }}" name="product[attributes][{{ attribute.id }}]">
                 </div>
         {% if count is not divisible by(2) %}
             </div>

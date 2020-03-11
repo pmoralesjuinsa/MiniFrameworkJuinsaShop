@@ -28,13 +28,13 @@ class Product extends Entity
     protected $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products", fetch="EAGER")
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id")
      */
     protected $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProductType", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="ProductType", inversedBy="products", fetch="EAGER")
      * @ORM\JoinColumn(name="id_product_type", referencedColumnName="id")
      */
     protected $product_type;
@@ -46,7 +46,7 @@ class Product extends Entity
     protected $orderLines;
 
     /**
-     * @ORM\OnetoMany(targetEntity="AttributeValue", mappedBy="product", cascade={"persist"})
+     * @ORM\OnetoMany(targetEntity="AttributeValue", mappedBy="product", cascade={"persist"}, fetch="EAGER")
      */
     protected $attributeValues;
 

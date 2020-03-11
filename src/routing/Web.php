@@ -42,6 +42,11 @@ class Web
                 $route->addRoute('GET','/admin/product/remove/{id:\d+}',['Juinsa\controllers\Admin\Product\ProductRemoveAdminController','remove']);
                 $route->addRoute('GET','/admin/categories',['Juinsa\controllers\Admin\Category\CategoryListAdminController','index']);
                 $route->addRoute('POST','/admin/categories',['Juinsa\controllers\Admin\Category\CategoryListAdminController','search']);
+                $route->addRoute('GET','/admin/category/create',['Juinsa\controllers\Admin\Category\CategoryCreateAdminController','index']);
+                $route->addRoute('POST','/admin/category/create',['Juinsa\controllers\Admin\Category\CategoryCreateAdminController','create']);
+                $route->addRoute('GET','/admin/category/edit/{id:\d+}',['Juinsa\controllers\Admin\Category\CategoryEditAdminController','edit']);
+                $route->addRoute('POST','/admin/category/edit/{id:\d+}',['Juinsa\controllers\Admin\Category\CategoryEditAdminController','editSave']);
+                $route->addRoute('GET','/admin/category/remove/{id:\d+}',['Juinsa\controllers\Admin\Category\CategoryRemoveAdminController','remove']);
             }
         );
     }

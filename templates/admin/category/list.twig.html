@@ -1,0 +1,49 @@
+{% extends "backend_template.twig.html" %}
+{% block title %}
+    <h2 class="form-signin-heading">Categorías</h2>
+    <hr class="colorgraph">
+{% endblock %}
+{% block body %}
+    <div class="tools">
+        <div class="row">
+            <div class="col">
+                <a id="create-item" class="btn btn-primary" href="/admin/category/create" role="button">Create Category</a>
+            </div>
+            <div class="col text-right">
+                <form method="POST" class="form-inline">
+                    <input class="form-control col" type="text" name="nameOrId" placeholder="Search a category by name or id">
+                    <button type="submit" class="btn btn-secondary col-3">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% if categories %}
+        <div id="product-list" class="admin-list col-12">
+            <div class="row">
+                <div class="col-12 titles">
+                    <div class="row">
+                        <div class="col-2"><span class="font-weight-bold">Id</span></div>
+                        <div class="col-3"><span class="font-weight-bold">Name</span></div>
+                        <div class="col-3"><span class="font-weight-bold">Created At</span></div>
+                        <div class="col-3"><span class="font-weight-bold">Updated At</span></div>
+                        <div class="col-1"><span class="font-weight-bold">Actions</span></div>
+                    </div>
+                </div>
+                {% for category in categories %}
+                    <div class="col-2">{{ category.id }}</div>
+                    <div class="col-4">{{ category.name }}</div>
+                    <div class="col-2">{{ category.createdAt|date("d/m/Y") }}</div>
+                    <div class="col-3">{{ category.updatedAt|date("d/m/Y") }}</div>
+                    <div class="col-1">
+                        <a href="/admin/category/edit/{{ category.id }}">Edit</a>
+                        <a href="/admin/category/remove/{{ category.id }}">Delete</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No hay categorías para mostrar
+        </div>
+    {% endif %}
+{% endblock %}

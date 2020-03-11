@@ -17,7 +17,7 @@ class CategoryCreateAdminController extends CategoryAdminController
     /**
      * @param Category|null $category
      */
-    public function create($category = null)
+    public function create()
     {
         if(empty($_POST['name'])) {
             $this->sessionManager->getFlashBag()->add('danger', 'El nombre no puede estar en blanco');
@@ -25,9 +25,7 @@ class CategoryCreateAdminController extends CategoryAdminController
             die();
         }
 
-        if(is_null($category)) {
-            $category = new Category();
-        }
+        $category = new Category();
 
         $category->setName($_POST['name']);
 

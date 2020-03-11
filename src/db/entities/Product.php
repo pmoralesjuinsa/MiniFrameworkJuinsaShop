@@ -3,7 +3,9 @@
 
 namespace Juinsa\db\entities;
 
+use AttributesValues;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,13 +28,13 @@ class Product extends Entity
     protected $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products", fetch="EAGER")
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id")
      */
     protected $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProductType", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="ProductType", inversedBy="products", fetch="EAGER")
      * @ORM\JoinColumn(name="id_product_type", referencedColumnName="id")
      */
     protected $product_type;
@@ -44,13 +46,9 @@ class Product extends Entity
     protected $orderLines;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ProductAttribute", inversedBy="products")
-     * @ORM\JoinTable(name="attributes_values",
-     *     joinColumns={@ORM\JoinColumn(name="id_product", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_product_attribute", referencedColumnName="id")}
-     *     )
+     * @ORM\OnetoMany(targetEntity="AttributeValue", mappedBy="product", cascade={"persist", "remove"}, orphanRemoval=true, fetch="EAGER")
      */
-    protected $attributes;
+    protected $attributeValues;
 
     /**
      * @ORM\Column(type="datetime")
@@ -65,8 +63,39 @@ class Product extends Entity
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
-        $this->attributes = new ArrayCollection();
         $this->orderLines = new ArrayCollection();
+        $this->attributeValues = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAttributeValues(): Collection
+    {
+        return $this->attributeValues;
+    }
+
+    /**
+     * @param AttributeValue $attributeValue
+     * @return Product
+     */
+    public function addAttributeValues(AttributeValue $attributeValue)
+    {
+        $this->attributeValues->add($attributeValue);
+        $attributeValue->setProduct($this);
+
+        return $this;
+    }
+
+    /**
+     * @param AttributeValue $attributeValue
+     * @return Product
+     */
+    public function removeAttributeValues(AttributeValue $attributeValue)
+    {
+        $this->attributeValues->removeElement($attributeValue);
+
+        return $this;
     }
 
     /**
@@ -139,22 +168,6 @@ class Product extends Entity
     public function getCategory()
     {
         return $this->category;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
-
-    /**
-     * @param mixed $attributes
-     */
-    public function setAttributes($attributes): void
-    {
-        $this->attributes = $attributes;
     }
 
     /**

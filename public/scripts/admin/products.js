@@ -4,7 +4,7 @@ function loadAttributes(productType)
         method: "POST",
         url: "/admin/product/attributes",
         dataType: "json",
-        data: {productType: productType}
+        data: {productType: productType, productId: $('#new-product #productId').val()}
     })
         .done(function (attributes) {
             $('#new-product .attributes').html('');
@@ -17,9 +17,6 @@ function loadAttributes(productType)
         })
         .always(function (msg) {
             $('#messages').html(msg.messages);
-            setTimeout(function () {
-                $('#messages .alert').alert('close');
-            }, 2000);
         });
 }
 

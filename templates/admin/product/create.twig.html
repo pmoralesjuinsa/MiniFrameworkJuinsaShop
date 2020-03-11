@@ -7,22 +7,30 @@
     <form method="POST" id="new-product">
         <div class="form-group">
             <label for="name">Name</label>
-            <input maxlength="80" type="text" class="form-control" id="name" name="name">
+            <input value="{{ product.name }}" maxlength="80" type="text" class="form-control" id="name" name="product[name]" required>
         </div>
         <div class="row">
             <div class="col">
                 <label for="category">Category</label>
-                <select class="form-control" id="category" name="category">
+                <select class="form-control" id="category" name="product[category]" required>
                     {% for category in categories %}
-                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% set selected = '' %}
+                        {% if category.id == product.category.id %}
+                            {% set selected = 'selected="selected"' %}
+                        {% endif %}
+                        <option {{ selected }} value="{{ category.id }}">{{ category.name }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="col">
                 <label for="type-product">Type Product</label>
-                <select class="form-control" id="type-product" name="type-product">
+                <select class="form-control" id="type-product" name="product[productType]" required>
                     {% for type in productTypes %}
-                        <option value="{{ type.id }}">{{ type.name }}</option>
+                        {% set selected = '' %}
+                        {% if type.id == product.productType.id %}
+                            {% set selected = 'selected="selected"' %}
+                        {% endif %}
+                        <option {{ selected }} value="{{ type.id }}">{{ type.name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -30,7 +38,12 @@
         <div class="form-group attributes">
             {% include "/admin/product/ajax_attributes.twig.html" %}
         </div>
-        <button type="button" class="btn btn-primary">Create</button>
+        {% set btnText = 'Create' %}
+        {% if product.id %}
+            {% set btnText = 'Edit' %}
+            <input type="hidden" id="productId" name="product[id]" value="{{ product.id }}" />
+        {% endif %}
+        <button type="submit" class="btn btn-primary">{{ btnText }}</button>
     </form>
 {% endblock %}
 

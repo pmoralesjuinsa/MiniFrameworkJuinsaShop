@@ -4,6 +4,7 @@
 namespace Juinsa\db\entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,14 +42,46 @@ class ProductAttributeValue
     protected $attributes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Product", inversedBy="attributes")
-     * @ORM\JoinTable(name="attributes_values")
+     * @ORM\OnetoMany(targetEntity="AttributeValue", mappedBy="attributeValue", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    protected $products;
+    protected $attributeValues;
 
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
+        $this->attributeValues = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @param mixed $attributes
+     */
+    public function setAttributes($attributes): void
+    {
+        $this->attributes = $attributes;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAttributeValues(): Collection
+    {
+        return $this->attributeValues;
+    }
+
+    /**
+     * @param ArrayCollection $attributeValues
+     */
+    public function setAttributeValues(ArrayCollection $attributeValues): void
+    {
+        $this->attributeValues = $attributeValues;
     }
 
     /**

@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class AttributesValues extends AbstractMigration
+class AttributesValuesTable extends AbstractMigration
 {
     /**
      * Change Method.

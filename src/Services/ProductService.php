@@ -39,6 +39,27 @@ class ProductService extends Service
         return null;
     }
 
+    /**
+     * @param $idProduct
+     * @return bool
+     */
+    public function removeProduct($idProduct): bool
+    {
+        try {
+            $product = $this->getProduct($idProduct);
+
+            $this->doctrineManager->em->remove($product);
+            $this->doctrineManager->em->flush();
+
+            return true;
+        } catch (\Exception $e) {
+            $this->logManagaer->error($e->getMessage());
+        }
+
+        return false;
+
+    }
+
     public function getAllProductInfo($id_product)
     {
         $rawQuery = "SELECT p.id, p.name, pa.name as attributeName, pa.id as attributeId, pav.value as attributeValue

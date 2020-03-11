@@ -7,11 +7,12 @@
     <div class="tools">
         <div class="row">
             <div class="col">
-                <a id="create-item" href="/admin/product/create">Create Product</a>
+                <a id="create-item" class="btn btn-primary" href="/admin/product/create" role="button">Create Product</a>
             </div>
             <div class="col text-right">
-                <form method="POST">
-                    <input type="text" name="nameOrId" placeholder="Search a product by name or id"><button type="submit">Search</button>
+                <form method="POST" class="form-inline">
+                    <input class="form-control col" type="text" name="nameOrId" placeholder="Search a product by name or id">
+                    <button type="submit" class="btn btn-secondary col-3">Search</button>
                 </form>
             </div>
         </div>
@@ -33,7 +34,10 @@
                     <div class="col-4">{{ product.name }}</div>
                     <div class="col-2">{{ product.price }}</div>
                     <div class="col-3">{{ product.category }}</div>
-                    <div class="col-1">Iconos</div>
+                    <div class="col-1">
+                        <a href="/admin/product/edit/{{ product.id }}">Edit</a>
+                        <a href="/admin/product/remove/{{ product.id }}">Delete</a>
+                    </div>
                 {% endfor %}
             </div>
         </div>

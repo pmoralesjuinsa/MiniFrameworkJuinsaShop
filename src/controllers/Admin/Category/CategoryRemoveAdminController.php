@@ -17,6 +17,6 @@ class CategoryRemoveAdminController extends CategoryAdminController
             $this->sessionManager->getFlashBag()->add('danger', 'Error al intentar borrar la categoría');
         }
 
-        $this->redirectTo("/admin/categories");
+        $this->redirectTo("/admin/category/list");
     }
 }

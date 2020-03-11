@@ -44,7 +44,7 @@ class CategoryEditAdminController extends CategoryAdminController
             $this->sessionManager->getFlashBag()->add('success',
                 "Categoría editada correctamente");
 
-            $this->redirectTo("/admin/categories");
+            $this->redirectTo("/admin/category/list");
         }
     }
 }

@@ -49,7 +49,7 @@ class ProductEditAdminController extends ProductAdminController
             $this->sessionManager->getFlashBag()->add('success',
                 "Producto editado correctamente");
 
-            $this->redirectTo("/admin/products");
+            $this->redirectTo("/admin/product/list");
         }
     }
 

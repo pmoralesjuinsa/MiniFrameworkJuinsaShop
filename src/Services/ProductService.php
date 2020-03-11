@@ -43,7 +43,7 @@ class ProductService extends Service
      * @param $idProduct
      * @return bool
      */
-    public function removeProduct($idProduct): bool
+    public function remove($idProduct): bool
     {
         try {
             $product = $this->getProduct($idProduct);

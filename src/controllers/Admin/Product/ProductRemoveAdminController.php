@@ -16,7 +16,7 @@ class ProductRemoveAdminController extends ProductAdminController
      */
     public function remove($id)
     {
-        if($this->productService->removeProduct($id)) {
+        if($this->productService->remove($id)) {
             $this->sessionManager->getFlashBag()->add('success', 'Producto eliminado correctamente');
         } else {
             $this->sessionManager->getFlashBag()->add('danger', 'Error al intentar borrar el producto');

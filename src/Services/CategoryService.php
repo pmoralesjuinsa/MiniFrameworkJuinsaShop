@@ -27,6 +27,26 @@ class CategoryService extends Service
         return null;
     }
 
+    /**
+     * @param integer $idCategory
+     * @return bool
+     */
+    public function remove($idCategory)
+    {
+        try {
+            $category = $this->getCategory($idCategory);
+
+            $this->doctrineManager->em->remove($category);
+            $this->doctrineManager->em->flush();
+
+            return true;
+        } catch (\Exception $e) {
+            $this->logManagaer->error($e->getMessage());
+        }
+
+        return false;
+    }
+
     public function getCategories(): ?array
     {
         return $this->doctrineManager->em->getRepository(Category::class)->findAll();

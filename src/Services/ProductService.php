@@ -39,6 +39,20 @@ class ProductService extends Service
         return null;
     }
 
+//    public function updateProduct(Product $product): ?Product
+//    {
+//        try {
+//            $this->doctrineManager->em->persist($product);
+//            $this->doctrineManager->em->flush();
+//
+//            return $product;
+//        } catch (\Exception $e) {
+//            $this->logManagaer->error($e->getMessage());
+//        }
+//
+//        return null;
+//    }
+
     public function getAllProductInfo($id_product)
     {
         $rawQuery = "SELECT p.id, p.name, pa.name as attributeName, pa.id as attributeId, pav.value as attributeValue

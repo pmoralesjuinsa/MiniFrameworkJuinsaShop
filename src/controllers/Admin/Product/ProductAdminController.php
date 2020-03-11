@@ -5,6 +5,7 @@ namespace Juinsa\controllers\Admin\Product;
 
 
 use Juinsa\controllers\Admin\AdminController;
+use Juinsa\db\entities\Product;
 use Juinsa\Services\CategoryService;
 use Juinsa\Services\ProductAttributeService;
 use Juinsa\Services\ProductService;
@@ -41,6 +42,7 @@ class ProductAdminController extends AdminController
 
     }
 
+    //TODO sacar esto para que sólo lo tengan Create y Edit Controller
     protected function showCreateProductPage($product = null): void
     {
         $categories = $this->categoryService->getCategories();
@@ -57,6 +59,38 @@ class ProductAdminController extends AdminController
     {
         $this->showCreateProductPage();
         die();
+    }
+
+    /**
+     * @param integer $idCategory
+     * @param Product $product
+     */
+    protected function setCategoryToProduct($idCategory, Product &$product): void
+    {
+        $category = $this->categoryService->getCategory($idCategory);
+        if (!$category) {
+            $this->sessionManager->getFlashBag()->add('danger',
+                'Error al localizar la categoría seleccionada');
+            $this->exitAftersShowsCreateProductPage();
+        }
+
+        $product->setCategory($category);
+    }
+
+    /**
+     * @param integer $idProductType
+     * @param Product $product
+     */
+    protected function setProductTypeToProduct($idProductType, Product &$product): void
+    {
+        $productType = $this->productTypeService->getProductTypeById($idProductType);
+        if (!$productType) {
+            $this->sessionManager->getFlashBag()->add('danger',
+                'Error al localizar el tipo de producto seleccionado');
+            $this->exitAftersShowsCreateProductPage();
+        }
+
+        $product->setProductType($productType);
     }
 
     /**
@@ -102,4 +136,5 @@ class ProductAdminController extends AdminController
 
         return true;
     }
+    //--------------------------------------------
 }

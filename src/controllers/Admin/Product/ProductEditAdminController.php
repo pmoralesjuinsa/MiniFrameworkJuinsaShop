@@ -4,6 +4,8 @@
 namespace Juinsa\controllers\Admin\Product;
 
 
+use Juinsa\db\entities\Product;
+
 class ProductEditAdminController extends ProductAdminController
 {
     public function index()
@@ -53,7 +55,7 @@ class ProductEditAdminController extends ProductAdminController
     }
 
     /**
-     * @param $product
+     * @param Product $product
      */
     protected function editProductProcessing(&$product): void
     {
@@ -65,30 +67,19 @@ class ProductEditAdminController extends ProductAdminController
 
         $this->setProductTypeToProduct((int)$postVars['productType'], $product);
 
-        $this->buildAttributesValuesLines($postVars, $product);
+        $this->buildAttributesValuesLinesEdit($postVars, $product);
     }
 
     /**
      * @param $postVars
      * @param Product $product
      */
-    protected function editBuildAttributesValuesLines($postVars, Product &$product): void
+    protected function buildAttributesValuesLinesEdit($postVars, Product &$product): void
     {
-        foreach ($product->attributeValues as $id => $value) {
-            if (!empty($value)) {
-                $productAttributeEntity = $this->productAttributeService->getProductAttributebyId((int)$id);
+        foreach ($product->getAttributeValues() as $attributeValue) {
+            $productAttributeId = $attributeValue->getProductAttribute()->getId();
 
-                $productAttributeValue = new ProductAttributeValue();
-                $productAttributeValue->setAttributes($productAttributeEntity);
-                $productAttributeValue->setValue($value);
-
-                $attributeValue = new AttributeValue();
-                $attributeValue->setProduct($product);
-                $attributeValue->setAttributeValue($productAttributeValue);
-                $attributeValue->setProductAttribute($productAttributeEntity);
-
-                $product->addAttributeValues($attributeValue);
-            }
+            $attributeValue->getAttributeValue()->setValue($postVars['attributes'][$productAttributeId]);
         }
 
         $product = $this->productService->createProduct($product);

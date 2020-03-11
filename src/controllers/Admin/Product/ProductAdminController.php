@@ -37,8 +37,6 @@ class ProductAdminController extends AdminController
      */
     protected ProductAttributeService $productAttributeService;
 
-    protected $entity = "product";
-
     //TODO sacar esto para que sólo lo tengan Create y Edit Controller
     protected function showCreateProductPage($product = null): void
     {
@@ -68,7 +66,7 @@ class ProductAdminController extends AdminController
         if (!$category) {
             $this->sessionManager->getFlashBag()->add('danger',
                 'Error al localizar la categoría seleccionada');
-            $this->exitAftersShowsCreatePage($this->entity);
+            $this->exitAftersShowsCreateProductPage();
         }
 
         $product->setCategory($category);
@@ -84,7 +82,7 @@ class ProductAdminController extends AdminController
         if (!$productType) {
             $this->sessionManager->getFlashBag()->add('danger',
                 'Error al localizar el tipo de producto seleccionado');
-            $this->exitAftersShowsCreatePage($this->entity);
+            $this->exitAftersShowsCreateProductPage();
         }
 
         $product->setProductType($productType);

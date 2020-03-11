@@ -24,10 +24,8 @@ class ProductCreateAdminController extends ProductAdminController
 
     public function create()
     {
-        $product = [];
-
         if (!$this->checkIfAllVarsAreValid()) {
-            $this->exitAftersShowsCreatePage($this->entity);
+            $this->exitAftersShowsCreateProductPage();
         }
 
         $product = new Product();

@@ -16,8 +16,6 @@ class CategoryAdminController extends AdminController
      */
     protected CategoryService $categoryService;
 
-    protected $entity = "category";
-
     /**
      * @param Category|null $category
      */

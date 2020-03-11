@@ -19,4 +19,37 @@ abstract class Service
 
         $this->logManagaer->info("Service ->".get_class($this)." up");
     }
+
+    /**
+     * @param $id
+     * @param $name
+     * @param string $rawQuery
+     * @return mixed[]|null
+     */
+    protected function modifyQueryForSearch($id, $name, string $rawQuery)
+    {
+        try {
+            if (!is_null($id)) {
+                $rawQuery .= " WHERE p.id = :id";
+            } elseif (!is_null($name)) {
+                $rawQuery .= " WHERE p.name LIKE :name";
+            }
+
+            $statement = $this->doctrineManager->em->getConnection()->prepare($rawQuery);
+
+            if (!is_null($id)) {
+                $statement->bindValue('id', $id);
+            } elseif (!is_null($name)) {
+                $statement->bindValue('name', "%" . $name . "%");
+            }
+
+            $statement->execute();
+
+            return $statement->fetchAll(5);
+        } catch (\Exception $exception) {
+            $this->logManagaer->error($exception->getMessage());
+        }
+
+        return null;
+    }
 }

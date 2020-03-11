@@ -57,7 +57,6 @@ class ProductService extends Service
         }
 
         return false;
-
     }
 
     public function getAllProductInfo($id_product)
@@ -99,39 +98,28 @@ class ProductService extends Service
     }
 
     /**
-     * @param integer $id
-     * @param string $name
-     * @return mixed[]
-     * @throws \Doctrine\DBAL\DBALException
+     * @param integer|null $id
+     * @param string|null $name
+     * @return mixed[]|null
      */
     public function getProductAdminList($id = null, $name = null)
     {
-        $rawQuery = "SELECT p.id, p.name, c.name as category, (
-                            SELECT pav.value as price
-                            FROM product_attribute_values pav 
-                            LEFT JOIN attributes_values av on pav.id = av.id_product_attribute_value
-                            WHERE p.id = av.id_product  AND av.id_product_attribute = 7) as price
-                    FROM products p
-                    LEFT JOIN categories c on p.id_category = c.id
-                    ";
+        try {
+            $rawQuery = "SELECT p.id, p.name, c.name as category, (
+                                SELECT pav.value as price
+                                FROM product_attribute_values pav 
+                                LEFT JOIN attributes_values av on pav.id = av.id_product_attribute_value
+                                WHERE p.id = av.id_product  AND av.id_product_attribute = 7) as price
+                        FROM products p
+                        LEFT JOIN categories c on p.id_category = c.id
+                        ";
 
-        if(!is_null($id)) {
-            $rawQuery .= " WHERE p.id = :id";
-        } elseif(!is_null($name)) {
-            $rawQuery .= " WHERE p.name LIKE :name";
+            return $this->modifyQueryForSearch($id, $name, $rawQuery);
+        } catch (\Exception $e) {
+            $this->logManagaer->error($e->getMessage());
         }
 
-        $statement = $this->doctrineManager->em->getConnection()->prepare($rawQuery);
-
-        if(!is_null($id)) {
-            $statement->bindValue('id', $id);
-        } elseif(!is_null($name)) {
-            $statement->bindValue('name', "%".$name."%");
-        }
-
-        $statement->execute();
-
-        return $statement->fetchAll(5);
+        return null;
     }
 
 

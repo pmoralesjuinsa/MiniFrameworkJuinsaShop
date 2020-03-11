@@ -4,15 +4,15 @@
     <hr class="colorgraph">
 {% endblock %}
 {% block body %}
-    <form method="POST" id="new-product">
+    <form method="POST" id="new-productType">
         <div class="form-group">
             <label for="name">Name</label>
-            <input value="{{ category.name }}" maxlength="80" type="text" class="form-control" id="name" name="name" required>
+            <input value="{{ productType.name }}" maxlength="80" type="text" class="form-control" id="name" name="name" required>
         </div>
         {% set btnText = 'Create' %}
-        {% if category.id %}
+        {% if productType.id %}
             {% set btnText = 'Edit' %}
-            <input type="hidden" id="categoryId" name="id" value="{{ category.id }}" />
+            <input type="hidden" id="productTypeId" name="id" value="{{ productType.id }}" />
         {% endif %}
         <button type="submit" class="btn btn-primary">{{ btnText }}</button>
     </form>

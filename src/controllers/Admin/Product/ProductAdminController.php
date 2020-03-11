@@ -37,11 +37,6 @@ class ProductAdminController extends AdminController
      */
     protected ProductAttributeService $productAttributeService;
 
-    public function index()
-    {
-
-    }
-
     //TODO sacar esto para que sólo lo tengan Create y Edit Controller
     protected function showCreateProductPage($product = null): void
     {

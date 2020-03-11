@@ -19,8 +19,6 @@ abstract class Controller
         $this->sessionManager = $sessionManager;
     }
 
-    public abstract function index();
-
     public function redirectTo(string $page)
     {
         $host = $_SERVER['HTTP_HOST'];

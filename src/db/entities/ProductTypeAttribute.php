@@ -29,6 +29,17 @@ class ProductTypeAttribute
      */
     protected $updated_at;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="ProductType", inversedBy="productTypeAttributes")
+     * @ORM\JoinColumn(name="id_product_type", referencedColumnName="id")
+     */
+    protected $productType;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ProductAttribute", inversedBy="productTypeAttributes")
+     * @ORM\JoinColumn(name="id_product_attribute", referencedColumnName="id")
+     */
+    protected $productAttribute;
 
     public function __construct()
     {
@@ -81,6 +92,38 @@ class ProductTypeAttribute
     public function setUpdatedAt($updated_at): void
     {
         $this->updated_at = $updated_at;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProductType()
+    {
+        return $this->productType;
+    }
+
+    /**
+     * @param mixed $productType
+     */
+    public function setProductType($productType): void
+    {
+        $this->productType = $productType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProductAttribute()
+    {
+        return $this->productAttribute;
+    }
+
+    /**
+     * @param mixed $productAttribute
+     */
+    public function setProductAttribute($productAttribute): void
+    {
+        $this->productAttribute = $productAttribute;
     }
 
 

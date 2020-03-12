@@ -6,6 +6,7 @@ namespace Juinsa\controllers\Admin\ProductType;
 
 use Juinsa\controllers\Admin\AdminController;
 use Juinsa\db\entities\ProductType;
+use Juinsa\db\entities\ProductTypeAttribute;
 use Juinsa\Services\ProductAttributeService;
 use Juinsa\Services\ProductTypeService;
 
@@ -36,6 +37,25 @@ class ProductTypeAdminController extends AdminController
             'productAttributes' => $productAttributes,
             'productTypeAttributes' => $productTypeAttributes
         ]);
+    }
+
+    /**
+     * @param $postVars
+     * @param ProductType $productType
+     */
+    protected function buildProductTypeAttributeLines($postVars, ProductType &$productType): void
+    {
+        foreach ($postVars['attributes'] as $id => $name) {
+            $productAttributeEntity = $this->productAttributeService->getProductAttributebyId((int)$id);
+
+            $productTypeAttribute = new ProductTypeAttribute();
+            $productTypeAttribute->setProductAttribute($productAttributeEntity);
+            $productTypeAttribute->setProductType($productType);
+
+            $productType->addProductTypeAttributes($productTypeAttribute);
+        }
+
+        $productType = $this->productTypeService->createProductType($productType);
     }
 
     /**

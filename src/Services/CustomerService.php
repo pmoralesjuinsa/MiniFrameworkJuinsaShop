@@ -80,7 +80,7 @@ class CustomerService extends Service
     {
         try {
             $rawQuery = "SELECT c.id, c.name, c.updated_at, c.email, c.created_at
-                    FROM customer c";
+                    FROM customers c";
 
             return $this->modifyQueryForSearch("c", $id, $name, $rawQuery);
 

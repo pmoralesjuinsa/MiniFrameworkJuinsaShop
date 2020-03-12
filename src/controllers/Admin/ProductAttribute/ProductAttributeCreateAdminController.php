@@ -16,7 +16,9 @@ class ProductAttributeCreateAdminController extends ProductAttributeAdminControl
 
     public function create()
     {
-        $this->checkIfAllVarsAreValid();
+        if (!$this->checkIfAllVarsAreValid()) {
+            $this->exitAftersShowsCreatePage();
+        }
 
         $productAttribute = new ProductAttribute();
 

@@ -25,6 +25,15 @@ class ProductAttributeAdminController extends AdminController
     }
 
     /**
+     * @return void
+     */
+    protected function exitAftersShowsCreatePage(): void
+    {
+        $this->showCreatePage();
+        die();
+    }
+
+    /**
      * @param bool $checkId
      * @return bool
      */

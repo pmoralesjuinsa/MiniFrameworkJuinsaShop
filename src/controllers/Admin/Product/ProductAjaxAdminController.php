@@ -3,6 +3,7 @@
 
 namespace Juinsa\controllers\Admin\Product;
 
+use Juinsa\db\entities\Product;
 use Juinsa\Services\ProductAttributeService;
 
 class ProductAjaxAdminController extends ProductAdminController
@@ -62,6 +63,9 @@ class ProductAjaxAdminController extends ProductAdminController
      */
     protected function setProductAttributesIfWeAreEditing(array &$productAttributes): void
     {
+        /**
+         * @var Product $product
+         */
         if (!isset($_POST['productId']) || !is_numeric($_POST['productId'])) {
             return;
         }
@@ -76,6 +80,8 @@ class ProductAjaxAdminController extends ProductAdminController
         foreach ($product->attributeValues as $attributeValue) {
             $productAttributes[$attributeValue->productAttribute->getId()] = $attributeValue->attributeValue->getValue();
         }
+        var_dump($productAttributes);
+        die();
     }
 
 

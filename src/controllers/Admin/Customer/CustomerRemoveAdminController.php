@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Juinsa\controllers\Admin\User;
+namespace Juinsa\controllers\Admin\Customer;
 
 
 class CustomerRemoveAdminController extends CustomerAdminController
@@ -11,12 +11,12 @@ class CustomerRemoveAdminController extends CustomerAdminController
      */
     public function remove($id)
     {
-        if($this->userService->remove($id)) {
-            $this->sessionManager->getFlashBag()->add('success', 'Usuario eliminado correctamente');
+        if($this->customerService->remove($id)) {
+            $this->sessionManager->getFlashBag()->add('success', 'Cliente eliminado correctamente');
         } else {
-            $this->sessionManager->getFlashBag()->add('danger', 'Error al intentar borrar el usuario');
+            $this->sessionManager->getFlashBag()->add('danger', 'Error al intentar borrar el cliente');
         }
 
-        $this->redirectTo("/admin/user/list");
+        $this->redirectTo("/admin/customer/list");
     }
 }

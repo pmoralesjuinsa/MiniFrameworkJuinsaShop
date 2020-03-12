@@ -27,6 +27,26 @@ class ProductAttributeService extends Service
     }
 
     /**
+     * @param integer $id
+     * @return bool
+     */
+    public function remove($id)
+    {
+        try {
+            $productAttribute = $this->getProductAttributeById($id);
+
+            $this->doctrineManager->em->remove($productAttribute);
+            $this->doctrineManager->em->flush();
+
+            return true;
+        } catch (\Exception $e) {
+            $this->logManagaer->error($e->getMessage());
+        }
+
+        return false;
+    }
+
+    /**
      * @param integer|null $id
      * @param string|null $name
      * @return mixed[]|null

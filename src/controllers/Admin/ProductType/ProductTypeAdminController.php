@@ -40,6 +40,15 @@ class ProductTypeAdminController extends AdminController
     }
 
     /**
+     * @return void
+     */
+    protected function exitAftersShowsCreatePage(): void
+    {
+        $this->showCreatePage();
+        die();
+    }
+
+    /**
      * @param $postVars
      * @param ProductType $productType
      */

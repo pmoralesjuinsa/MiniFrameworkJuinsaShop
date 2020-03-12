@@ -17,7 +17,9 @@ class ProductTypeCreateAdminController extends ProductTypeAdminController
 
     public function create()
     {
-        $this->checkIfAllVarsAreValid();
+        if (!$this->checkIfAllVarsAreValid()) {
+            $this->exitAftersShowsCreatePage();
+        }
 
         $postVars = $_POST['productType'];
 

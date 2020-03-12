@@ -25,6 +25,15 @@ class UserAdminController extends AdminController
     }
 
     /**
+     * @return void
+     */
+    protected function exitAftersShowsCreatePage(): void
+    {
+        $this->showCreatePage();
+        die();
+    }
+
+    /**
      * @param bool $checkId
      * @return bool
      */
@@ -35,11 +44,23 @@ class UserAdminController extends AdminController
                 $this->sessionManager->getFlashBag()->add('danger', 'No hay un id válido');
                 return false;
             }
+        } else {
+            if(empty($_POST['password'])) {
+                $this->sessionManager->getFlashBag()->add('danger', 'La contraseña no puede estar en blanco');
+                return false;
+            }
         }
 
         if (empty($_POST['name'])) {
             $this->sessionManager->getFlashBag()->add('danger', 'El nombre no puede estar en blanco');
             return false;
+        }
+
+        if(!empty($_POST['password'])) {
+            if($_POST['password'] != $_POST['confirmPassword']) {
+                $this->sessionManager->getFlashBag()->add('danger', 'Las contraseñas deben coincidir');
+                return false;
+            }
         }
 
         return true;

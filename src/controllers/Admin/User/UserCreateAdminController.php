@@ -17,11 +17,15 @@ class UserCreateAdminController extends UserAdminController
 
     public function create()
     {
-        $this->checkIfAllVarsAreValid();
+        if (!$this->checkIfAllVarsAreValid()) {
+            $this->exitAftersShowsCreatePage();
+        }
 
         $user = new User();
 
         $user->setName($_POST['name']);
+        $user->setEmail($_POST['email']);
+        $user->setPassword(sha1($_POST['password']));
 
         $this->userService->createUser($user);
 

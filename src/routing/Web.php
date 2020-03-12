@@ -8,9 +8,16 @@ use FastRoute\Dispatcher;
 
 class Web
 {
+
     public static function getDispatcher():Dispatcher{
         return \FastRoute\simpleDispatcher(
             function (\Fastroute\RouteCollector $route){
+                $entitiesArray = [
+                    "Product",
+                    "Category",
+                    "ProductType"
+                ];
+
                 $route->addRoute('GET','/',['Juinsa\controllers\HomeController','index']);
                 $route->addRoute('GET','/who',['Juinsa\controllers\WhoController','index']);
                 $route->addRoute('GET','/login',['Juinsa\controllers\Auth\CustomerLoginController','index']);
@@ -32,21 +39,17 @@ class Web
                 $route->addRoute('POST','/admin/login',['Juinsa\controllers\Auth\UserLoginController','login']);
                 $route->addRoute('GET','/admin/myPanel',['Juinsa\controllers\Auth\UserPanelController','index']);
                 $route->addRoute('GET','/admin/panel',['Juinsa\controllers\Admin\AdminController','index']);
-                $route->addRoute('GET','/admin/products',['Juinsa\controllers\Admin\Product\ProductListAdminController','index']);
-                $route->addRoute('POST','/admin/products',['Juinsa\controllers\Admin\Product\ProductListAdminController','search']);
-                $route->addRoute('GET','/admin/product/create',['Juinsa\controllers\Admin\Product\ProductCreateAdminController','index']);
-                $route->addRoute('POST','/admin/product/create',['Juinsa\controllers\Admin\Product\ProductCreateAdminController','create']);
                 $route->addRoute('POST','/admin/product/attributes',['Juinsa\controllers\Admin\Product\ProductAjaxAdminController','getAttributes']);
-                $route->addRoute('GET','/admin/product/edit/{id:\d+}',['Juinsa\controllers\Admin\Product\ProductEditAdminController','edit']);
-                $route->addRoute('POST','/admin/product/edit/{id:\d+}',['Juinsa\controllers\Admin\Product\ProductEditAdminController','editSave']);
-                $route->addRoute('GET','/admin/product/remove/{id:\d+}',['Juinsa\controllers\Admin\Product\ProductRemoveAdminController','remove']);
-                $route->addRoute('GET','/admin/categories',['Juinsa\controllers\Admin\Category\CategoryListAdminController','index']);
-                $route->addRoute('POST','/admin/categories',['Juinsa\controllers\Admin\Category\CategoryListAdminController','search']);
-                $route->addRoute('GET','/admin/category/create',['Juinsa\controllers\Admin\Category\CategoryCreateAdminController','index']);
-                $route->addRoute('POST','/admin/category/create',['Juinsa\controllers\Admin\Category\CategoryCreateAdminController','create']);
-                $route->addRoute('GET','/admin/category/edit/{id:\d+}',['Juinsa\controllers\Admin\Category\CategoryEditAdminController','edit']);
-                $route->addRoute('POST','/admin/category/edit/{id:\d+}',['Juinsa\controllers\Admin\Category\CategoryEditAdminController','editSave']);
-                $route->addRoute('GET','/admin/category/remove/{id:\d+}',['Juinsa\controllers\Admin\Category\CategoryRemoveAdminController','remove']);
+                foreach ($entitiesArray as $entity) {
+                    $route->addRoute('GET',"/admin/".mb_strtolower($entity)."/list",["Juinsa\controllers\Admin\\".$entity."\\".$entity."ListAdminController",'index']);
+                    $route->addRoute('POST',"/admin/".mb_strtolower($entity)."/list",["Juinsa\controllers\Admin\\".$entity."\\".$entity."ListAdminController",'search']);
+                    $route->addRoute('GET',"/admin/".mb_strtolower($entity)."/create",["Juinsa\controllers\Admin\\".$entity."\\".$entity."CreateAdminController",'index']);
+                    $route->addRoute('POST',"/admin/".mb_strtolower($entity)."/create",["Juinsa\controllers\Admin\\".$entity."\\".$entity."CreateAdminController",'create']);
+                    $route->addRoute('GET',"/admin/".mb_strtolower($entity)."/edit/{id:\d+}",["Juinsa\controllers\Admin\\".$entity."\\".$entity."EditAdminController",'edit']);
+                    $route->addRoute('POST',"/admin/".mb_strtolower($entity)."/edit/{id:\d+}",["Juinsa\controllers\Admin\\".$entity."\\".$entity."EditAdminController",'editSave']);
+                    $route->addRoute('GET',"/admin/".mb_strtolower($entity)."/remove/{id:\d+}",["Juinsa\controllers\Admin\\".$entity."\\".$entity."RemoveAdminController",'remove']);
+                }
+
             }
         );
     }

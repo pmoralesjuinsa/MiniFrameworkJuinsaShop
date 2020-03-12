@@ -57,4 +57,9 @@ class ProductAttributeService extends Service
         return $this->doctrineManager->em->getRepository(ProductAttribute::class)->findOneById($id);
     }
 
+    public function getProductAttributes()
+    {
+        return $this->doctrineManager->em->getRepository(ProductAttribute::class)->findAll();
+    }
+
 }

@@ -22,6 +22,6 @@ class ProductRemoveAdminController extends ProductAdminController
             $this->sessionManager->getFlashBag()->add('danger', 'Error al intentar borrar el producto');
         }
 
-        $this->redirectTo("/admin/products");
+        $this->redirectTo("/admin/product/list");
     }
 }

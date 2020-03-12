@@ -36,10 +36,9 @@ class ProductAttribute
     protected $updated_at;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ProductType", inversedBy="attributes", cascade={"persist"})
-     * @ORM\JoinTable(name="product_type_attributes")
+     * @ORM\OneToMany(targetEntity="ProductTypeAttribute", mappedBy="productAttribute", cascade={"persist", "remove"}, orphanRemoval=true, fetch="EAGER")
      */
-    protected $product_types;
+    protected $productTypeAttributes;
 
     /**
      * @ORM\OneToMany(targetEntity="ProductAttributeValue", mappedBy="attributes", cascade={"persist"})
@@ -54,7 +53,7 @@ class ProductAttribute
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
-        $this->product_types = new ArrayCollection();
+        $this->productTypeAttributes = new ArrayCollection();
         $this->values = new ArrayCollection();
         $this->attributeValues = new ArrayCollection();
     }
@@ -73,6 +72,37 @@ class ProductAttribute
     public function setAttributeValues(ArrayCollection $attributeValues): void
     {
         $this->attributeValues = $attributeValues;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getProductTypeAttributes(): Collection
+    {
+        return $this->productTypeAttributes;
+    }
+
+    /**
+     * @param ProductTypeAttribute $productTypeAttributes
+     * @return ProductAttribute
+     */
+    public function addProductTypeAttributes(ProductTypeAttribute $productTypeAttributes)
+    {
+        $this->productTypeAttributes->add($productTypeAttributes);
+        $productTypeAttributes->setProductAttribute($this);
+
+        return $this;
+    }
+
+    /**
+     * @param ProductTypeAttribute $productTypeAttributes
+     * @return ProductAttribute
+     */
+    public function removeProductTypeAttributes(ProductTypeAttribute $productTypeAttributes)
+    {
+        $this->productTypeAttributes->removeElement($productTypeAttributes);
+
+        return $this;
     }
 
     /**

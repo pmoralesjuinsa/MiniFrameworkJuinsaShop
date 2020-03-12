@@ -1,0 +1,39 @@
+{% extends "backend_template.twig.html" %}
+{% block title %}
+<h2 class="form-signin-heading">Add new category</h2>
+<hr class="colorgraph">
+{% endblock %}
+{% block body %}
+<form method="POST" id="new-user">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <label for="name">Name</label>
+            <input value="{{ user.name }}" maxlength="80" type="text" class="form-control"
+                   id="name" name="name" required>
+        </div>
+        <div class="col-12 col-sm-6">
+            <label for="email">Email</label>
+            <input maxlength="80" type="email" class="form-control" value="{{ user.email }}"
+                   id="email" name="email" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <label for="password">Password</label>
+            <input maxlength="100" type="password" class="form-control"
+                   id="password" name="password">
+        </div>
+        <div class="col-12 col-sm-6">
+            <label for="confirmPassword">Confirm Password</label>
+            <input maxlength="100" type="password" class="form-control"
+                   id="confirmPassword" name="confirmPassword">
+        </div>
+    </div>
+    {% set btnText = 'Create' %}
+    {% if user.id %}
+    {% set btnText = 'Edit' %}
+    <input type="hidden" id="userId" name="id" value="{{ user.id }}"/>
+    {% endif %}
+    <button type="submit" class="btn btn-primary">{{ btnText }}</button>
+</form>
+{% endblock %}

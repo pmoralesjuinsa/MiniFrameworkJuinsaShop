@@ -88,3 +88,7 @@
 .backend #new-productType #productAttributes .form-check-inline {
     margin: 5px 15px;
 }
+
+.backend form[id*='new-'] .row {
+    margin-bottom: 15px;
+}

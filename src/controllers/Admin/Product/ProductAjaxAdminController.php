@@ -80,8 +80,7 @@ class ProductAjaxAdminController extends ProductAdminController
         foreach ($product->attributeValues as $attributeValue) {
             $productAttributes[$attributeValue->productAttribute->getId()] = $attributeValue->attributeValue->getValue();
         }
-        var_dump($productAttributes);
-        die();
+
     }
 
 

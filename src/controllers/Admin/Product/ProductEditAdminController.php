@@ -78,9 +78,14 @@ class ProductEditAdminController extends ProductAdminController
         foreach ($product->getAttributeValues() as $attributeValue) {
             $productAttributeId = $attributeValue->getProductAttribute()->getId();
 
-            $attributeValue->getAttributeValue()->setValue($postVars['attributes'][$productAttributeId]);
+            if(!isset($postVars['attributes'][$productAttributeId])) {
+                $product->removeAttributeValues($attributeValue);
+            } else {
+                $attributeValue->getAttributeValue()->setValue($postVars['attributes'][$productAttributeId]);
+                unset($postVars['attributes'][$productAttributeId]);
+            }
         }
 
-        $product = $this->productService->createProduct($product);
+        $this->buildAttributesValuesLines($postVars, $product);
     }
 }

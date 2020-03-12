@@ -3,9 +3,7 @@
 
 namespace Juinsa\controllers\Admin\Product;
 
-use Juinsa\db\entities\AttributeValue;
 use Juinsa\db\entities\Product;
-use Juinsa\db\entities\ProductAttributeValue;
 use Juinsa\Services\ProductAttributeService;
 
 class ProductCreateAdminController extends ProductAdminController
@@ -41,30 +39,6 @@ class ProductCreateAdminController extends ProductAdminController
         }
 
         $this->showCreateProductPage();
-    }
-
-    /**
-     * @param $postVars
-     * @param Product $product
-     */
-    protected function buildAttributesValuesLines($postVars, Product &$product): void
-    {
-        foreach ($postVars['attributes'] as $id => $value) {
-            $productAttributeEntity = $this->productAttributeService->getProductAttributebyId((int)$id);
-
-            $productAttributeValue = new ProductAttributeValue();
-            $productAttributeValue->setAttributes($productAttributeEntity);
-            $productAttributeValue->setValue($value);
-
-            $attributeValue = new AttributeValue();
-            $attributeValue->setProduct($product);
-            $attributeValue->setAttributeValue($productAttributeValue);
-            $attributeValue->setProductAttribute($productAttributeEntity);
-
-            $product->addAttributeValues($attributeValue);
-        }
-
-        $product = $this->productService->createProduct($product);
     }
 
     /**

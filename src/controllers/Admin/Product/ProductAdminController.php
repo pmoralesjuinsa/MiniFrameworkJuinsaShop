@@ -5,7 +5,9 @@ namespace Juinsa\controllers\Admin\Product;
 
 
 use Juinsa\controllers\Admin\AdminController;
+use Juinsa\db\entities\AttributeValue;
 use Juinsa\db\entities\Product;
+use Juinsa\db\entities\ProductAttributeValue;
 use Juinsa\Services\CategoryService;
 use Juinsa\Services\ProductAttributeService;
 use Juinsa\Services\ProductService;
@@ -38,6 +40,30 @@ class ProductAdminController extends AdminController
     protected ProductAttributeService $productAttributeService;
 
     //TODO sacar esto para que sólo lo tengan Create y Edit Controller
+    /**
+     * @param $postVars
+     * @param Product $product
+     */
+    protected function buildAttributesValuesLines($postVars, Product &$product): void
+    {
+        foreach ($postVars['attributes'] as $id => $value) {
+            $productAttributeEntity = $this->productAttributeService->getProductAttributebyId((int)$id);
+
+            $productAttributeValue = new ProductAttributeValue();
+            $productAttributeValue->setAttributes($productAttributeEntity);
+            $productAttributeValue->setValue($value);
+
+            $attributeValue = new AttributeValue();
+            $attributeValue->setProduct($product);
+            $attributeValue->setAttributeValue($productAttributeValue);
+            $attributeValue->setProductAttribute($productAttributeEntity);
+
+            $product->addAttributeValues($attributeValue);
+        }
+
+        $product = $this->productService->createProduct($product);
+    }
+
     protected function showCreateProductPage($product = null): void
     {
         $categories = $this->categoryService->getCategories();

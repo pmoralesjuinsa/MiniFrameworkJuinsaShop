@@ -16,7 +16,9 @@ class CategoryCreateAdminController extends CategoryAdminController
 
     public function create()
     {
-        $this->checkIfAllVarsAreValid();
+        if (!$this->checkIfAllVarsAreValid()) {
+            $this->exitAftersShowsCreatePage();
+        }
 
         $category = new Category();
 

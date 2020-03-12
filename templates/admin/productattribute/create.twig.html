@@ -1,0 +1,19 @@
+{% extends "backend_template.twig.html" %}
+{% block title %}
+    <h2 class="form-signin-heading">Add new Product Attribute</h2>
+    <hr class="colorgraph">
+{% endblock %}
+{% block body %}
+    <form method="POST" id="new-productAttribute">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input value="{{ productAttribute.name }}" maxlength="80" type="text" class="form-control" id="name" name="name" required>
+        </div>
+        {% set btnText = 'Create' %}
+        {% if productAttribute.id %}
+            {% set btnText = 'Edit' %}
+            <input type="hidden" id="categoryId" name="id" value="{{ productAttribute.id }}" />
+        {% endif %}
+        <button type="submit" class="btn btn-primary">{{ btnText }}</button>
+    </form>
+{% endblock %}

@@ -12,7 +12,7 @@ class ProductAttributeService extends Service
      * @param ProductAttribute $productAttribute
      * @return ProductAttribute|null
      */
-    public function createProductType(ProductAttribute $productAttribute): ?ProductAttribute
+    public function createProductAttribute(ProductAttribute $productAttribute): ?ProductAttribute
     {
         try {
             $this->doctrineManager->em->persist($productAttribute);
@@ -26,6 +26,25 @@ class ProductAttributeService extends Service
         return null;
     }
 
+    /**
+     * @param integer|null $id
+     * @param string|null $name
+     * @return mixed[]|null
+     */
+    public function getProductAttributeAdminList($id = null, $name = null)
+    {
+        try {
+            $rawQuery = "SELECT pa.id, pa.name, pa.updated_at, pa.created_at
+                    FROM product_attributes pa";
+
+            return $this->modifyQueryForSearch("pa", $id, $name, $rawQuery);
+
+        } catch (\Exception $exception) {
+            $this->logManagaer->error($exception->getMessage());
+        }
+
+        return null;
+    }
 
     /**
      * @param $idProductType

@@ -15,7 +15,11 @@ class Web
                 $entitiesArray = [
                     "Product",
                     "Category",
-                    "ProductType"
+                    "ProductType",
+                    "ProductAttribute",
+                    "User",
+                    "Customer",
+                    "Order"
                 ];
 
                 $route->addRoute('GET','/',['Juinsa\controllers\HomeController','index']);

@@ -14,9 +14,6 @@ class CategoryCreateAdminController extends CategoryAdminController
         $this->showCreatePage();
     }
 
-    /**
-     * @param Category|null $category
-     */
     public function create()
     {
         $this->checkIfAllVarsAreValid();

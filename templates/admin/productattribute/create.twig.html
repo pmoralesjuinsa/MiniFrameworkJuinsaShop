@@ -10,7 +10,7 @@
             <input value="{{ productAttribute.name }}" maxlength="80" type="text" class="form-control" id="name" name="name" required>
         </div>
         {% set btnText = 'Create' %}
-        {% if category.id %}
+        {% if productAttribute.id %}
             {% set btnText = 'Edit' %}
             <input type="hidden" id="categoryId" name="id" value="{{ productAttribute.id }}" />
         {% endif %}

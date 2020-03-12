@@ -7,12 +7,27 @@
     <form method="POST" id="new-productType">
         <div class="form-group">
             <label for="name">Name</label>
-            <input value="{{ productType.name }}" maxlength="80" type="text" class="form-control" id="name" name="name" required>
+            <input value="{{ productType.name }}" maxlength="80" type="text" class="form-control" id="name" name="productType[name]" required>
         </div>
+        {% if productAttributes %}
+            <div id="productAttributes">
+                <div class="section-title">Attributes:</div>
+                {% for attribute in productAttributes %}
+                    {% set checked = 'checked="checked"'  %}
+                    {% if productTypeAttributes[attribute.id] %}
+                        {% set checked = 'checked="checked"'  %}
+                    {% endif %}
+                    <div class="form-check form-check-inline">
+                        <input {{ checked }} class="form-check-input" type="checkbox" id="{{ attribute.name }}" value="{{ attribute.id }}" name="productType[attributes][{{ attribute.id }}]">
+                        <label class="form-check-label" for="{{ attribute.name }}">{{ attribute.name }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
         {% set btnText = 'Create' %}
         {% if productType.id %}
             {% set btnText = 'Edit' %}
-            <input type="hidden" id="productTypeId" name="id" value="{{ productType.id }}" />
+            <input type="hidden" id="productTypeId" name="productType[id]" value="{{ productType.id }}" />
         {% endif %}
         <button type="submit" class="btn btn-primary">{{ btnText }}</button>
     </form>

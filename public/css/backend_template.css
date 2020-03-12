@@ -80,3 +80,11 @@
 .backend .tools {
     margin-bottom: 20px;
 }
+
+.backend #new-productType #productAttributes {
+    margin-bottom: 25px;
+}
+
+.backend #new-productType #productAttributes .form-check-inline {
+    margin: 5px 15px;
+}

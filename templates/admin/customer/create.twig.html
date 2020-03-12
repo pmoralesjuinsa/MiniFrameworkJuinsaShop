@@ -19,6 +19,18 @@
     </div>
     <div class="row">
         <div class="col-12 col-sm-6">
+            <label for="phone">Phone</label>
+            <input value="{{ customer.phone }}" maxlength="15" type="tel" class="form-control"
+                   id="phone" name="phone" required>
+        </div>
+        <div class="col-12 col-sm-6">
+            <label for="address">Address</label>
+            <input maxlength="80" type="test" class="form-control" value="{{ customer.address }}"
+                   id="address" name="address" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-6">
             <label for="password">Password</label>
             <input maxlength="100" type="password" class="form-control"
                    id="password" name="password">

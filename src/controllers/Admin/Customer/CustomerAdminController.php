@@ -56,6 +56,16 @@ class CustomerAdminController extends AdminController
             return false;
         }
 
+        if (empty($_POST['phone'])) {
+            $this->sessionManager->getFlashBag()->add('danger', 'El teléfono no puede estar en blanco');
+            return false;
+        }
+
+        if (empty($_POST['address'])) {
+            $this->sessionManager->getFlashBag()->add('danger', 'La dirección no puede estar en blanco');
+            return false;
+        }
+
         if(!empty($_POST['password'])) {
             if($_POST['password'] != $_POST['confirmPassword']) {
                 $this->sessionManager->getFlashBag()->add('danger', 'Las contraseñas deben coincidir');

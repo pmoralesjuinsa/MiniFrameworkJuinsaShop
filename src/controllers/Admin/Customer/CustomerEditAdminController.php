@@ -33,6 +33,8 @@ class CustomerEditAdminController extends CustomerAdminController
 
         $customer->setName($_POST['name']);
         $customer->setEmail($_POST['email']);
+        $customer->setPhone($_POST['phone']);
+        $customer->setAddress($_POST['address']);
         if(!empty($_POST['password'])) {
             $customer->setPassword(sha1($_POST['password']));
         }

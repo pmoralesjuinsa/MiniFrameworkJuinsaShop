@@ -1,11 +1,9 @@
 <?php
 
 
-namespace Juinsa\controllers\Admin\User;
+namespace Juinsa\controllers\Admin\Customer;
 
-
-
-use Juinsa\db\entities\User;
+use Juinsa\db\entities\Customer;
 
 class CustomerCreateAdminController extends CustomerAdminController
 {
@@ -21,18 +19,20 @@ class CustomerCreateAdminController extends CustomerAdminController
             $this->exitAftersShowsCreatePage();
         }
 
-        $user = new User();
+        $customer = new Customer();
 
-        $user->setName($_POST['name']);
-        $user->setEmail($_POST['email']);
-        $user->setPassword(sha1($_POST['password']));
+        $customer->setName($_POST['name']);
+        $customer->setEmail($_POST['email']);
+        $customer->setPhone($_POST['phone']);
+        $customer->setAddress($_POST['address']);
+        $customer->setPassword(sha1($_POST['password']));
 
-        $this->userService->createUser($user);
+        $this->customerService->createCustomer($customer);
 
-        if(!$user->getId()) {
-            $this->sessionManager->getFlashBag()->add('danger', 'Error al intentar insertar el usuario');
+        if(!$customer->getId()) {
+            $this->sessionManager->getFlashBag()->add('danger', 'Error al intentar insertar el cliente');
         } else {
-            $this->sessionManager->getFlashBag()->add('success', 'Usuario insertado correctamente');
+            $this->sessionManager->getFlashBag()->add('success', 'Cliente insertado correctamente');
         }
 
         $this->showCreatePage();

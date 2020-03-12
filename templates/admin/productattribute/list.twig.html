@@ -1,0 +1,49 @@
+{% extends "backend_template.twig.html" %}
+{% block title %}
+    <h2 class="form-signin-heading">Atributos de producto</h2>
+    <hr class="colorgraph">
+{% endblock %}
+{% block body %}
+    <div class="tools">
+        <div class="row">
+            <div class="col">
+                <a id="create-item" class="btn btn-primary" href="/admin/productattribute/create" role="button">Create Product Attribute</a>
+            </div>
+            <div class="col text-right">
+                <form method="POST" class="form-inline">
+                    <input class="form-control col" type="text" name="nameOrId" placeholder="Search a product attribute by name or id">
+                    <button type="submit" class="btn btn-secondary col-3">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% if productAttributes %}
+        <div id="product-list" class="admin-list col-12">
+            <div class="row">
+                <div class="col-12 titles">
+                    <div class="row">
+                        <div class="col-2"><span class="font-weight-bold">Id</span></div>
+                        <div class="col-3"><span class="font-weight-bold">Name</span></div>
+                        <div class="col-3"><span class="font-weight-bold">Created At</span></div>
+                        <div class="col-3"><span class="font-weight-bold">Updated At</span></div>
+                        <div class="col-1"><span class="font-weight-bold">Actions</span></div>
+                    </div>
+                </div>
+                {% for productAttribute in productAttributes %}
+                    <div class="col-2">{{ productAttribute.id }}</div>
+                    <div class="col-3">{{ productAttribute.name }}</div>
+                    <div class="col-3">{{ productAttribute.createdAt|date("d/m/Y") }}</div>
+                    <div class="col-3">{{ productAttribute.updatedAt|date("d/m/Y") }}</div>
+                    <div class="col-1">
+                        <a href="/admin/productattribute/edit/{{ productAttribute.id }}">Edit</a>
+                        <a href="/admin/productattribute/remove/{{ productAttribute.id }}">Delete</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No hay atributos de producto para mostrar
+        </div>
+    {% endif %}
+{% endblock %}

@@ -9,17 +9,25 @@ use Juinsa\db\entities\Customer;
 class CustomerService extends Service
 {
 
-    public function getCustomerByPasswordAndEmail(Customer $customer): ?Customer
+    /**
+     * @param Customer $customer
+     * @return object|null
+     */
+    public function getCustomerByPasswordAndEmail(Customer $customer)
     {
         return $this->doctrineManager->em->getRepository(Customer::class)->findOneBy(
             array(
-                'email' => $customer->email,
-                'password' => $customer->password
+                'email' => $customer->getEmail(),
+                'password' => $customer->getPassword()
             )
         );
 
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getCustomerById($id) {
         return $this->doctrineManager->em->getRepository(Customer::class)->findOneById($id);
     }
@@ -33,6 +41,51 @@ class CustomerService extends Service
             return $customer;
         } catch (\Exception $e) {
             $this->logManagaer->error($e->getMessage());
+        }
+
+        return null;
+    }
+
+    public function getCustomers()
+    {
+        return $this->doctrineManager->em->getRepository(Customer::class)->findAll();
+    }
+
+    /**
+     * @param integer $id
+     * @return bool
+     */
+    public function remove($id)
+    {
+        try {
+            $object = $this->getCustomerById($id);
+
+            $this->doctrineManager->em->remove($object);
+            $this->doctrineManager->em->flush();
+
+            return true;
+        } catch (\Exception $e) {
+            $this->logManagaer->error($e->getMessage());
+        }
+
+        return false;
+    }
+
+    /**
+     * @param integer|null $id
+     * @param string|null $name
+     * @return mixed[]|null
+     */
+    public function getCustomerAdminList($id = null, $name = null)
+    {
+        try {
+            $rawQuery = "SELECT c.id, c.name, c.updated_at, c.email, c.created_at
+                    FROM customer c";
+
+            return $this->modifyQueryForSearch("c", $id, $name, $rawQuery);
+
+        } catch (\Exception $exception) {
+            $this->logManagaer->error($exception->getMessage());
         }
 
         return null;

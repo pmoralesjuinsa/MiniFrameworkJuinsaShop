@@ -13,12 +13,12 @@
             <div id="productAttributes">
                 <div class="section-title">Attributes:</div>
                 {% for attribute in productAttributes %}
-                    {% set checked = 'checked="checked"'  %}
+                    {% set checkit = ''  %}
                     {% if productTypeAttributes[attribute.id] %}
-                        {% set checked = 'checked="checked"'  %}
+                        {% set checkit = 'checked="checked"'  %}
                     {% endif %}
                     <div class="form-check form-check-inline">
-                        <input {{ checked }} class="form-check-input" type="checkbox" id="{{ attribute.name }}" value="{{ attribute.id }}" name="productType[attributes][{{ attribute.id }}]">
+                        <input {{ checkit }} class="form-check-input" type="checkbox" id="{{ attribute.name }}" value="{{ attribute.id }}" name="productType[attributes][{{ attribute.id }}]">
                         <label class="form-check-label" for="{{ attribute.name }}">{{ attribute.name }}</label>
                     </div>
                 {% endfor %}

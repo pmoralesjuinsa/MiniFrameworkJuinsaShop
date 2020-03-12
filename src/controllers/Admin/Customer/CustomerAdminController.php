@@ -21,7 +21,7 @@ class CustomerAdminController extends AdminController
      */
     protected function showCreatePage($customer = null)
     {
-        $this->myRenderTemplate('admin/customer/create.twig.html', ['$customer' => $customer]);
+        $this->myRenderTemplate('admin/customer/create.twig.html', ['customer' => $customer]);
     }
 
     /**

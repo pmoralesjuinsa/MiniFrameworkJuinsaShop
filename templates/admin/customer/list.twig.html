@@ -1,24 +1,24 @@
 {% extends "backend_template.twig.html" %}
 {% block title %}
-    <h2 class="form-signin-heading">Usuarios</h2>
+    <h2 class="form-signin-heading">Clientes</h2>
     <hr class="colorgraph">
 {% endblock %}
 {% block body %}
     <div class="tools">
         <div class="row">
             <div class="col">
-                <a id="create-item" class="btn btn-primary" href="/admin/user/create" role="button">Create User</a>
+                <a id="create-item" class="btn btn-primary" href="/admin/customer/create" role="button">Create Customer</a>
             </div>
             <div class="col text-right">
                 <form method="POST" class="form-inline">
-                    <input class="form-control col" type="text" name="nameOrId" placeholder="Search a user by name or id">
+                    <input class="form-control col" type="text" name="nameOrId" placeholder="Search a customer by name or id">
                     <button type="submit" class="btn btn-secondary col-3">Search</button>
                 </form>
             </div>
         </div>
     </div>
-    {% if users %}
-        <div id="user-list" class="admin-list col-12">
+    {% if customers %}
+        <div id="customer-list" class="admin-list col-12">
             <div class="row">
                 <div class="col-12 titles">
                     <div class="row">
@@ -30,22 +30,22 @@
                         <div class="col-1"><span class="font-weight-bold">Actions</span></div>
                     </div>
                 </div>
-                {% for user in users %}
-                    <div class="col-2">{{ user.id }}</div>
-                    <div class="col-2">{{ user.name }}</div>
-                <div class="col-3">{{ user.email }}</div>
-                    <div class="col-2">{{ user.createdAt|date("d/m/Y") }}</div>
-                    <div class="col-2">{{ user.updatedAt|date("d/m/Y") }}</div>
+                {% for customer in customers %}
+                    <div class="col-2">{{ customer.id }}</div>
+                    <div class="col-2">{{ customer.name }}</div>
+                <div class="col-3">{{ customer.email }}</div>
+                    <div class="col-2">{{ customer.createdAt|date("d/m/Y") }}</div>
+                    <div class="col-2">{{ customer.updatedAt|date("d/m/Y") }}</div>
                     <div class="col-1">
-                        <a href="/admin/user/edit/{{ user.id }}">Edit</a>
-                        <a href="/admin/user/remove/{{ user.id }}">Delete</a>
+                        <a href="/admin/customer/edit/{{ customer.id }}">Edit</a>
+                        <a href="/admin/customer/remove/{{ customer.id }}">Delete</a>
                     </div>
                 {% endfor %}
             </div>
         </div>
     {% else %}
         <div class="alert alert-info">
-            No hay usuarios para mostrar
+            No hay clientes para mostrar
         </div>
     {% endif %}
 {% endblock %}

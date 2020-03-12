@@ -78,7 +78,7 @@ class UserService extends Service
     public function getUserAdminList($id = null, $name = null)
     {
         try {
-            $rawQuery = "SELECT u.id, u.name, u.updated_at, u.created_at
+            $rawQuery = "SELECT u.id, u.name, u.email, u.updated_at, u.created_at
                     FROM users u";
 
             return $this->modifyQueryForSearch("u", $id, $name, $rawQuery);

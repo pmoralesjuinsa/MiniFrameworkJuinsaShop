@@ -21,13 +21,7 @@ class OrderCreateAdminController extends OrderAdminController
 
         $order = new Order();
 
-        $this->setCustomerToOrder($order);
-
-        $this->setOrderStatusToOrder($order);
-
-        $order->setTotal($_POST['total']);
-
-        $order = $this->orderService->insertOrder($order);
+        $this->orderProcessing($order);
 
         if (!$order->getId()) {
             $this->sessionManager->getFlashBag()->add('danger',
@@ -38,24 +32,6 @@ class OrderCreateAdminController extends OrderAdminController
         }
 
         $this->showCreatePage($order);
-    }
-
-    /**
-     * @param Order $order
-     */
-    protected function setCustomerToOrder(Order &$order): void
-    {
-        $customer = $this->customerService->getCustomerById((int)$_POST['customer']);
-        $order->setCustomer($customer);
-    }
-
-    /**
-     * @param Order $order
-     */
-    protected function setOrderStatusToOrder(Order &$order): void
-    {
-        $status = $this->orderStatusService->getOrderStatusById((int)$_POST['orderStatus']);
-        $order->setStatus($status);
     }
 
 }

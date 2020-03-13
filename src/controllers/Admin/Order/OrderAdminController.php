@@ -52,6 +52,49 @@ class OrderAdminController extends AdminController
     }
 
     /**
+     * @param Order $order
+     */
+    protected function orderProcessing(&$order)
+    {
+        $this->setCustomerToOrder($order);
+
+        $this->setOrderStatusToOrder($order);
+
+        $order->setTotal($_POST['total']);
+
+        $order = $this->orderService->insertOrder($order);
+    }
+
+    /**
+     * @param Order $order
+     */
+    protected function setCustomerToOrder(Order &$order): void
+    {
+        if(!$order->getId() || ($order->getId() && $order->getCustomer()->getId() != $_POST['customer'])) {
+            $customer = $this->customerService->getCustomerById((int)$_POST['customer']);
+        } else {
+            $customer = $order->getCustomer();
+        }
+
+        $order->setCustomer($customer);
+    }
+
+    /**
+     * @param Order $order
+     */
+    protected function setOrderStatusToOrder(Order &$order): void
+    {
+        if(!$order->getId() || ($order->getId() && $order->getStatus()->getId() != $_POST['orderStatus'])) {
+            $status = $this->orderStatusService->getOrderStatusById((int)$_POST['orderStatus']);
+        } else {
+            $status = $order->getStatus();
+        }
+
+
+        $order->setStatus($status);
+    }
+
+    /**
      * @param bool $checkId
      * @return bool
      */
@@ -72,6 +115,11 @@ class OrderAdminController extends AdminController
 
         if (empty($_POST['orderStatus']) || !is_numeric($_POST['orderStatus'])) {
             $this->sessionManager->getFlashBag()->add('danger', 'Debes elegir un estado de pedido válido');
+            return false;
+        }
+
+        if (!isset($_POST['total']) || !is_numeric($_POST['total'])) {
+            $this->sessionManager->getFlashBag()->add('danger', 'El total no es válido');
             return false;
         }
 

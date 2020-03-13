@@ -1,4 +1,4 @@
-{% for orderLine in orderLines %}
+{% for orderLine in order.orderLines %}
     <div class="col">{{ orderLine.id }}</div>
     <div class="col">{{ orderLine.product }}</div>
     <div class="col">{{ orderLine.productQuantity }}</div>

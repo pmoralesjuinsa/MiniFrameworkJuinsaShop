@@ -21,9 +21,17 @@ class OrderCreateAdminController extends OrderAdminController
 
         $order = new Order();
 
-        $this->orderProcessing($order);
+        $customer = $this->customerService->getCustomerById((int)$_POST['customer']);
+        $order->setCustomer($customer);
 
-        if (!$order) {
+        $status = $this->orderStatusService->getOrderStatusById((int)$_POST['orderStatus']);
+        $order->setStatus($status);
+
+        $order->setTotal($_POST['total']);
+
+        $order = $this->orderService->insertOrder($order);
+
+        if (!$order->getId()) {
             $this->sessionManager->getFlashBag()->add('danger',
                 "Ha ocurrido un error al intentar insertar el pedido");
         } else {
@@ -31,23 +39,7 @@ class OrderCreateAdminController extends OrderAdminController
                 "Pedido añadido correctamente");
         }
 
-        $this->showCreatePage();
-    }
-
-    /**
-     * @param Order $order
-     */
-    protected function orderProcessing(&$order): void
-    {
-        $postVars = $_POST['order'];
-
-        $order->setTotal($postVars['total']);
-
-        $this->setCustomerToOrder((int)$postVars['customer'], $order);
-
-        $this->setOrderStatusToOrder((int)$postVars['orderStatus'], $order);
-
-        $this->buildOrderLines($postVars, $order);
+        $this->showCreatePage($order);
     }
 
 }

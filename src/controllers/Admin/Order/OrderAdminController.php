@@ -57,6 +57,7 @@ class OrderAdminController extends AdminController
      */
     protected function checkIfAllVarsAreValid($checkId = false): bool
     {
+
         if ($checkId) {
             if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
                 $this->sessionManager->getFlashBag()->add('danger', 'No hay un id válido');
@@ -64,8 +65,13 @@ class OrderAdminController extends AdminController
             }
         }
 
-        if (empty($_POST['name'])) {
-            $this->sessionManager->getFlashBag()->add('danger', 'El nombre no puede estar en blanco');
+        if (empty($_POST['customer']) || !is_numeric($_POST['customer'])) {
+            $this->sessionManager->getFlashBag()->add('danger', 'Debes elegir un cliente válido');
+            return false;
+        }
+
+        if (empty($_POST['orderStatus']) || !is_numeric($_POST['orderStatus'])) {
+            $this->sessionManager->getFlashBag()->add('danger', 'Debes elegir un estado de pedido válido');
             return false;
         }
 

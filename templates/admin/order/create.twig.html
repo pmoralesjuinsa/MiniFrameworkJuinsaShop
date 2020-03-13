@@ -37,26 +37,31 @@
             <input readonly type="number" step="0.01" class="form-control" value="{{ order.total|default(0) }}"
                    id="total" name="total" required>
         </div>
-    </div>
-
-    {% set btnText = 'Create' %}
-    {% if order.id %}
-        {% set btnText = 'Edit' %}
-        <div id="order-lines">
-            <a id="addOrderLine" role="button" class="btn btn-info">Add Line</a>
-            <div class="lines-head row">
-                <div class="col"><span class="font-weight-bold">Id</span></div>
-                <div class="col"><span class="font-weight-bold">Product</span></div>
-                <div class="col"><span class="font-weight-bold">Product Quantity</span></div>
-                <div class="col"><span class="font-weight-bold">Product Price</span></div>
-                <div class="col"><span class="font-weight-bold">Total</span></div>
-            </div>
-            <div class="lines-content row">
-                {% include "admin/order/orderlines_list.twig.html" %}
-            </div>
+        <div class="col-12 col-sm-6">
+            {% set btnText = 'Create' %}
+            {% if order.id %}
+                {% set btnText = 'Edit' %}
+            {% endif %}
+            <div>&nbsp;</div>
+            <button type="submit" class="btn btn-primary">{{ btnText }}</button>
         </div>
-        <input type="hidden" id="orderId" name="id" value="{{ order.id }}"/>
-    {% endif %}
-    <button type="submit" class="btn btn-primary">{{ btnText }}</button>
+    </div>
 </form>
+
+{% if order.id %}
+<div id="order-lines">
+    <a id="addOrderLine" role="button" class="btn btn-info">Add Line</a>
+    <div class="lines-head row">
+        <div class="col"><span class="font-weight-bold">Id</span></div>
+        <div class="col"><span class="font-weight-bold">Product</span></div>
+        <div class="col"><span class="font-weight-bold">Product Quantity</span></div>
+        <div class="col"><span class="font-weight-bold">Product Price</span></div>
+        <div class="col"><span class="font-weight-bold">Total</span></div>
+    </div>
+    <div class="lines-content row">
+        {% include "admin/order/orderlines_list.twig.html" %}
+    </div>
+</div>
+<input type="hidden" id="orderId" name="id" value="{{ order.id }}"/>
+{% endif %}
 {% endblock %}

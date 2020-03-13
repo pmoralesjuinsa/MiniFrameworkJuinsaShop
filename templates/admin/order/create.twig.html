@@ -31,6 +31,7 @@
         </div>
     </div>
     <div id="order-lines">
+        <button type="button" class="btn btn-info">Add Line</button>
         <div class="lines-head row">
             <div class="col"><span class="font-weight-bold">Id</span></div>
             <div class="col"><span class="font-weight-bold">Product</span></div>
@@ -41,7 +42,6 @@
         <div class="lines-content row">
             {% include "admin/order/orderlines_list.twig.html" %}
         </div>
-        <button type="button" class="btn btn-info">Add Line</button>
     </div>
 
     {% set btnText = 'Create' %}
@@ -51,4 +51,8 @@
     {% endif %}
     <button type="submit" class="btn btn-primary">{{ btnText }}</button>
 </form>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/scripts/admin/orders.js"></script>
 {% endblock %}

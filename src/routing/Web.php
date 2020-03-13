@@ -44,6 +44,7 @@ class Web
                 $route->addRoute('GET','/admin/myPanel',['Juinsa\controllers\Auth\UserPanelController','index']);
                 $route->addRoute('GET','/admin/panel',['Juinsa\controllers\Admin\AdminController','index']);
                 $route->addRoute('POST','/admin/product/attributes',['Juinsa\controllers\Admin\Product\ProductAjaxAdminController','getAttributes']);
+                $route->addRoute('POST','/admin/order/orderlines',['Juinsa\controllers\Admin\Order\OrderAjaxAdminController','getOrderLines']);
                 foreach ($entitiesArray as $entity) {
                     $route->addRoute('GET',"/admin/".mb_strtolower($entity)."/list",["Juinsa\controllers\Admin\\".$entity."\\".$entity."ListAdminController",'index']);
                     $route->addRoute('POST',"/admin/".mb_strtolower($entity)."/list",["Juinsa\controllers\Admin\\".$entity."\\".$entity."ListAdminController",'search']);

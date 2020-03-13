@@ -10,8 +10,8 @@
             <label for="customer">Customer</label>
             <select class="form-control" id="customer" name="customer" required>
                 <option value="0">Select one</option>
-                {% set checkit = "" %}
                 {% for customer in customers %}
+                    {% set checkit = "" %}
                     {% if customer.id == order.customer.id %}
                         {% set checkit = 'selected="selected"' %}
                     {% endif %}
@@ -23,9 +23,9 @@
             <label for="status">Order Status</label>
             <select class="form-control" id="status" name="orderStatus" required>
                 <option value="0">Select one</option>
-                {% set checkit = "" %}
                 {% for status in orderStatus %}
-                    {% if status.id == order.orderStatus.id %}
+                    {% set checkit = "" %}
+                    {% if status.id == order.status.id %}
                         {% set checkit = 'selected="selected"' %}
                     {% endif %}
                     <option {{ checkit }} value="{{ status.id }}">{{ status.value }}</option>

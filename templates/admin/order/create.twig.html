@@ -1,46 +1,49 @@
 {% extends "backend_template.twig.html" %}
 {% block title %}
-<h2 class="form-signin-heading">Add new order</h2>
-<hr class="colorgraph">
+    <h2 class="form-signin-heading">Add new order</h2>
+    <hr class="colorgraph">
 {% endblock %}
 {% block body %}
 <form method="POST" id="new-order">
     <div class="row">
         <div class="col-12 col-sm-6">
-            <label for="name">Name</label>
-            <input value="{{ order.name }}" maxlength="80" type="text" class="form-control"
-                   id="name" name="name" required>
+            <label for="customer">Customer</label>
+            <select class="form-control" id="customer" name="order[customer]" required>
+                <option value="0">Select one</option>
+                {% for customer in customers %}
+                    <option value="{{ customer.id }}">{{ customer.email }}</option>
+                {% endfor %}
+            </select>
         </div>
         <div class="col-12 col-sm-6">
-            <label for="email">Email</label>
-            <input maxlength="80" type="email" class="form-control" value="{{ order.email }}"
-                   id="email" name="email" required>
+            <label for="status">Status</label>
+            <select class="form-control" id="status" name="order[orderStatus]" required>
+                <option value="0">Select one</option>
+                {% for status in orderStatus %}
+                    <option value="{{ status.id }}">{{ status.value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <label for="total">Total</label>
+            <input readonly type="number" step="0.01" class="form-control" value="{{ order.total }}"
+                   id="total" name="order[total]" required>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12 col-sm-6">
-            <label for="phone">Phone</label>
-            <input value="{{ order.phone }}" maxlength="15" type="tel" class="form-control"
-                   id="phone" name="phone" required>
+    <div id="order-lines">
+        <div class="lines-head row">
+            <div class="col"><span class="font-weight-bold">Id</span></div>
+            <div class="col"><span class="font-weight-bold">Product</span></div>
+            <div class="col"><span class="font-weight-bold">Product Quantity</span></div>
+            <div class="col"><span class="font-weight-bold">Product Price</span></div>
+            <div class="col"><span class="font-weight-bold">Total</span></div>
         </div>
-        <div class="col-12 col-sm-6">
-            <label for="address">Address</label>
-            <input maxlength="80" type="test" class="form-control" value="{{ order.address }}"
-                   id="address" name="address" required>
+        <div class="lines-content row">
+            {% include "admin/order/orderlines_list.twig.html" %}
         </div>
+        <button type="button" class="btn btn-info">Add Line</button>
     </div>
-    <div class="row">
-        <div class="col-12 col-sm-6">
-            <label for="password">Password</label>
-            <input maxlength="100" type="password" class="form-control"
-                   id="password" name="password">
-        </div>
-        <div class="col-12 col-sm-6">
-            <label for="confirmPassword">Confirm Password</label>
-            <input maxlength="100" type="password" class="form-control"
-                   id="confirmPassword" name="confirmPassword">
-        </div>
-    </div>
+
     {% set btnText = 'Create' %}
     {% if order.id %}
         {% set btnText = 'Edit' %}

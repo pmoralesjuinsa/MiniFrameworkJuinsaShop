@@ -16,12 +16,6 @@ class OrderAdminController extends AdminController
      */
     protected OrderService $orderService;
 
-//    /**
-//     * @Inject
-//     * @var OrderStatusService
-//     */
-//    protected OrderStatusService $orderStatusService;
-
     /**
      * @param Order|null $order
      */

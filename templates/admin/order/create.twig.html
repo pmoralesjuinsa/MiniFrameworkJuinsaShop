@@ -1,31 +1,31 @@
 {% extends "backend_template.twig.html" %}
 {% block title %}
-<h2 class="form-signin-heading">Add new customer</h2>
+<h2 class="form-signin-heading">Add new order</h2>
 <hr class="colorgraph">
 {% endblock %}
 {% block body %}
-<form method="POST" id="new-customer">
+<form method="POST" id="new-order">
     <div class="row">
         <div class="col-12 col-sm-6">
             <label for="name">Name</label>
-            <input value="{{ customer.name }}" maxlength="80" type="text" class="form-control"
+            <input value="{{ order.name }}" maxlength="80" type="text" class="form-control"
                    id="name" name="name" required>
         </div>
         <div class="col-12 col-sm-6">
             <label for="email">Email</label>
-            <input maxlength="80" type="email" class="form-control" value="{{ customer.email }}"
+            <input maxlength="80" type="email" class="form-control" value="{{ order.email }}"
                    id="email" name="email" required>
         </div>
     </div>
     <div class="row">
         <div class="col-12 col-sm-6">
             <label for="phone">Phone</label>
-            <input value="{{ customer.phone }}" maxlength="15" type="tel" class="form-control"
+            <input value="{{ order.phone }}" maxlength="15" type="tel" class="form-control"
                    id="phone" name="phone" required>
         </div>
         <div class="col-12 col-sm-6">
             <label for="address">Address</label>
-            <input maxlength="80" type="test" class="form-control" value="{{ customer.address }}"
+            <input maxlength="80" type="test" class="form-control" value="{{ order.address }}"
                    id="address" name="address" required>
         </div>
     </div>
@@ -42,9 +42,9 @@
         </div>
     </div>
     {% set btnText = 'Create' %}
-    {% if customer.id %}
+    {% if order.id %}
         {% set btnText = 'Edit' %}
-        <input type="hidden" id="customerId" name="id" value="{{ customer.id }}"/>
+        <input type="hidden" id="orderId" name="id" value="{{ order.id }}"/>
     {% endif %}
     <button type="submit" class="btn btn-primary">{{ btnText }}</button>
 </form>

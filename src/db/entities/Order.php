@@ -44,7 +44,7 @@ class Order extends Entity
 
     /**
      * One order has many order lines. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="OrderLine", mappedBy="order", cascade={"persist"}, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="OrderLine", mappedBy="order", cascade={"persist", "remove"}, orphanRemoval=true, fetch="EAGER")
      */
     protected $orderLines;
 

@@ -82,7 +82,7 @@ class CustomerService extends Service
             $rawQuery = "SELECT c.id, c.name, c.updated_at, c.email, c.created_at
                     FROM customers c";
 
-            return $this->modifyQueryForSearch("c", $id, $name, $rawQuery);
+            return $this->modifyQueryForSearchByIdOrColumn("c", $id, $name, $rawQuery);
 
         } catch (\Exception $exception) {
             $this->logManagaer->error($exception->getMessage());

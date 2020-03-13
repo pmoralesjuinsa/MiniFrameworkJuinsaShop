@@ -57,7 +57,7 @@ class ProductAttributeService extends Service
             $rawQuery = "SELECT pa.id, pa.name, pa.updated_at, pa.created_at
                     FROM product_attributes pa";
 
-            return $this->modifyQueryForSearch("pa", $id, $name, $rawQuery);
+            return $this->modifyQueryForSearchByIdOrColumn("pa", $id, $name, $rawQuery);
 
         } catch (\Exception $exception) {
             $this->logManagaer->error($exception->getMessage());

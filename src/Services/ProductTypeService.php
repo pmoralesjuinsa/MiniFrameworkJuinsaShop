@@ -37,7 +37,7 @@ class ProductTypeService extends Service
             $rawQuery = "SELECT pt.id, pt.name, pt.updated_at, pt.created_at
                     FROM product_types pt";
 
-            return $this->modifyQueryForSearch("pt", $id, $name, $rawQuery);
+            return $this->modifyQueryForSearchByIdOrColumn("pt", $id, $name, $rawQuery);
 
         } catch (\Exception $exception) {
             $this->logManagaer->error($exception->getMessage());

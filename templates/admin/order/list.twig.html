@@ -1,0 +1,51 @@
+{% extends "backend_template.twig.html" %}
+{% block title %}
+    <h2 class="form-signin-heading">Pedidos</h2>
+    <hr class="colorgraph">
+{% endblock %}
+{% block body %}
+    <div class="tools">
+        <div class="row">
+            <div class="col">
+                <a id="create-item" class="btn btn-primary" href="/admin/order/create" role="button">Create Order</a>
+            </div>
+            <div class="col text-right">
+                <form method="POST" class="form-inline">
+                    <input class="form-control col" type="text" name="nameOrId" placeholder="Search a order by name or id">
+                    <button type="submit" class="btn btn-secondary col-3">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% if orders %}
+        <div id="order-list" class="admin-list col-12">
+            <div class="row">
+                <div class="col-12 titles">
+                    <div class="row">
+                        <div class="col-2"><span class="font-weight-bold">Id</span></div>
+                        <div class="col-3"><span class="font-weight-bold">Email</span></div>
+                        <div class="col-2"><span class="font-weight-bold">Total</span></div>
+                        <div class="col-2"><span class="font-weight-bold">Estado</span></div>
+                        <div class="col-2"><span class="font-weight-bold">Created At</span></div>
+                        <div class="col-1"><span class="font-weight-bold">Actions</span></div>
+                    </div>
+                </div>
+                {% for order in orders %}
+                    <div class="col-2">{{ order.id }}</div>
+                    <div class="col-3">{{ order.customer.email }}</div>
+                    <div class="col-2">{{ order.total }}</div>
+                    <div class="col-2">{{ order.status.value }}</div>
+                    <div class="col-2">{{ order.createdAt|date("d/m/Y") }}</div>
+                    <div class="col-1">
+                        <a href="/admin/order/edit/{{ order.id }}">Edit</a>
+                        <a href="/admin/order/remove/{{ order.id }}">Delete</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No hay pedidos para mostrar
+        </div>
+    {% endif %}
+{% endblock %}

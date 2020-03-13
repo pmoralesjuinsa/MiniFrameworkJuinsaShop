@@ -32,9 +32,9 @@
                 </div>
                 {% for order in orders %}
                     <div class="col-2">{{ order.id }}</div>
-                    <div class="col-3">{{ order.customer.email }}</div>
+                    <div class="col-3">{{ order.customer.email|default(order.email) }}</div>
                     <div class="col-2">{{ order.total }}</div>
-                    <div class="col-2">{{ order.status.value }}</div>
+                    <div class="col-2">{{ order.status.value|default(order.status) }}</div>
                     <div class="col-2">{{ order.createdAt|date("d/m/Y") }}</div>
                     <div class="col-1">
                         <a href="/admin/order/edit/{{ order.id }}">Edit</a>

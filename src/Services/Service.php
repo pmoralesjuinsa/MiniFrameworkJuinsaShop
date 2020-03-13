@@ -32,7 +32,7 @@ abstract class Service
             if (!is_null($id)) {
                 $rawQuery .= " WHERE ".$alias.".id = :id";
             } elseif (!is_null($column)) {
-                $rawQuery .= " WHERE ".$column->alias.".".$column->name." LIKE :name";
+                $rawQuery .= " WHERE ".$column['alias'].".".$column['column']." LIKE :string";
             }
 
             $statement = $this->doctrineManager->em->getConnection()->prepare($rawQuery);
@@ -40,7 +40,7 @@ abstract class Service
             if (!is_null($id)) {
                 $statement->bindValue('id', $id);
             } elseif (!is_null($column)) {
-                $statement->bindValue('name', "%" . $column->value . "%");
+                $statement->bindValue('string', "%" . $column['value'] . "%");
             }
 
             $statement->execute();

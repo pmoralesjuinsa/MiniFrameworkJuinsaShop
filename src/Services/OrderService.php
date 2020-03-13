@@ -87,7 +87,7 @@ class OrderService extends Service
                     LEFT JOIN order_status os ON os.id = o.id_status
                     ";
 
-            $column = ["alias" => "c", "columm" => "email", "value" => $stringValue];
+            $column = ["alias" => "c", "column" => "email", "value" => $stringValue];
 
             return $this->modifyQueryForSearchByIdOrColumn("o", $id, $column, $rawQuery);
 

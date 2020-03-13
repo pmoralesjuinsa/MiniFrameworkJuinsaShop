@@ -92,3 +92,7 @@
 .backend form[id*='new-'] .row {
     margin-bottom: 15px;
 }
+
+.backend #order-lines {
+    margin-top: 40px;
+}

@@ -35,11 +35,11 @@ class OrderStatus extends Entity
      */
     protected $updated_at;
 
-//    /**
-//     * One order has many order lines. This is the inverse side.
-//     * @ORM\OneToMany(targetEntity="Order", mappedBy="status")
-//     */
-//    protected $orders;
+    /**
+     * One order has many order lines. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="Order", mappedBy="status")
+     */
+    protected $orders;
 
     public function __construct()
     {

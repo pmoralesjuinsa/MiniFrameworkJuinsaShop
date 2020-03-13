@@ -21,26 +21,26 @@ abstract class Service
     }
 
     /**
-     * @param $id
-     * @param $name
+     * @param integer|null $id
+     * @param array|null $column
      * @param string $rawQuery
      * @return mixed[]|null
      */
-    protected function modifyQueryForSearch($alias, $id, $name, string $rawQuery)
+    protected function modifyQueryForSearchByIdOrColumn($alias, $id, $column, string $rawQuery)
     {
         try {
             if (!is_null($id)) {
                 $rawQuery .= " WHERE ".$alias.".id = :id";
-            } elseif (!is_null($name)) {
-                $rawQuery .= " WHERE ".$alias.".name LIKE :name";
+            } elseif (!is_null($column)) {
+                $rawQuery .= " WHERE ".$column['alias'].".".$column['column']." LIKE :string";
             }
 
             $statement = $this->doctrineManager->em->getConnection()->prepare($rawQuery);
 
             if (!is_null($id)) {
                 $statement->bindValue('id', $id);
-            } elseif (!is_null($name)) {
-                $statement->bindValue('name', "%" . $name . "%");
+            } elseif (!is_null($column)) {
+                $statement->bindValue('string', "%" . $column['value'] . "%");
             }
 
             $statement->execute();

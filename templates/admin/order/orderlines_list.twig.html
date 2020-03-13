@@ -1,0 +1,7 @@
+{% for orderLine in order.orderLines %}
+    <div class="col">{{ orderLine.id }}</div>
+    <div class="col">{{ orderLine.productName }}</div>
+    <div class="col">{{ orderLine.productQuantity }}</div>
+    <div class="col">{{ orderLine.productPrice }}</div>
+    <div class="col">{{ orderLine.total }}</div>
+{% endfor %}

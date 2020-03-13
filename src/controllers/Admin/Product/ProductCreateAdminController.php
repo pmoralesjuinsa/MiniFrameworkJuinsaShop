@@ -30,7 +30,7 @@ class ProductCreateAdminController extends ProductAdminController
 
         $this->productProcessing($product);
 
-        if (!$product) {
+        if (!$product->getId()) {
             $this->sessionManager->getFlashBag()->add('danger',
                 "Ha ocurrido un error al intentar insertar el producto");
         } else {

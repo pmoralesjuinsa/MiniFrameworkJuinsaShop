@@ -81,7 +81,7 @@ class UserService extends Service
             $rawQuery = "SELECT u.id, u.name, u.email, u.updated_at, u.created_at
                     FROM users u";
 
-            return $this->modifyQueryForSearch("u", $id, $name, $rawQuery);
+            return $this->modifyQueryForSearchByIdOrColumn("u", $id, $name, $rawQuery);
 
         } catch (\Exception $exception) {
             $this->logManagaer->error($exception->getMessage());
